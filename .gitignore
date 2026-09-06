@@ -1,0 +1,42 @@
+# ── Data ────────────────────────────────────────────────────────────
+# raw/ holds ~11 GB of hardlinked source CSVs. Never commit.
+data/raw/
+data/interim/
+data/processed/
+*.parquet
+*.duckdb
+
+# ── Models ──────────────────────────────────────────────────────────
+models/*.txt
+models/*.joblib
+models/*.pkl
+
+# ── Python ──────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# ── Node / dashboard ────────────────────────────────────────────────
+node_modules/
+dashboard/dist/
+dashboard/.vite/
+.env
+.env.local
+
+# ── OS ──────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Third-party agent skills ────────────────────────────────────────
+# Installed via `npx skills add Leonxlnx/taste-skill`. Someone else's
+# content with its own licensing; not part of this project and not ours
+# to redistribute. `.claude/launch.json` is kept because it documents how
+# to run the dashboard.
+.agents/
+.claude/skills/
+skills-lock.json
+
+# ── Build caches ────────────────────────────────────────────────────
+*.tsbuildinfo

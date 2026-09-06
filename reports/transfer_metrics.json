@@ -1,0 +1,700 @@
+{
+  "domains": {
+    "DE": {
+      "frontier_cells": 241490,
+      "positives": 6785,
+      "base_rate": 0.028096401507308792,
+      "cutoff": "2019-12-31",
+      "forward_window": [
+        "2020-01-01",
+        "2022-12-31"
+      ]
+    },
+    "DE_METRO": {
+      "frontier_cells": 12211,
+      "positives": 959,
+      "base_rate": 0.07853574645811154,
+      "cutoff": "2019-12-31",
+      "forward_window": [
+        "2020-01-01",
+        "2022-12-31"
+      ]
+    },
+    "NYC": {
+      "frontier_cells": 3104,
+      "positives": 130,
+      "base_rate": 0.04188144329896907,
+      "cutoff": "2018-12-31",
+      "forward_window": [
+        "2019-01-01",
+        "2021-12-31"
+      ]
+    },
+    "CT": {
+      "frontier_cells": 7090,
+      "positives": 75,
+      "base_rate": 0.010578279266572637,
+      "cutoff": "2018-12-31",
+      "forward_window": [
+        "2019-01-01",
+        "2021-12-31"
+      ]
+    }
+  },
+  "matrices": {
+    "net": {
+      "DE->DE": {
+        "pr_auc": 0.12314198544880636,
+        "ndcg": 0.7824366347733874,
+        "precision@100": 0.62,
+        "lift@100": 22.066882829771554,
+        "base_rate": 0.028096401507308792
+      },
+      "DE->DE_METRO": {
+        "pr_auc": 0.23991629107570614,
+        "ndcg": 0.8073102665434523,
+        "precision@100": 0.59,
+        "lift@100": 7.512502606882169,
+        "base_rate": 0.07853574645811154
+      },
+      "DE->NYC": {
+        "pr_auc": 0.11048172087900832,
+        "ndcg": 0.6336414919696652,
+        "precision@100": 0.15,
+        "lift@100": 3.581538461538462,
+        "base_rate": 0.04188144329896907
+      },
+      "DE->CT": {
+        "pr_auc": 0.019408233657039427,
+        "ndcg": 0.42790475410850987,
+        "precision@100": 0.02,
+        "lift@100": 1.890666666666667,
+        "base_rate": 0.010578279266572637
+      },
+      "DE_METRO->DE": {
+        "pr_auc": 0.07819866405260215,
+        "ndcg": 0.746721958916975,
+        "precision@100": 0.62,
+        "lift@100": 22.066882829771554,
+        "base_rate": 0.028096401507308792
+      },
+      "DE_METRO->DE_METRO": {
+        "pr_auc": 0.42326283749137195,
+        "ndcg": 0.8707604360449043,
+        "precision@100": 0.69,
+        "lift@100": 8.785808133472367,
+        "base_rate": 0.07853574645811154
+      },
+      "DE_METRO->NYC": {
+        "pr_auc": 0.07611434060151387,
+        "ndcg": 0.575992006489058,
+        "precision@100": 0.11,
+        "lift@100": 2.626461538461539,
+        "base_rate": 0.04188144329896907
+      },
+      "DE_METRO->CT": {
+        "pr_auc": 0.022986687863750396,
+        "ndcg": 0.4401859424942508,
+        "precision@100": 0.04,
+        "lift@100": 3.781333333333334,
+        "base_rate": 0.010578279266572637
+      },
+      "NYC->DE": {
+        "pr_auc": 0.055246093718014117,
+        "ndcg": 0.7220521186166236,
+        "precision@100": 0.12,
+        "lift@100": 4.271009579955784,
+        "base_rate": 0.028096401507308792
+      },
+      "NYC->DE_METRO": {
+        "pr_auc": 0.09723342260403692,
+        "ndcg": 0.6995449712637715,
+        "precision@100": 0.11,
+        "lift@100": 1.4006360792492178,
+        "base_rate": 0.07853574645811154
+      },
+      "NYC->NYC": {
+        "pr_auc": 0.3302693675842814,
+        "ndcg": 0.7750651410448164,
+        "precision@100": 0.42,
+        "lift@100": 10.028307692307692,
+        "base_rate": 0.04188144329896907
+      },
+      "NYC->CT": {
+        "pr_auc": 0.04011840913393641,
+        "ndcg": 0.4896441202674331,
+        "precision@100": 0.08,
+        "lift@100": 7.562666666666668,
+        "base_rate": 0.010578279266572637
+      },
+      "CT->DE": {
+        "pr_auc": 0.04925410002355136,
+        "ndcg": 0.7131241392425213,
+        "precision@100": 0.07,
+        "lift@100": 2.491422254974208,
+        "base_rate": 0.028096401507308792
+      },
+      "CT->DE_METRO": {
+        "pr_auc": 0.10274989945494215,
+        "ndcg": 0.705802228810056,
+        "precision@100": 0.24,
+        "lift@100": 3.0559332638164753,
+        "base_rate": 0.07853574645811154
+      },
+      "CT->NYC": {
+        "pr_auc": 0.08986817891371118,
+        "ndcg": 0.5842810824039077,
+        "precision@100": 0.11,
+        "lift@100": 2.626461538461539,
+        "base_rate": 0.04188144329896907
+      },
+      "CT->CT": {
+        "pr_auc": 0.10089440345166159,
+        "ndcg": 0.5744324828349523,
+        "precision@100": 0.14,
+        "lift@100": 13.23466666666667,
+        "base_rate": 0.010578279266572637
+      }
+    },
+    "full": {
+      "DE->DE": {
+        "pr_auc": 0.16852066251876535,
+        "ndcg": 0.8109143687670733,
+        "precision@100": 0.64,
+        "lift@100": 22.778717759764184,
+        "base_rate": 0.028096401507308792
+      },
+      "DE->DE_METRO": {
+        "pr_auc": 0.29570219378239976,
+        "ndcg": 0.8320463396956704,
+        "precision@100": 0.6,
+        "lift@100": 7.639833159541189,
+        "base_rate": 0.07853574645811154
+      },
+      "DE->NYC": {
+        "pr_auc": 0.08331358478584304,
+        "ndcg": 0.5741778083699502,
+        "precision@100": 0.12,
+        "lift@100": 2.8652307692307692,
+        "base_rate": 0.04188144329896907
+      },
+      "DE->CT": {
+        "pr_auc": 0.03615866008550686,
+        "ndcg": 0.4722499533634063,
+        "precision@100": 0.03,
+        "lift@100": 2.8360000000000003,
+        "base_rate": 0.010578279266572637
+      },
+      "DE_METRO->DE": {
+        "pr_auc": 0.1328033935377291,
+        "ndcg": 0.7896430356934787,
+        "precision@100": 0.73,
+        "lift@100": 25.98197494473102,
+        "base_rate": 0.028096401507308792
+      },
+      "DE_METRO->DE_METRO": {
+        "pr_auc": 0.5149102504080696,
+        "ndcg": 0.9048150485868993,
+        "precision@100": 0.75,
+        "lift@100": 9.549791449426486,
+        "base_rate": 0.07853574645811154
+      },
+      "DE_METRO->NYC": {
+        "pr_auc": 0.051528750649803896,
+        "ndcg": 0.5313065225484702,
+        "precision@100": 0.05,
+        "lift@100": 1.193846153846154,
+        "base_rate": 0.04188144329896907
+      },
+      "DE_METRO->CT": {
+        "pr_auc": 0.022754338124827054,
+        "ndcg": 0.4365300535232786,
+        "precision@100": 0.02,
+        "lift@100": 1.890666666666667,
+        "base_rate": 0.010578279266572637
+      },
+      "NYC->DE": {
+        "pr_auc": 0.0770065509352559,
+        "ndcg": 0.7451969484358522,
+        "precision@100": 0.1,
+        "lift@100": 3.559174649963154,
+        "base_rate": 0.028096401507308792
+      },
+      "NYC->DE_METRO": {
+        "pr_auc": 0.1106265071450116,
+        "ndcg": 0.7090345190228754,
+        "precision@100": 0.11,
+        "lift@100": 1.4006360792492178,
+        "base_rate": 0.07853574645811154
+      },
+      "NYC->NYC": {
+        "pr_auc": 0.41448471897126,
+        "ndcg": 0.8012966699133235,
+        "precision@100": 0.5,
+        "lift@100": 11.938461538461539,
+        "base_rate": 0.04188144329896907
+      },
+      "NYC->CT": {
+        "pr_auc": 0.05069270966769227,
+        "ndcg": 0.5084584096186616,
+        "precision@100": 0.11,
+        "lift@100": 10.398666666666667,
+        "base_rate": 0.010578279266572637
+      },
+      "CT->DE": {
+        "pr_auc": 0.07064538555380805,
+        "ndcg": 0.7390520126669715,
+        "precision@100": 0.13,
+        "lift@100": 4.6269270449521,
+        "base_rate": 0.028096401507308792
+      },
+      "CT->DE_METRO": {
+        "pr_auc": 0.13318665874277394,
+        "ndcg": 0.7320677763075768,
+        "precision@100": 0.13,
+        "lift@100": 1.6552971845672577,
+        "base_rate": 0.07853574645811154
+      },
+      "CT->NYC": {
+        "pr_auc": 0.0921170058707505,
+        "ndcg": 0.5831143644304012,
+        "precision@100": 0.09,
+        "lift@100": 2.148923076923077,
+        "base_rate": 0.04188144329896907
+      },
+      "CT->CT": {
+        "pr_auc": 0.15406002760505336,
+        "ndcg": 0.6307441078278114,
+        "precision@100": 0.21,
+        "lift@100": 19.852,
+        "base_rate": 0.010578279266572637
+      }
+    }
+  },
+  "matrix": {
+    "DE->DE": {
+      "pr_auc": 0.12314198544880636,
+      "ndcg": 0.7824366347733874,
+      "precision@100": 0.62,
+      "lift@100": 22.066882829771554,
+      "base_rate": 0.028096401507308792
+    },
+    "DE->DE_METRO": {
+      "pr_auc": 0.23991629107570614,
+      "ndcg": 0.8073102665434523,
+      "precision@100": 0.59,
+      "lift@100": 7.512502606882169,
+      "base_rate": 0.07853574645811154
+    },
+    "DE->NYC": {
+      "pr_auc": 0.11048172087900832,
+      "ndcg": 0.6336414919696652,
+      "precision@100": 0.15,
+      "lift@100": 3.581538461538462,
+      "base_rate": 0.04188144329896907
+    },
+    "DE->CT": {
+      "pr_auc": 0.019408233657039427,
+      "ndcg": 0.42790475410850987,
+      "precision@100": 0.02,
+      "lift@100": 1.890666666666667,
+      "base_rate": 0.010578279266572637
+    },
+    "DE_METRO->DE": {
+      "pr_auc": 0.07819866405260215,
+      "ndcg": 0.746721958916975,
+      "precision@100": 0.62,
+      "lift@100": 22.066882829771554,
+      "base_rate": 0.028096401507308792
+    },
+    "DE_METRO->DE_METRO": {
+      "pr_auc": 0.42326283749137195,
+      "ndcg": 0.8707604360449043,
+      "precision@100": 0.69,
+      "lift@100": 8.785808133472367,
+      "base_rate": 0.07853574645811154
+    },
+    "DE_METRO->NYC": {
+      "pr_auc": 0.07611434060151387,
+      "ndcg": 0.575992006489058,
+      "precision@100": 0.11,
+      "lift@100": 2.626461538461539,
+      "base_rate": 0.04188144329896907
+    },
+    "DE_METRO->CT": {
+      "pr_auc": 0.022986687863750396,
+      "ndcg": 0.4401859424942508,
+      "precision@100": 0.04,
+      "lift@100": 3.781333333333334,
+      "base_rate": 0.010578279266572637
+    },
+    "NYC->DE": {
+      "pr_auc": 0.055246093718014117,
+      "ndcg": 0.7220521186166236,
+      "precision@100": 0.12,
+      "lift@100": 4.271009579955784,
+      "base_rate": 0.028096401507308792
+    },
+    "NYC->DE_METRO": {
+      "pr_auc": 0.09723342260403692,
+      "ndcg": 0.6995449712637715,
+      "precision@100": 0.11,
+      "lift@100": 1.4006360792492178,
+      "base_rate": 0.07853574645811154
+    },
+    "NYC->NYC": {
+      "pr_auc": 0.3302693675842814,
+      "ndcg": 0.7750651410448164,
+      "precision@100": 0.42,
+      "lift@100": 10.028307692307692,
+      "base_rate": 0.04188144329896907
+    },
+    "NYC->CT": {
+      "pr_auc": 0.04011840913393641,
+      "ndcg": 0.4896441202674331,
+      "precision@100": 0.08,
+      "lift@100": 7.562666666666668,
+      "base_rate": 0.010578279266572637
+    },
+    "CT->DE": {
+      "pr_auc": 0.04925410002355136,
+      "ndcg": 0.7131241392425213,
+      "precision@100": 0.07,
+      "lift@100": 2.491422254974208,
+      "base_rate": 0.028096401507308792
+    },
+    "CT->DE_METRO": {
+      "pr_auc": 0.10274989945494215,
+      "ndcg": 0.705802228810056,
+      "precision@100": 0.24,
+      "lift@100": 3.0559332638164753,
+      "base_rate": 0.07853574645811154
+    },
+    "CT->NYC": {
+      "pr_auc": 0.08986817891371118,
+      "ndcg": 0.5842810824039077,
+      "precision@100": 0.11,
+      "lift@100": 2.626461538461539,
+      "base_rate": 0.04188144329896907
+    },
+    "CT->CT": {
+      "pr_auc": 0.10089440345166159,
+      "ndcg": 0.5744324828349523,
+      "precision@100": 0.14,
+      "lift@100": 13.23466666666667,
+      "base_rate": 0.010578279266572637
+    }
+  },
+  "baselines": {
+    "DE": {
+      "random": 0.028248518676772374,
+      "near_existing": 0.053295755983338335,
+      "local_density": 0.052436982429164
+    },
+    "DE_METRO": {
+      "random": 0.0825011551267058,
+      "near_existing": 0.10528372099955913,
+      "local_density": 0.10486754913665428
+    },
+    "NYC": {
+      "random": 0.04168272863637494,
+      "near_existing": 0.13187607970380721,
+      "local_density": 0.10924765879987898
+    },
+    "CT": {
+      "random": 0.011433074729581404,
+      "near_existing": 0.0211032634773771,
+      "local_density": 0.020372669257414183
+    }
+  },
+  "retention_vs_local": {
+    "DE->DE_METRO": 0.567,
+    "DE->NYC": 0.335,
+    "DE->CT": 0.192,
+    "DE_METRO->DE": 0.635,
+    "DE_METRO->NYC": 0.23,
+    "DE_METRO->CT": 0.228,
+    "NYC->DE": 0.449,
+    "NYC->DE_METRO": 0.23,
+    "NYC->CT": 0.398,
+    "CT->DE": 0.4,
+    "CT->DE_METRO": 0.243,
+    "CT->NYC": 0.272
+  },
+  "verdict": {
+    "DE->DE_METRO": {
+      "model_pr_auc": 0.2399,
+      "baseline": "near_existing",
+      "baseline_pr_auc": 0.1053,
+      "ratio": 2.279,
+      "beats_baseline": true
+    },
+    "DE->NYC": {
+      "model_pr_auc": 0.1105,
+      "baseline": "near_existing",
+      "baseline_pr_auc": 0.1319,
+      "ratio": 0.838,
+      "beats_baseline": false
+    },
+    "DE->CT": {
+      "model_pr_auc": 0.0194,
+      "baseline": "near_existing",
+      "baseline_pr_auc": 0.0211,
+      "ratio": 0.92,
+      "beats_baseline": false
+    },
+    "DE_METRO->DE": {
+      "model_pr_auc": 0.0782,
+      "baseline": "near_existing",
+      "baseline_pr_auc": 0.0533,
+      "ratio": 1.467,
+      "beats_baseline": true
+    },
+    "DE_METRO->NYC": {
+      "model_pr_auc": 0.0761,
+      "baseline": "near_existing",
+      "baseline_pr_auc": 0.1319,
+      "ratio": 0.577,
+      "beats_baseline": false
+    },
+    "DE_METRO->CT": {
+      "model_pr_auc": 0.023,
+      "baseline": "near_existing",
+      "baseline_pr_auc": 0.0211,
+      "ratio": 1.089,
+      "beats_baseline": true
+    },
+    "NYC->DE": {
+      "model_pr_auc": 0.0552,
+      "baseline": "near_existing",
+      "baseline_pr_auc": 0.0533,
+      "ratio": 1.037,
+      "beats_baseline": true
+    },
+    "NYC->DE_METRO": {
+      "model_pr_auc": 0.0972,
+      "baseline": "near_existing",
+      "baseline_pr_auc": 0.1053,
+      "ratio": 0.924,
+      "beats_baseline": false
+    },
+    "NYC->CT": {
+      "model_pr_auc": 0.0401,
+      "baseline": "near_existing",
+      "baseline_pr_auc": 0.0211,
+      "ratio": 1.901,
+      "beats_baseline": true
+    },
+    "CT->DE": {
+      "model_pr_auc": 0.0493,
+      "baseline": "near_existing",
+      "baseline_pr_auc": 0.0533,
+      "ratio": 0.924,
+      "beats_baseline": false
+    },
+    "CT->DE_METRO": {
+      "model_pr_auc": 0.1027,
+      "baseline": "near_existing",
+      "baseline_pr_auc": 0.1053,
+      "ratio": 0.976,
+      "beats_baseline": false
+    },
+    "CT->NYC": {
+      "model_pr_auc": 0.0899,
+      "baseline": "near_existing",
+      "baseline_pr_auc": 0.1319,
+      "ratio": 0.681,
+      "beats_baseline": false
+    },
+    "_summary": {
+      "n_transfers": 12,
+      "n_beating_baseline": 5
+    }
+  },
+  "verdict_by_space": {
+    "net": {
+      "DE->DE_METRO": {
+        "model_pr_auc": 0.2399,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.1053,
+        "ratio": 2.279,
+        "beats_baseline": true
+      },
+      "DE->NYC": {
+        "model_pr_auc": 0.1105,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.1319,
+        "ratio": 0.838,
+        "beats_baseline": false
+      },
+      "DE->CT": {
+        "model_pr_auc": 0.0194,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.0211,
+        "ratio": 0.92,
+        "beats_baseline": false
+      },
+      "DE_METRO->DE": {
+        "model_pr_auc": 0.0782,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.0533,
+        "ratio": 1.467,
+        "beats_baseline": true
+      },
+      "DE_METRO->NYC": {
+        "model_pr_auc": 0.0761,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.1319,
+        "ratio": 0.577,
+        "beats_baseline": false
+      },
+      "DE_METRO->CT": {
+        "model_pr_auc": 0.023,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.0211,
+        "ratio": 1.089,
+        "beats_baseline": true
+      },
+      "NYC->DE": {
+        "model_pr_auc": 0.0552,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.0533,
+        "ratio": 1.037,
+        "beats_baseline": true
+      },
+      "NYC->DE_METRO": {
+        "model_pr_auc": 0.0972,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.1053,
+        "ratio": 0.924,
+        "beats_baseline": false
+      },
+      "NYC->CT": {
+        "model_pr_auc": 0.0401,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.0211,
+        "ratio": 1.901,
+        "beats_baseline": true
+      },
+      "CT->DE": {
+        "model_pr_auc": 0.0493,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.0533,
+        "ratio": 0.924,
+        "beats_baseline": false
+      },
+      "CT->DE_METRO": {
+        "model_pr_auc": 0.1027,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.1053,
+        "ratio": 0.976,
+        "beats_baseline": false
+      },
+      "CT->NYC": {
+        "model_pr_auc": 0.0899,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.1319,
+        "ratio": 0.681,
+        "beats_baseline": false
+      },
+      "_summary": {
+        "n_transfers": 12,
+        "n_beating_baseline": 5
+      }
+    },
+    "full": {
+      "DE->DE_METRO": {
+        "model_pr_auc": 0.2957,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.1053,
+        "ratio": 2.809,
+        "beats_baseline": true
+      },
+      "DE->NYC": {
+        "model_pr_auc": 0.0833,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.1319,
+        "ratio": 0.632,
+        "beats_baseline": false
+      },
+      "DE->CT": {
+        "model_pr_auc": 0.0362,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.0211,
+        "ratio": 1.713,
+        "beats_baseline": true
+      },
+      "DE_METRO->DE": {
+        "model_pr_auc": 0.1328,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.0533,
+        "ratio": 2.492,
+        "beats_baseline": true
+      },
+      "DE_METRO->NYC": {
+        "model_pr_auc": 0.0515,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.1319,
+        "ratio": 0.391,
+        "beats_baseline": false
+      },
+      "DE_METRO->CT": {
+        "model_pr_auc": 0.0228,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.0211,
+        "ratio": 1.078,
+        "beats_baseline": true
+      },
+      "NYC->DE": {
+        "model_pr_auc": 0.077,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.0533,
+        "ratio": 1.445,
+        "beats_baseline": true
+      },
+      "NYC->DE_METRO": {
+        "model_pr_auc": 0.1106,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.1053,
+        "ratio": 1.051,
+        "beats_baseline": true
+      },
+      "NYC->CT": {
+        "model_pr_auc": 0.0507,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.0211,
+        "ratio": 2.402,
+        "beats_baseline": true
+      },
+      "CT->DE": {
+        "model_pr_auc": 0.0706,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.0533,
+        "ratio": 1.326,
+        "beats_baseline": true
+      },
+      "CT->DE_METRO": {
+        "model_pr_auc": 0.1332,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.1053,
+        "ratio": 1.265,
+        "beats_baseline": true
+      },
+      "CT->NYC": {
+        "model_pr_auc": 0.0921,
+        "baseline": "near_existing",
+        "baseline_pr_auc": 0.1319,
+        "ratio": 0.699,
+        "beats_baseline": false
+      },
+      "_summary": {
+        "n_transfers": 12,
+        "n_beating_baseline": 9
+      }
+    }
+  },
+  "feature_counts": {
+    "net": 23,
+    "full": 29
+  }
+}

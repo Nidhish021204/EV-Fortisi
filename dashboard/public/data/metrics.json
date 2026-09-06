@@ -1,0 +1,1623 @@
+{
+ "generated": "2026-09-06T16:32:41.339683+00:00",
+ "cutoff": "2018-12-31",
+ "corpus": {
+  "taxi_trips": 47400000,
+  "taxi_dropoffs_binned": 46173649,
+  "traffic_segments": 14359,
+  "stations_nyc": 863,
+  "stations_ports": 2597,
+  "stations_mw": 31.9,
+  "hex_cells": 8741,
+  "raw_bytes": 11501000000
+ },
+ "demand": {
+  "spatial_block_cv": {
+   "r2_raw": 0.16796612398977784,
+   "r2_log": 0.7393514848997829,
+   "mae": 28.29824377316663,
+   "spearman": 0.8332536802857853,
+   "top_decile_capture": 0.7882417969793489
+  },
+  "random_kfold_cv": {
+   "r2_raw": 0.6627837728237639,
+   "r2_log": 0.8378115854036601,
+   "mae": 13.440769712838176,
+   "spearman": 0.8814905676186168,
+   "top_decile_capture": 0.825216716982946
+  },
+  "leakage_inflation_r2": 0.4948,
+  "oracle_top_decile_capture": 0.8998709447515266,
+  "baseline_aadt_top_decile_capture": 0.49023446741974464,
+  "ablation_no_landuse": {
+   "r2_raw": -0.01642224141391213,
+   "r2_log": -0.08305194804602611,
+   "mae": 41.49546318984493,
+   "spearman": 0.4471071011102547,
+   "top_decile_capture": 0.2621751004954575,
+   "n_features": 13
+  },
+  "n_features": 88,
+  "landuse_capture_gain": 0.5261,
+  "feature_importance": [
+   [
+    "dist_to_road_m",
+    3622
+   ],
+   [
+    "k2_far_built",
+    550
+   ],
+   [
+    "k2_jobs_area",
+    547
+   ],
+   [
+    "k2_garage_area",
+    481
+   ],
+   [
+    "k1_jobs_area",
+    447
+   ],
+   [
+    "k2_veh_per_hh",
+    406
+   ],
+   [
+    "k2_night_hourly_vol",
+    346
+   ],
+   [
+    "k2_lu_entropy",
+    336
+   ],
+   [
+    "k1_far_built",
+    320
+   ],
+   [
+    "k1_garage_area",
+    307
+   ],
+   [
+    "assess_total",
+    299
+   ],
+   [
+    "k2_arterial_share",
+    282
+   ],
+   [
+    "k1_lu_entropy",
+    276
+   ],
+   [
+    "year_built_med",
+    273
+   ],
+   [
+    "k1_units_res",
+    272
+   ],
+   [
+    "assess_per_sqft",
+    270
+   ],
+   [
+    "k2_units_res",
+    268
+   ],
+   [
+    "lots_n",
+    253
+   ],
+   [
+    "lot_area",
+    237
+   ],
+   [
+    "k2_peak_ratio",
+    234
+   ],
+   [
+    "k2_no_home_charge",
+    232
+   ],
+   [
+    "k1_no_home_charge",
+    231
+   ],
+   [
+    "k1_night_hourly_vol",
+    224
+   ],
+   [
+    "k2_aadt_proxy",
+    221
+   ],
+   [
+    "lu_institutional_sh",
+    210
+   ],
+   [
+    "k1_peak_ratio",
+    209
+   ],
+   [
+    "renter_share",
+    206
+   ],
+   [
+    "k1_veh_per_hh",
+    204
+   ],
+   [
+    "lu_vacant_sh",
+    185
+   ],
+   [
+    "k2_peak_hourly_vol",
+    183
+   ],
+   [
+    "far_mean",
+    173
+   ],
+   [
+    "floors_mean",
+    172
+   ],
+   [
+    "k2_n_segments",
+    172
+   ],
+   [
+    "k1_arterial_share",
+    169
+   ],
+   [
+    "k2_mean_hourly_vol",
+    168
+   ],
+   [
+    "far_built",
+    167
+   ],
+   [
+    "owner_hh",
+    161
+   ],
+   [
+    "k1_aadt_proxy",
+    154
+   ],
+   [
+    "no_home_charge_density",
+    150
+   ],
+   [
+    "bldg_area",
+    149
+   ],
+   [
+    "lu_res_mid_sh",
+    145
+   ],
+   [
+    "k1_peak_hourly_vol",
+    144
+   ],
+   [
+    "veh_per_hh",
+    139
+   ],
+   [
+    "zero_veh_share",
+    130
+   ],
+   [
+    "units_total",
+    129
+   ],
+   [
+    "com_area",
+    128
+   ],
+   [
+    "lu_entropy",
+    128
+   ],
+   [
+    "lu_transport_sh",
+    126
+   ],
+   [
+    "peak_ratio",
+    121
+   ],
+   [
+    "k2_n_intersections",
+    119
+   ],
+   [
+    "zero_veh_hh",
+    116
+   ],
+   [
+    "jobs_area",
+    114
+   ],
+   [
+    "res_area",
+    113
+   ],
+   [
+    "office_area",
+    112
+   ],
+   [
+    "retail_area",
+    110
+   ],
+   [
+    "lu_mixed_sh",
+    110
+   ],
+   [
+    "lu_parking_sh",
+    108
+   ],
+   [
+    "lu_commercial_sh",
+    105
+   ],
+   [
+    "lu_openspace_sh",
+    103
+   ],
+   [
+    "night_hourly_vol",
+    100
+   ],
+   [
+    "lu_res_high_sh",
+    99
+   ],
+   [
+    "veh_total",
+    99
+   ],
+   [
+    "lu_res_low_sh",
+    96
+   ],
+   [
+    "k1_n_intersections",
+    92
+   ],
+   [
+    "storage_area",
+    90
+   ],
+   [
+    "aadt_proxy",
+    87
+   ],
+   [
+    "parking_share",
+    87
+   ],
+   [
+    "k1_mean_hourly_vol",
+    87
+   ],
+   [
+    "res_density",
+    86
+   ],
+   [
+    "k1_n_segments",
+    80
+   ],
+   [
+    "p95_hourly_vol",
+    79
+   ],
+   [
+    "lu_industrial_sh",
+    78
+   ],
+   [
+    "renter_veh_hh",
+    77
+   ],
+   [
+    "renter_hh",
+    73
+   ],
+   [
+    "garage_area",
+    72
+   ],
+   [
+    "home_charge_cov",
+    68
+   ],
+   [
+    "no_home_charge",
+    68
+   ],
+   [
+    "mean_hourly_vol",
+    61
+   ],
+   [
+    "hh_total",
+    60
+   ],
+   [
+    "peak_hourly_vol",
+    56
+   ],
+   [
+    "dir_diversity",
+    51
+   ],
+   [
+    "units_res",
+    40
+   ],
+   [
+    "factory_area",
+    34
+   ],
+   [
+    "n_streets",
+    33
+   ],
+   [
+    "n_segments",
+    30
+   ],
+   [
+    "n_intersections",
+    20
+   ],
+   [
+    "local_share",
+    19
+   ],
+   [
+    "arterial_share",
+    12
+   ]
+  ]
+ },
+ "suitability": {
+  "label_frequency_c": 0.972577997004071,
+  "n_train_positives": 219,
+  "n_forward_candidates": 8522,
+  "n_forward_positives": 190,
+  "model_pu": {
+   "pr_auc": 0.17324867530955804,
+   "roc_auc": 0.8228775551456655,
+   "base_rate": 0.02229523586012673,
+   "precision@50": 0.34,
+   "recall@50": 0.08947368421052632,
+   "lift@50": 15.249894736842107,
+   "precision@100": 0.33,
+   "recall@100": 0.1736842105263158,
+   "lift@100": 14.801368421052633,
+   "precision@200": 0.235,
+   "recall@200": 0.24736842105263157,
+   "lift@200": 10.540368421052632,
+   "precision@500": 0.182,
+   "recall@500": 0.4789473684210526,
+   "lift@500": 8.16317894736842,
+   "ndcg": 0.7037482402480638
+  },
+  "baseline_random": {
+   "pr_auc": 0.0218543907104509,
+   "roc_auc": 0.4871219395103216,
+   "base_rate": 0.02229523586012673,
+   "precision@50": 0.02,
+   "recall@50": 0.005263157894736842,
+   "lift@50": 0.8970526315789474,
+   "precision@100": 0.02,
+   "recall@100": 0.010526315789473684,
+   "lift@100": 0.8970526315789474,
+   "precision@200": 0.02,
+   "recall@200": 0.021052631578947368,
+   "lift@200": 0.8970526315789474,
+   "precision@500": 0.024,
+   "recall@500": 0.06315789473684211,
+   "lift@500": 1.0764631578947368,
+   "ndcg": 0.4950403530687595
+  },
+  "baseline_demand": {
+   "pr_auc": 0.09689133330023757,
+   "roc_auc": 0.7479167193066679,
+   "base_rate": 0.02229523586012673,
+   "precision@50": 0.24,
+   "recall@50": 0.06315789473684211,
+   "lift@50": 10.764631578947368,
+   "precision@100": 0.23,
+   "recall@100": 0.12105263157894737,
+   "lift@100": 10.316105263157896,
+   "precision@200": 0.155,
+   "recall@200": 0.1631578947368421,
+   "lift@200": 6.9521578947368425,
+   "precision@500": 0.102,
+   "recall@500": 0.26842105263157895,
+   "lift@500": 4.574968421052631,
+   "ndcg": 0.6342213340476119
+  },
+  "baseline_traffic": {
+   "pr_auc": 0.057711377943439744,
+   "roc_auc": 0.6705131768451373,
+   "base_rate": 0.02229523586012673,
+   "precision@50": 0.14,
+   "recall@50": 0.03684210526315789,
+   "lift@50": 6.279368421052633,
+   "precision@100": 0.09,
+   "recall@100": 0.04736842105263158,
+   "lift@100": 4.036736842105263,
+   "precision@200": 0.08,
+   "recall@200": 0.08421052631578947,
+   "lift@200": 3.5882105263157897,
+   "precision@500": 0.068,
+   "recall@500": 0.17894736842105263,
+   "lift@500": 3.0499789473684213,
+   "ndcg": 0.5917129579765277
+  },
+  "baseline_near_existing": {
+   "pr_auc": 0.09923702934689749,
+   "roc_auc": 0.75189883012861,
+   "base_rate": 0.02229523586012673,
+   "precision@50": 0.26,
+   "recall@50": 0.06842105263157895,
+   "lift@50": 11.661684210526316,
+   "precision@100": 0.19,
+   "recall@100": 0.1,
+   "lift@100": 8.522,
+   "precision@200": 0.165,
+   "recall@200": 0.1736842105263158,
+   "lift@200": 7.400684210526316,
+   "precision@500": 0.114,
+   "recall@500": 0.3,
+   "lift@500": 5.1132,
+   "ndcg": 0.6308401039509319
+  },
+  "feature_importance": [
+   [
+    "unmet_kwh",
+    105.8
+   ],
+   [
+    "flow_imbalance",
+    80.8
+   ],
+   [
+    "mean_trip_miles",
+    77.2
+   ],
+   [
+    "garage_area",
+    67.6
+   ],
+   [
+    "k1_aadt_proxy",
+    66.4
+   ],
+   [
+    "access_l2_ex",
+    65.6
+   ],
+   [
+    "dist_to_road_m",
+    63.0
+   ],
+   [
+    "demand_taxi_kwh",
+    61.3
+   ],
+   [
+    "access_dcfc_ex",
+    56.4
+   ],
+   [
+    "dist_station_ex_m",
+    54.4
+   ],
+   [
+    "dropoffs",
+    52.0
+   ],
+   [
+    "dist_dcfc_ex_m",
+    51.1
+   ],
+   [
+    "home_charge_cov",
+    49.4
+   ],
+   [
+    "parking_share",
+    47.4
+   ],
+   [
+    "lu_commercial_sh",
+    45.8
+   ]
+  ]
+ },
+ "transfer": {
+  "domains": {
+   "DE": {
+    "frontier_cells": 241490,
+    "positives": 6785,
+    "base_rate": 0.028096401507308792,
+    "cutoff": "2019-12-31",
+    "forward_window": [
+     "2020-01-01",
+     "2022-12-31"
+    ]
+   },
+   "DE_METRO": {
+    "frontier_cells": 12211,
+    "positives": 959,
+    "base_rate": 0.07853574645811154,
+    "cutoff": "2019-12-31",
+    "forward_window": [
+     "2020-01-01",
+     "2022-12-31"
+    ]
+   },
+   "NYC": {
+    "frontier_cells": 3104,
+    "positives": 130,
+    "base_rate": 0.04188144329896907,
+    "cutoff": "2018-12-31",
+    "forward_window": [
+     "2019-01-01",
+     "2021-12-31"
+    ]
+   },
+   "CT": {
+    "frontier_cells": 7090,
+    "positives": 75,
+    "base_rate": 0.010578279266572637,
+    "cutoff": "2018-12-31",
+    "forward_window": [
+     "2019-01-01",
+     "2021-12-31"
+    ]
+   }
+  },
+  "matrices": {
+   "net": {
+    "DE->DE": {
+     "pr_auc": 0.12314198544880636,
+     "ndcg": 0.7824366347733874,
+     "precision@100": 0.62,
+     "lift@100": 22.066882829771554,
+     "base_rate": 0.028096401507308792
+    },
+    "DE->DE_METRO": {
+     "pr_auc": 0.23991629107570614,
+     "ndcg": 0.8073102665434523,
+     "precision@100": 0.59,
+     "lift@100": 7.512502606882169,
+     "base_rate": 0.07853574645811154
+    },
+    "DE->NYC": {
+     "pr_auc": 0.11048172087900832,
+     "ndcg": 0.6336414919696652,
+     "precision@100": 0.15,
+     "lift@100": 3.581538461538462,
+     "base_rate": 0.04188144329896907
+    },
+    "DE->CT": {
+     "pr_auc": 0.019408233657039427,
+     "ndcg": 0.42790475410850987,
+     "precision@100": 0.02,
+     "lift@100": 1.890666666666667,
+     "base_rate": 0.010578279266572637
+    },
+    "DE_METRO->DE": {
+     "pr_auc": 0.07819866405260215,
+     "ndcg": 0.746721958916975,
+     "precision@100": 0.62,
+     "lift@100": 22.066882829771554,
+     "base_rate": 0.028096401507308792
+    },
+    "DE_METRO->DE_METRO": {
+     "pr_auc": 0.42326283749137195,
+     "ndcg": 0.8707604360449043,
+     "precision@100": 0.69,
+     "lift@100": 8.785808133472367,
+     "base_rate": 0.07853574645811154
+    },
+    "DE_METRO->NYC": {
+     "pr_auc": 0.07611434060151387,
+     "ndcg": 0.575992006489058,
+     "precision@100": 0.11,
+     "lift@100": 2.626461538461539,
+     "base_rate": 0.04188144329896907
+    },
+    "DE_METRO->CT": {
+     "pr_auc": 0.022986687863750396,
+     "ndcg": 0.4401859424942508,
+     "precision@100": 0.04,
+     "lift@100": 3.781333333333334,
+     "base_rate": 0.010578279266572637
+    },
+    "NYC->DE": {
+     "pr_auc": 0.055246093718014117,
+     "ndcg": 0.7220521186166236,
+     "precision@100": 0.12,
+     "lift@100": 4.271009579955784,
+     "base_rate": 0.028096401507308792
+    },
+    "NYC->DE_METRO": {
+     "pr_auc": 0.09723342260403692,
+     "ndcg": 0.6995449712637715,
+     "precision@100": 0.11,
+     "lift@100": 1.4006360792492178,
+     "base_rate": 0.07853574645811154
+    },
+    "NYC->NYC": {
+     "pr_auc": 0.3302693675842814,
+     "ndcg": 0.7750651410448164,
+     "precision@100": 0.42,
+     "lift@100": 10.028307692307692,
+     "base_rate": 0.04188144329896907
+    },
+    "NYC->CT": {
+     "pr_auc": 0.04011840913393641,
+     "ndcg": 0.4896441202674331,
+     "precision@100": 0.08,
+     "lift@100": 7.562666666666668,
+     "base_rate": 0.010578279266572637
+    },
+    "CT->DE": {
+     "pr_auc": 0.04925410002355136,
+     "ndcg": 0.7131241392425213,
+     "precision@100": 0.07,
+     "lift@100": 2.491422254974208,
+     "base_rate": 0.028096401507308792
+    },
+    "CT->DE_METRO": {
+     "pr_auc": 0.10274989945494215,
+     "ndcg": 0.705802228810056,
+     "precision@100": 0.24,
+     "lift@100": 3.0559332638164753,
+     "base_rate": 0.07853574645811154
+    },
+    "CT->NYC": {
+     "pr_auc": 0.08986817891371118,
+     "ndcg": 0.5842810824039077,
+     "precision@100": 0.11,
+     "lift@100": 2.626461538461539,
+     "base_rate": 0.04188144329896907
+    },
+    "CT->CT": {
+     "pr_auc": 0.10089440345166159,
+     "ndcg": 0.5744324828349523,
+     "precision@100": 0.14,
+     "lift@100": 13.23466666666667,
+     "base_rate": 0.010578279266572637
+    }
+   },
+   "full": {
+    "DE->DE": {
+     "pr_auc": 0.16852066251876535,
+     "ndcg": 0.8109143687670733,
+     "precision@100": 0.64,
+     "lift@100": 22.778717759764184,
+     "base_rate": 0.028096401507308792
+    },
+    "DE->DE_METRO": {
+     "pr_auc": 0.29570219378239976,
+     "ndcg": 0.8320463396956704,
+     "precision@100": 0.6,
+     "lift@100": 7.639833159541189,
+     "base_rate": 0.07853574645811154
+    },
+    "DE->NYC": {
+     "pr_auc": 0.08331358478584304,
+     "ndcg": 0.5741778083699502,
+     "precision@100": 0.12,
+     "lift@100": 2.8652307692307692,
+     "base_rate": 0.04188144329896907
+    },
+    "DE->CT": {
+     "pr_auc": 0.03615866008550686,
+     "ndcg": 0.4722499533634063,
+     "precision@100": 0.03,
+     "lift@100": 2.8360000000000003,
+     "base_rate": 0.010578279266572637
+    },
+    "DE_METRO->DE": {
+     "pr_auc": 0.1328033935377291,
+     "ndcg": 0.7896430356934787,
+     "precision@100": 0.73,
+     "lift@100": 25.98197494473102,
+     "base_rate": 0.028096401507308792
+    },
+    "DE_METRO->DE_METRO": {
+     "pr_auc": 0.5149102504080696,
+     "ndcg": 0.9048150485868993,
+     "precision@100": 0.75,
+     "lift@100": 9.549791449426486,
+     "base_rate": 0.07853574645811154
+    },
+    "DE_METRO->NYC": {
+     "pr_auc": 0.051528750649803896,
+     "ndcg": 0.5313065225484702,
+     "precision@100": 0.05,
+     "lift@100": 1.193846153846154,
+     "base_rate": 0.04188144329896907
+    },
+    "DE_METRO->CT": {
+     "pr_auc": 0.022754338124827054,
+     "ndcg": 0.4365300535232786,
+     "precision@100": 0.02,
+     "lift@100": 1.890666666666667,
+     "base_rate": 0.010578279266572637
+    },
+    "NYC->DE": {
+     "pr_auc": 0.0770065509352559,
+     "ndcg": 0.7451969484358522,
+     "precision@100": 0.1,
+     "lift@100": 3.559174649963154,
+     "base_rate": 0.028096401507308792
+    },
+    "NYC->DE_METRO": {
+     "pr_auc": 0.1106265071450116,
+     "ndcg": 0.7090345190228754,
+     "precision@100": 0.11,
+     "lift@100": 1.4006360792492178,
+     "base_rate": 0.07853574645811154
+    },
+    "NYC->NYC": {
+     "pr_auc": 0.41448471897126,
+     "ndcg": 0.8012966699133235,
+     "precision@100": 0.5,
+     "lift@100": 11.938461538461539,
+     "base_rate": 0.04188144329896907
+    },
+    "NYC->CT": {
+     "pr_auc": 0.05069270966769227,
+     "ndcg": 0.5084584096186616,
+     "precision@100": 0.11,
+     "lift@100": 10.398666666666667,
+     "base_rate": 0.010578279266572637
+    },
+    "CT->DE": {
+     "pr_auc": 0.07064538555380805,
+     "ndcg": 0.7390520126669715,
+     "precision@100": 0.13,
+     "lift@100": 4.6269270449521,
+     "base_rate": 0.028096401507308792
+    },
+    "CT->DE_METRO": {
+     "pr_auc": 0.13318665874277394,
+     "ndcg": 0.7320677763075768,
+     "precision@100": 0.13,
+     "lift@100": 1.6552971845672577,
+     "base_rate": 0.07853574645811154
+    },
+    "CT->NYC": {
+     "pr_auc": 0.0921170058707505,
+     "ndcg": 0.5831143644304012,
+     "precision@100": 0.09,
+     "lift@100": 2.148923076923077,
+     "base_rate": 0.04188144329896907
+    },
+    "CT->CT": {
+     "pr_auc": 0.15406002760505336,
+     "ndcg": 0.6307441078278114,
+     "precision@100": 0.21,
+     "lift@100": 19.852,
+     "base_rate": 0.010578279266572637
+    }
+   }
+  },
+  "matrix": {
+   "DE->DE": {
+    "pr_auc": 0.12314198544880636,
+    "ndcg": 0.7824366347733874,
+    "precision@100": 0.62,
+    "lift@100": 22.066882829771554,
+    "base_rate": 0.028096401507308792
+   },
+   "DE->DE_METRO": {
+    "pr_auc": 0.23991629107570614,
+    "ndcg": 0.8073102665434523,
+    "precision@100": 0.59,
+    "lift@100": 7.512502606882169,
+    "base_rate": 0.07853574645811154
+   },
+   "DE->NYC": {
+    "pr_auc": 0.11048172087900832,
+    "ndcg": 0.6336414919696652,
+    "precision@100": 0.15,
+    "lift@100": 3.581538461538462,
+    "base_rate": 0.04188144329896907
+   },
+   "DE->CT": {
+    "pr_auc": 0.019408233657039427,
+    "ndcg": 0.42790475410850987,
+    "precision@100": 0.02,
+    "lift@100": 1.890666666666667,
+    "base_rate": 0.010578279266572637
+   },
+   "DE_METRO->DE": {
+    "pr_auc": 0.07819866405260215,
+    "ndcg": 0.746721958916975,
+    "precision@100": 0.62,
+    "lift@100": 22.066882829771554,
+    "base_rate": 0.028096401507308792
+   },
+   "DE_METRO->DE_METRO": {
+    "pr_auc": 0.42326283749137195,
+    "ndcg": 0.8707604360449043,
+    "precision@100": 0.69,
+    "lift@100": 8.785808133472367,
+    "base_rate": 0.07853574645811154
+   },
+   "DE_METRO->NYC": {
+    "pr_auc": 0.07611434060151387,
+    "ndcg": 0.575992006489058,
+    "precision@100": 0.11,
+    "lift@100": 2.626461538461539,
+    "base_rate": 0.04188144329896907
+   },
+   "DE_METRO->CT": {
+    "pr_auc": 0.022986687863750396,
+    "ndcg": 0.4401859424942508,
+    "precision@100": 0.04,
+    "lift@100": 3.781333333333334,
+    "base_rate": 0.010578279266572637
+   },
+   "NYC->DE": {
+    "pr_auc": 0.055246093718014117,
+    "ndcg": 0.7220521186166236,
+    "precision@100": 0.12,
+    "lift@100": 4.271009579955784,
+    "base_rate": 0.028096401507308792
+   },
+   "NYC->DE_METRO": {
+    "pr_auc": 0.09723342260403692,
+    "ndcg": 0.6995449712637715,
+    "precision@100": 0.11,
+    "lift@100": 1.4006360792492178,
+    "base_rate": 0.07853574645811154
+   },
+   "NYC->NYC": {
+    "pr_auc": 0.3302693675842814,
+    "ndcg": 0.7750651410448164,
+    "precision@100": 0.42,
+    "lift@100": 10.028307692307692,
+    "base_rate": 0.04188144329896907
+   },
+   "NYC->CT": {
+    "pr_auc": 0.04011840913393641,
+    "ndcg": 0.4896441202674331,
+    "precision@100": 0.08,
+    "lift@100": 7.562666666666668,
+    "base_rate": 0.010578279266572637
+   },
+   "CT->DE": {
+    "pr_auc": 0.04925410002355136,
+    "ndcg": 0.7131241392425213,
+    "precision@100": 0.07,
+    "lift@100": 2.491422254974208,
+    "base_rate": 0.028096401507308792
+   },
+   "CT->DE_METRO": {
+    "pr_auc": 0.10274989945494215,
+    "ndcg": 0.705802228810056,
+    "precision@100": 0.24,
+    "lift@100": 3.0559332638164753,
+    "base_rate": 0.07853574645811154
+   },
+   "CT->NYC": {
+    "pr_auc": 0.08986817891371118,
+    "ndcg": 0.5842810824039077,
+    "precision@100": 0.11,
+    "lift@100": 2.626461538461539,
+    "base_rate": 0.04188144329896907
+   },
+   "CT->CT": {
+    "pr_auc": 0.10089440345166159,
+    "ndcg": 0.5744324828349523,
+    "precision@100": 0.14,
+    "lift@100": 13.23466666666667,
+    "base_rate": 0.010578279266572637
+   }
+  },
+  "baselines": {
+   "DE": {
+    "random": 0.028248518676772374,
+    "near_existing": 0.053295755983338335,
+    "local_density": 0.052436982429164
+   },
+   "DE_METRO": {
+    "random": 0.0825011551267058,
+    "near_existing": 0.10528372099955913,
+    "local_density": 0.10486754913665428
+   },
+   "NYC": {
+    "random": 0.04168272863637494,
+    "near_existing": 0.13187607970380721,
+    "local_density": 0.10924765879987898
+   },
+   "CT": {
+    "random": 0.011433074729581404,
+    "near_existing": 0.0211032634773771,
+    "local_density": 0.020372669257414183
+   }
+  },
+  "retention_vs_local": {
+   "DE->DE_METRO": 0.567,
+   "DE->NYC": 0.335,
+   "DE->CT": 0.192,
+   "DE_METRO->DE": 0.635,
+   "DE_METRO->NYC": 0.23,
+   "DE_METRO->CT": 0.228,
+   "NYC->DE": 0.449,
+   "NYC->DE_METRO": 0.23,
+   "NYC->CT": 0.398,
+   "CT->DE": 0.4,
+   "CT->DE_METRO": 0.243,
+   "CT->NYC": 0.272
+  },
+  "verdict": {
+   "DE->DE_METRO": {
+    "model_pr_auc": 0.2399,
+    "baseline": "near_existing",
+    "baseline_pr_auc": 0.1053,
+    "ratio": 2.279,
+    "beats_baseline": true
+   },
+   "DE->NYC": {
+    "model_pr_auc": 0.1105,
+    "baseline": "near_existing",
+    "baseline_pr_auc": 0.1319,
+    "ratio": 0.838,
+    "beats_baseline": false
+   },
+   "DE->CT": {
+    "model_pr_auc": 0.0194,
+    "baseline": "near_existing",
+    "baseline_pr_auc": 0.0211,
+    "ratio": 0.92,
+    "beats_baseline": false
+   },
+   "DE_METRO->DE": {
+    "model_pr_auc": 0.0782,
+    "baseline": "near_existing",
+    "baseline_pr_auc": 0.0533,
+    "ratio": 1.467,
+    "beats_baseline": true
+   },
+   "DE_METRO->NYC": {
+    "model_pr_auc": 0.0761,
+    "baseline": "near_existing",
+    "baseline_pr_auc": 0.1319,
+    "ratio": 0.577,
+    "beats_baseline": false
+   },
+   "DE_METRO->CT": {
+    "model_pr_auc": 0.023,
+    "baseline": "near_existing",
+    "baseline_pr_auc": 0.0211,
+    "ratio": 1.089,
+    "beats_baseline": true
+   },
+   "NYC->DE": {
+    "model_pr_auc": 0.0552,
+    "baseline": "near_existing",
+    "baseline_pr_auc": 0.0533,
+    "ratio": 1.037,
+    "beats_baseline": true
+   },
+   "NYC->DE_METRO": {
+    "model_pr_auc": 0.0972,
+    "baseline": "near_existing",
+    "baseline_pr_auc": 0.1053,
+    "ratio": 0.924,
+    "beats_baseline": false
+   },
+   "NYC->CT": {
+    "model_pr_auc": 0.0401,
+    "baseline": "near_existing",
+    "baseline_pr_auc": 0.0211,
+    "ratio": 1.901,
+    "beats_baseline": true
+   },
+   "CT->DE": {
+    "model_pr_auc": 0.0493,
+    "baseline": "near_existing",
+    "baseline_pr_auc": 0.0533,
+    "ratio": 0.924,
+    "beats_baseline": false
+   },
+   "CT->DE_METRO": {
+    "model_pr_auc": 0.1027,
+    "baseline": "near_existing",
+    "baseline_pr_auc": 0.1053,
+    "ratio": 0.976,
+    "beats_baseline": false
+   },
+   "CT->NYC": {
+    "model_pr_auc": 0.0899,
+    "baseline": "near_existing",
+    "baseline_pr_auc": 0.1319,
+    "ratio": 0.681,
+    "beats_baseline": false
+   },
+   "_summary": {
+    "n_transfers": 12,
+    "n_beating_baseline": 5
+   }
+  },
+  "verdict_by_space": {
+   "net": {
+    "DE->DE_METRO": {
+     "model_pr_auc": 0.2399,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.1053,
+     "ratio": 2.279,
+     "beats_baseline": true
+    },
+    "DE->NYC": {
+     "model_pr_auc": 0.1105,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.1319,
+     "ratio": 0.838,
+     "beats_baseline": false
+    },
+    "DE->CT": {
+     "model_pr_auc": 0.0194,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.0211,
+     "ratio": 0.92,
+     "beats_baseline": false
+    },
+    "DE_METRO->DE": {
+     "model_pr_auc": 0.0782,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.0533,
+     "ratio": 1.467,
+     "beats_baseline": true
+    },
+    "DE_METRO->NYC": {
+     "model_pr_auc": 0.0761,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.1319,
+     "ratio": 0.577,
+     "beats_baseline": false
+    },
+    "DE_METRO->CT": {
+     "model_pr_auc": 0.023,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.0211,
+     "ratio": 1.089,
+     "beats_baseline": true
+    },
+    "NYC->DE": {
+     "model_pr_auc": 0.0552,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.0533,
+     "ratio": 1.037,
+     "beats_baseline": true
+    },
+    "NYC->DE_METRO": {
+     "model_pr_auc": 0.0972,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.1053,
+     "ratio": 0.924,
+     "beats_baseline": false
+    },
+    "NYC->CT": {
+     "model_pr_auc": 0.0401,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.0211,
+     "ratio": 1.901,
+     "beats_baseline": true
+    },
+    "CT->DE": {
+     "model_pr_auc": 0.0493,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.0533,
+     "ratio": 0.924,
+     "beats_baseline": false
+    },
+    "CT->DE_METRO": {
+     "model_pr_auc": 0.1027,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.1053,
+     "ratio": 0.976,
+     "beats_baseline": false
+    },
+    "CT->NYC": {
+     "model_pr_auc": 0.0899,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.1319,
+     "ratio": 0.681,
+     "beats_baseline": false
+    },
+    "_summary": {
+     "n_transfers": 12,
+     "n_beating_baseline": 5
+    }
+   },
+   "full": {
+    "DE->DE_METRO": {
+     "model_pr_auc": 0.2957,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.1053,
+     "ratio": 2.809,
+     "beats_baseline": true
+    },
+    "DE->NYC": {
+     "model_pr_auc": 0.0833,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.1319,
+     "ratio": 0.632,
+     "beats_baseline": false
+    },
+    "DE->CT": {
+     "model_pr_auc": 0.0362,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.0211,
+     "ratio": 1.713,
+     "beats_baseline": true
+    },
+    "DE_METRO->DE": {
+     "model_pr_auc": 0.1328,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.0533,
+     "ratio": 2.492,
+     "beats_baseline": true
+    },
+    "DE_METRO->NYC": {
+     "model_pr_auc": 0.0515,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.1319,
+     "ratio": 0.391,
+     "beats_baseline": false
+    },
+    "DE_METRO->CT": {
+     "model_pr_auc": 0.0228,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.0211,
+     "ratio": 1.078,
+     "beats_baseline": true
+    },
+    "NYC->DE": {
+     "model_pr_auc": 0.077,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.0533,
+     "ratio": 1.445,
+     "beats_baseline": true
+    },
+    "NYC->DE_METRO": {
+     "model_pr_auc": 0.1106,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.1053,
+     "ratio": 1.051,
+     "beats_baseline": true
+    },
+    "NYC->CT": {
+     "model_pr_auc": 0.0507,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.0211,
+     "ratio": 2.402,
+     "beats_baseline": true
+    },
+    "CT->DE": {
+     "model_pr_auc": 0.0706,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.0533,
+     "ratio": 1.326,
+     "beats_baseline": true
+    },
+    "CT->DE_METRO": {
+     "model_pr_auc": 0.1332,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.1053,
+     "ratio": 1.265,
+     "beats_baseline": true
+    },
+    "CT->NYC": {
+     "model_pr_auc": 0.0921,
+     "baseline": "near_existing",
+     "baseline_pr_auc": 0.1319,
+     "ratio": 0.699,
+     "beats_baseline": false
+    },
+    "_summary": {
+     "n_transfers": 12,
+     "n_beating_baseline": 9
+    }
+   }
+  },
+  "feature_counts": {
+   "net": 23,
+   "full": 29
+  }
+ },
+ "certification": {
+  "k": 120,
+  "candidate_pool": 1500,
+  "greedy_objective_kwh_day": 363135.3,
+  "milp_objective_kwh_day": 381043.0,
+  "milp_status": "Optimal",
+  "optimality_proven": true,
+  "greedy_ratio": 0.953,
+  "ratio_is": "exact",
+  "theoretical_worst_case": 0.6321,
+  "headroom_kwh_day": 17907.7,
+  "headroom_pct": 4.7,
+  "solver": {
+   "solve_seconds": 46.9,
+   "n_binary": 1500,
+   "n_continuous": 13568,
+   "n_spacing_pairs": 2205,
+   "n_grid_constraints": 20,
+   "time_limit_s": 420,
+   "n_sites": 120
+  }
+ },
+ "feeder_impact": {
+  "constrained_kwh_day": 363135.3,
+  "unconstrained_kwh_day": 363160.3,
+  "cost_kwh_day": 25.0,
+  "constrained_ports": 788,
+  "unconstrained_ports": 788,
+  "sites_displaced": 1,
+  "sites_grid_limited": 0,
+  "substations_used": 15,
+  "cost_pct": 0.01,
+  "sweep": {
+   "k_max": 600,
+   "sites_before_grid_exhausts": 338,
+   "sites_without_grid_limit": 354,
+   "curve": [
+    {
+     "k": 120,
+     "constrained_kwh_day": 398000.0,
+     "unconstrained_kwh_day": 398013.4,
+     "cost_pct": 0.0,
+     "sites_available_constrained": 120,
+     "port_limited": 0
+    },
+    {
+     "k": 200,
+     "constrained_kwh_day": 419033.8,
+     "unconstrained_kwh_day": 420174.0,
+     "cost_pct": 0.27,
+     "sites_available_constrained": 200,
+     "port_limited": 0
+    },
+    {
+     "k": 300,
+     "constrained_kwh_day": 422537.2,
+     "unconstrained_kwh_day": 424520.5,
+     "cost_pct": 0.47,
+     "sites_available_constrained": 300,
+     "port_limited": 0
+    },
+    {
+     "k": 400,
+     "constrained_kwh_day": 422616.2,
+     "unconstrained_kwh_day": 424692.7,
+     "cost_pct": 0.49,
+     "sites_available_constrained": 338,
+     "port_limited": 0
+    },
+    {
+     "k": 500,
+     "constrained_kwh_day": 422616.2,
+     "unconstrained_kwh_day": 424692.7,
+     "cost_pct": 0.49,
+     "sites_available_constrained": 338,
+     "port_limited": 0
+    },
+    {
+     "k": 600,
+     "constrained_kwh_day": 422616.2,
+     "unconstrained_kwh_day": 424692.7,
+     "cost_pct": 0.49,
+     "sites_available_constrained": 338,
+     "port_limited": 0
+    }
+   ]
+  }
+ },
+ "grid_coverage": {
+  "by_borough": [
+   {
+    "borough": "Bronx",
+    "cells": 1272,
+    "covered": 875,
+    "pct": 68.8
+   },
+   {
+    "borough": "Brooklyn",
+    "cells": 1852,
+    "covered": 1073,
+    "pct": 57.9
+   },
+   {
+    "borough": "Manhattan",
+    "cells": 960,
+    "covered": 0,
+    "pct": 0.0
+   },
+   {
+    "borough": "Queens",
+    "cells": 3264,
+    "covered": 2161,
+    "pct": 66.2
+   },
+   {
+    "borough": "Staten Island",
+    "cells": 1393,
+    "covered": 1351,
+    "pct": 97.0
+   }
+  ],
+  "cells_covered": 5460,
+  "cells_total": 8741,
+  "substations": 21,
+  "headroom_total_mw": 1626.0
+ },
+ "uncertainty": {
+  "n_bootstrap": 200,
+  "n_seeds": 15,
+  "bootstrap_bias_max_abs": 0.008785,
+  "captured_kwh_day": {
+   "mean": 362567.70700000005,
+   "sd": 1305.9954438849472,
+   "lo95": 359735.575,
+   "hi95": 364921.18000000005,
+   "n": 200,
+   "supported_decimals": 0
+  },
+  "metric_intervals": {
+   "pr_auc": {
+    "mean": 0.17059630836704745,
+    "sd": 0.0028379185098493624,
+    "lo95": 0.16572559810576806,
+    "hi95": 0.17489238343048377,
+    "n": 15,
+    "supported_decimals": 3
+   },
+   "precision@100": {
+    "mean": 0.33133333333333337,
+    "sd": 0.008338093878327917,
+    "lo95": 0.32,
+    "hi95": 0.3465,
+    "n": 15,
+    "supported_decimals": 3
+   },
+   "lift@100": {
+    "mean": 14.861171929824565,
+    "sd": 0.3739854527953185,
+    "lo95": 14.352842105263159,
+    "hi95": 15.541436842105263,
+    "n": 15,
+    "supported_decimals": 1
+   },
+   "ndcg": {
+    "mean": 0.6977713850053694,
+    "sd": 0.006769289969114928,
+    "lo95": 0.6843415465191556,
+    "hi95": 0.7076473751504601,
+    "n": 15,
+    "supported_decimals": 3
+   },
+   "label_frequency_c": {
+    "mean": 0.9760557542045599,
+    "sd": 0.0034318362665197912,
+    "lo95": 0.9724150933969603,
+    "hi95": 0.9818940804942274,
+    "n": 15,
+    "supported_decimals": 3
+   }
+  },
+  "plan_stability": {
+   "mean": 0.9238,
+   "median": 1.0,
+   "sites_always_selected": 77,
+   "sites_below_half": 3,
+   "deciles": {
+    "0.1": 0.717,
+    "0.3": 0.965,
+    "0.5": 1.0,
+    "0.7": 1.0,
+    "0.9": 1.0
+   }
+  }
+ },
+ "allocation": {
+  "k": 120,
+  "candidate_pool": 1500,
+  "sites_selected": 120,
+  "captured_kwh_day": 363135.3,
+  "total_unmet_kwh_day": 944863.0,
+  "coverage_gain_pct": 38.43,
+  "total_ports": 788,
+  "total_capex_usd": 35460000.0,
+  "mean_wait_min": 4.99,
+  "p95_wait_min": 13.56,
+  "max_utilisation": 0.7,
+  "sites_at_capacity": 38,
+  "equity_floor": {
+   "Bronx": 18,
+   "Staten Island": 12,
+   "Brooklyn": 22,
+   "Queens": 22
+  },
+  "grid_impact": {
+   "constrained_kwh_day": 363135.3,
+   "unconstrained_kwh_day": 363160.3,
+   "cost_kwh_day": 25.0,
+   "constrained_ports": 788,
+   "unconstrained_ports": 788,
+   "sites_displaced": 1,
+   "sites_grid_limited": 0,
+   "substations_used": 15,
+   "cost_pct": 0.01,
+   "sweep": {
+    "k_max": 600,
+    "sites_before_grid_exhausts": 338,
+    "sites_without_grid_limit": 354,
+    "curve": [
+     {
+      "k": 120,
+      "constrained_kwh_day": 398000.0,
+      "unconstrained_kwh_day": 398013.4,
+      "cost_pct": 0.0,
+      "sites_available_constrained": 120,
+      "port_limited": 0
+     },
+     {
+      "k": 200,
+      "constrained_kwh_day": 419033.8,
+      "unconstrained_kwh_day": 420174.0,
+      "cost_pct": 0.27,
+      "sites_available_constrained": 200,
+      "port_limited": 0
+     },
+     {
+      "k": 300,
+      "constrained_kwh_day": 422537.2,
+      "unconstrained_kwh_day": 424520.5,
+      "cost_pct": 0.47,
+      "sites_available_constrained": 300,
+      "port_limited": 0
+     },
+     {
+      "k": 400,
+      "constrained_kwh_day": 422616.2,
+      "unconstrained_kwh_day": 424692.7,
+      "cost_pct": 0.49,
+      "sites_available_constrained": 338,
+      "port_limited": 0
+     },
+     {
+      "k": 500,
+      "constrained_kwh_day": 422616.2,
+      "unconstrained_kwh_day": 424692.7,
+      "cost_pct": 0.49,
+      "sites_available_constrained": 338,
+      "port_limited": 0
+     },
+     {
+      "k": 600,
+      "constrained_kwh_day": 422616.2,
+      "unconstrained_kwh_day": 424692.7,
+      "cost_pct": 0.49,
+      "sites_available_constrained": 338,
+      "port_limited": 0
+     }
+    ]
+   }
+  },
+  "by_borough": {
+   "Bronx": 18,
+   "Brooklyn": 22,
+   "Manhattan": 46,
+   "Queens": 22,
+   "Staten Island": 12
+  }
+ },
+ "by_borough": [
+  {
+   "borough": "Bronx",
+   "hexes": 1272,
+   "demand": 117356.39,
+   "served": 2634.82,
+   "unmet": 115064.86,
+   "ports": 9.0,
+   "coverage": 2.25,
+   "kwh_per_port": 13039.6,
+   "planned": 18
+  },
+  {
+   "borough": "Brooklyn",
+   "hexes": 1852,
+   "demand": 222179.4,
+   "served": 7467.63,
+   "unmet": 214711.76,
+   "ports": 123.0,
+   "coverage": 3.36,
+   "kwh_per_port": 1806.34,
+   "planned": 22
+  },
+  {
+   "borough": "Manhattan",
+   "hexes": 960,
+   "demand": 401082.52,
+   "served": 51040.45,
+   "unmet": 353959.98,
+   "ports": 695.0,
+   "coverage": 12.73,
+   "kwh_per_port": 577.1,
+   "planned": 46
+  },
+  {
+   "borough": "Queens",
+   "hexes": 3264,
+   "demand": 234712.11,
+   "served": 10650.96,
+   "unmet": 224505.08,
+   "ports": 101.0,
+   "coverage": 4.54,
+   "kwh_per_port": 2323.88,
+   "planned": 22
+  },
+  {
+   "borough": "Staten Island",
+   "hexes": 1393,
+   "demand": 37428.51,
+   "served": 1796.54,
+   "unmet": 36621.31,
+   "ports": 12.0,
+   "coverage": 4.8,
+   "kwh_per_port": 3119.04,
+   "planned": 12
+  }
+ ],
+ "network_mix": {
+  "Tesla Destination": 353,
+  "ChargePoint Network": 216,
+  "Non-Networked": 81,
+  "Blink Network": 74,
+  "EV Connect": 49,
+  "FLO": 29,
+  "Tesla": 21,
+  "SemaCharge Network": 12
+ },
+ "build_history": {
+  "2011": 14,
+  "2012": 14,
+  "2013": 1,
+  "2014": 5,
+  "2015": 21,
+  "2016": 125,
+  "2017": 88,
+  "2018": 96,
+  "2019": 145,
+  "2020": 126,
+  "2021": 223,
+  "2022": 3
+ }
+}

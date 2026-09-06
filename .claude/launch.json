@@ -1,0 +1,26 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "voltgrid",
+      "cwd": "dashboard",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "port": 5390
+    },
+    {
+      "name": "voltgrid-dist",
+      "cwd": "dashboard/dist",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "5391"
+      ],
+      "port": 5391
+    }
+  ]
+}

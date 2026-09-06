@@ -1,0 +1,472 @@
+/* Fonts are self-hosted (see fonts.css): the instrument is meant to
+   run on an isolated operations-room machine, so the page makes no
+   third-party request at all. */
+@import "./fonts.css";
+
+/* VOLTGRID — see DESIGN.md.
+   Grid-deterministic: 1px gaps over a hairline ground make dividers structural
+   rather than drawn. No border-radius anywhere, no shadows, no glass. */
+
+:root {
+  --ground: #0d0d0c;
+  --surface-1: #161614;
+  --surface-2: #1e1e1b;
+  --hairline: #2a2a26;
+  --ink: #eaeae6;
+  --ink-2: #a3a29a;
+  --ink-3: #6b6a63;
+  --hazard: #e61919;
+  --critical: #d03b3b;
+
+  --macro: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --rail-l: 268px;
+  --rail-r: 348px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--macro);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+.mono {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── shell ─────────────────────────────────────────────────── */
+
+.app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+  background: var(--hairline);
+  gap: 1px;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: var(--rail-l) 1fr var(--rail-r);
+  gap: 1px;
+  min-height: 0;
+  background: var(--hairline);
+}
+
+/* ── masthead ──────────────────────────────────────────────── */
+
+.masthead {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  background: var(--ground);
+  padding: 0 18px;
+  gap: 24px;
+}
+
+.mh-id { padding: 14px 0 12px; }
+
+.mh-id h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 2.4vw, 2.35rem);
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.mh-id p {
+  margin: 4px 0 0;
+  font-size: 10px;
+  color: var(--ink-3);
+}
+
+.mh-prov {
+  display: flex;
+  align-items: stretch;
+  margin: 0;
+  gap: 1px;
+  background: var(--hairline);
+  border-left: 1px solid var(--hairline);
+  border-right: 1px solid var(--hairline);
+}
+
+.prov {
+  background: var(--ground);
+  padding: 14px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 74px;
+}
+
+.prov dt { font-size: 9px; color: var(--ink-3); }
+
+.prov dd {
+  margin: 6px 0 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+
+/* ── rails ─────────────────────────────────────────────────── */
+
+.rail {
+  background: var(--ground);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--hairline) transparent;
+}
+
+.sect { border-bottom: 1px solid var(--hairline); }
+
+.sect h2 {
+  margin: 0;
+  padding: 9px 14px;
+  font-size: 9.5px;
+  font-weight: 500;
+  color: var(--ink-3);
+  border-bottom: 1px solid var(--hairline);
+  background: var(--surface-1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sect-body { padding: 12px 14px 16px; }
+
+/* ── layer selector ────────────────────────────────────────── */
+
+.layers {
+  display: grid;
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+  margin-bottom: 12px;
+}
+
+.layer {
+  appearance: none;
+  border: 0;
+  background: var(--ground);
+  color: var(--ink-2);
+  padding: 8px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  cursor: pointer;
+  text-align: left;
+  transition: background 180ms var(--ease), color 180ms var(--ease);
+}
+
+.layer:hover { background: var(--surface-2); color: var(--ink); }
+
+.layer.on { background: var(--ink); color: var(--ground); }
+
+.lay-k { font-size: 11px; font-weight: 700; }
+.lay-u { font-size: 9px; opacity: 0.65; }
+
+.toggles { display: grid; gap: 7px; font-size: 10px; color: var(--ink-2); }
+
+.toggles label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+
+.toggles input {
+  appearance: none;
+  width: 11px; height: 11px;
+  border: 1px solid var(--ink-3);
+  background: transparent;
+  cursor: pointer;
+  flex: none;
+}
+
+.toggles input:checked { background: var(--ink); border-color: var(--ink); }
+
+/* ── budget control ────────────────────────────────────────── */
+
+.budget { margin-bottom: 14px; }
+
+.bd-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9.5px;
+  color: var(--ink-3);
+  margin-bottom: 8px;
+}
+
+.bd-head output { color: var(--ink); font-weight: 700; }
+
+input[type="range"] {
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: var(--hairline);
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 3px;
+  height: 16px;
+  background: var(--hazard);
+  cursor: grab;
+}
+
+input[type="range"]::-moz-range-thumb {
+  border: 0;
+  width: 3px;
+  height: 16px;
+  background: var(--hazard);
+  border-radius: 0;
+}
+
+.bd-note, .ch-note, .lg-note {
+  margin: 9px 0 0;
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: var(--ink-3);
+  max-width: 66ch;
+}
+
+/* ── readouts ──────────────────────────────────────────────── */
+
+.readout { margin: 0; display: grid; gap: 1px; background: var(--hairline); }
+
+.rd {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  background: var(--ground);
+  padding: 5px 0;
+  font-size: 10px;
+}
+
+.rd dt { color: var(--ink-3); }
+.rd dd { margin: 0; font-weight: 700; letter-spacing: 0.02em; }
+
+.ins-id { margin: 0 0 2px; font-size: 12px; font-weight: 700; }
+.ins-sub { margin: 0 0 10px; font-size: 9.5px; color: var(--ink-3); }
+
+.idle {
+  margin: 0;
+  font-size: 10px;
+  line-height: 1.9;
+  color: var(--ink-3);
+}
+
+.warn {
+  margin: 10px 0 0;
+  padding: 7px 9px;
+  font-size: 9.5px;
+  line-height: 1.6;
+  color: var(--hazard);
+  border: 1px solid var(--hazard);
+}
+
+.x {
+  appearance: none;
+  border: 1px solid var(--hairline);
+  background: transparent;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+  padding: 2px 6px;
+  cursor: pointer;
+}
+
+.x:hover { color: var(--ink); border-color: var(--ink-3); }
+
+/* ── field ─────────────────────────────────────────────────── */
+
+.field { position: relative; background: var(--ground); overflow: hidden; min-width: 0; }
+
+.field canvas { display: block; }
+
+.legend {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  margin: 0;
+  padding: 11px 13px 12px;
+  background: rgba(13, 13, 12, 0.92);
+  border: 1px solid var(--hairline);
+  width: 268px;
+}
+
+.legend figcaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.lg-title {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.lg-unit { font-size: 9px; color: var(--ink-3); }
+
+.lg-bar { display: flex; height: 8px; gap: 0; }
+.lg-bar i { flex: 1; }
+
+.lg-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 8.5px;
+  color: var(--ink-3);
+  margin-top: 5px;
+}
+
+.lg-dim { opacity: 0.75; }
+
+/* ── charts ────────────────────────────────────────────────── */
+
+.chart { margin: 0 0 18px; }
+.chart:last-child { margin-bottom: 0; }
+
+.chart figcaption { margin-bottom: 8px; }
+
+.ch-title {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.ch-sub { display: block; font-size: 8.5px; color: var(--ink-3); margin-top: 2px; }
+
+.ch-svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+.ch-lbl {
+  font-family: var(--mono);
+  font-size: 9px;
+  fill: var(--ink-2);
+  letter-spacing: 0.04em;
+}
+
+.ch-val { font-size: 9px; fill: var(--ink); font-weight: 700; }
+.ch-tag { font-size: 7.5px; fill: var(--ground); font-weight: 700; }
+.ch-ax { font-size: 8px; fill: var(--ink-3); }
+
+.ch-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 8.5px;
+  color: var(--ink-3);
+  margin-top: 7px;
+}
+
+.ch-legend span { display: inline-flex; align-items: center; gap: 4px; }
+.ch-legend i { width: 8px; height: 2px; display: inline-block; }
+
+.neg { border-top: 1px solid var(--hairline); padding-top: 14px; }
+
+/* ── tables ────────────────────────────────────────────────── */
+
+.tbl { width: 100%; border-collapse: collapse; font-size: 9.5px; }
+
+.tbl th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--ink-3);
+  padding: 4px 6px 4px 0;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 8.5px;
+}
+
+.tbl td {
+  padding: 4px 6px 4px 0;
+  color: var(--ink-2);
+  border-bottom: 1px solid rgba(42, 42, 38, 0.5);
+}
+
+.tbl .r { text-align: right; padding-right: 0; }
+.tbl .dim { color: var(--ink-3); font-size: 8.5px; }
+
+/* ── status bar ────────────────────────────────────────────── */
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ground);
+  padding: 7px 16px;
+  font-size: 8.5px;
+  color: var(--ink-3);
+}
+
+.status .sep { color: var(--hairline); }
+.status .grow { flex: 1; }
+
+/* ── boot / fail ───────────────────────────────────────────── */
+
+.boot {
+  display: grid;
+  place-content: center;
+  gap: 8px;
+  height: 100%;
+  text-align: center;
+  font-size: 11px;
+}
+
+.boot .dim { color: var(--ink-3); font-size: 9.5px; }
+.boot p { margin: 0; }
+
+/* ── responsive: rails stack under the field on narrow screens ── */
+
+@media (max-width: 1180px) {
+  body { overflow: auto; }
+  .app { height: auto; min-height: 100%; }
+  .body { grid-template-columns: 1fr; }
+  .field { height: 62vh; min-height: 420px; }
+  .rail { max-height: none; }
+  .masthead { flex-direction: column; gap: 0; padding-bottom: 0; }
+  .mh-prov { border: 0; border-top: 1px solid var(--hairline); flex-wrap: wrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0.01ms !important; }
+}
+
+/* Transfer matrix: heatmap cells need padding the plain table rows do not. */
+.xfer th.r { padding-right: 6px; }
+.xcell { padding: 5px 6px !important; font-weight: 700; }
+
+/* Equity-floor note: informational, so it must not read as an alert.
+   Bordered like .warn but in ink, since hazard red is reserved. */
+.note-eq {
+  margin: 9px 0 0;
+  padding: 7px 9px;
+  font-size: 9px;
+  line-height: 1.65;
+  color: var(--ink-2);
+  border: 1px solid var(--hairline);
+}
+
+/* Delta annotation inside a heatmap cell: subordinate to the value it modifies. */
+.xcell .delta {
+  display: block;
+  font-size: 7.5px;
+  opacity: 0.7;
+  letter-spacing: 0.02em;
+}

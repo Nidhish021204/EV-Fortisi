@@ -1,0 +1,77 @@
+name: CI
+
+# The 11.5 GB raw corpus is gitignored and not reproducible in CI, so this
+# workflow verifies everything that does NOT need it: the dashboard builds and
+# typechecks, the Python package imports cleanly, and the published figures
+# still agree with the committed reports. The full pipeline is a scheduled job
+# on a machine that holds the data (see deploy.yml intent in PLAN.md).
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  dashboard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: dashboard/package-lock.json
+      - run: npm ci
+        working-directory: dashboard
+      - name: Typecheck
+        run: npx tsc -b --pretty false
+        working-directory: dashboard
+      - name: Build
+        run: npm run build
+        working-directory: dashboard
+      - name: Assert the build makes no third-party request
+        working-directory: dashboard
+        run: |
+          # The instrument is meant to run on an isolated operations-room
+          # machine. Fonts are self-hosted; nothing may call out. XML
+          # namespaces and React's error-decoder link are identifiers in
+          # strings, never fetched, so they are excluded explicitly.
+          if grep -rEoh "https?://[a-zA-Z0-9._/-]+" dist/ \
+             | grep -vE "w3\.org|reactjs\.org" | sort -u | grep .; then
+            echo "::error::dist/ contains an external URL"; exit 1
+          fi
+          test -d dist/fonts && echo "self-hosted fonts present"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dashboard-dist
+          path: dashboard/dist
+
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install -q duckdb h3 lightgbm pulp pandas numpy scikit-learn pyarrow shapely pyproj rasterio
+      - name: Import every module
+        run: |
+          python - <<'PY'
+          import importlib, pkgutil, sys
+          sys.path.insert(0, "src")
+          import evopt
+          bad = []
+          for m in pkgutil.walk_packages(evopt.__path__, "evopt."):
+              try:
+                  importlib.import_module(m.name)
+              except Exception as e:
+                  bad.append((m.name, repr(e)))
+          if bad:
+              for n, e in bad:
+                  print(f"::error::{n}: {e}")
+              sys.exit(1)
+          print("all modules import cleanly")
+          PY
+      - name: Published figures match committed reports
+        run: python scripts/check_reports.py

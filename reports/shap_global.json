@@ -1,0 +1,166 @@
+{
+  "n_bags": 60,
+  "seed": 42,
+  "space": "log-odds (raw margin)",
+  "equity_forced_sites": 26,
+  "ensemble_reproduction_max_abs_err": 0.001828,
+  "faithfulness": {
+    "spearman_vs_ensemble": 0.9988882262316686,
+    "pearson_vs_ensemble": 0.9982345990408343,
+    "mean_abs_prob_error": 0.010272275514437244,
+    "max_abs_prob_error": 0.09212584605822238
+  },
+  "global_importance": [
+    {
+      "feature": "assess_per_sqft",
+      "label": "Assessed value density",
+      "mean_abs_shap": 0.63481,
+      "mean_signed_shap": -0.54822
+    },
+    {
+      "feature": "garage_area",
+      "label": "Parking floor area",
+      "mean_abs_shap": 0.51311,
+      "mean_signed_shap": -0.37102
+    },
+    {
+      "feature": "unmet_kwh",
+      "label": "Unmet demand",
+      "mean_abs_shap": 0.37977,
+      "mean_signed_shap": -0.02436
+    },
+    {
+      "feature": "access_l2_ex",
+      "label": "Nearby L2 supply",
+      "mean_abs_shap": 0.34713,
+      "mean_signed_shap": -0.24508
+    },
+    {
+      "feature": "home_charge_cov",
+      "label": "Home-charging coverage",
+      "mean_abs_shap": 0.3065,
+      "mean_signed_shap": -0.15004
+    },
+    {
+      "feature": "dropoffs",
+      "label": "Taxi dropoffs",
+      "mean_abs_shap": 0.30002,
+      "mean_signed_shap": -0.19748
+    },
+    {
+      "feature": "k1_aadt_proxy",
+      "label": "Traffic volume (1-ring)",
+      "mean_abs_shap": 0.28603,
+      "mean_signed_shap": -0.09831
+    },
+    {
+      "feature": "demand_taxi_kwh",
+      "label": "Measured taxi demand",
+      "mean_abs_shap": 0.22384,
+      "mean_signed_shap": -0.17938
+    },
+    {
+      "feature": "pickups_peak",
+      "label": "Peak-hour pickups",
+      "mean_abs_shap": 0.2208,
+      "mean_signed_shap": -0.17472
+    },
+    {
+      "feature": "parking_share",
+      "label": "Parking share of floor area",
+      "mean_abs_shap": 0.22031,
+      "mean_signed_shap": -0.10628
+    },
+    {
+      "feature": "pickups",
+      "label": "Taxi pickups",
+      "mean_abs_shap": 0.20863,
+      "mean_signed_shap": -0.15258
+    },
+    {
+      "feature": "lu_commercial_sh",
+      "label": "Land use: commercial",
+      "mean_abs_shap": 0.19566,
+      "mean_signed_shap": -0.05679
+    },
+    {
+      "feature": "k2_lu_entropy",
+      "label": "Land-use mix (2-ring)",
+      "mean_abs_shap": 0.1515,
+      "mean_signed_shap": -0.05097
+    },
+    {
+      "feature": "k2_aadt_proxy",
+      "label": "Traffic volume (2-ring)",
+      "mean_abs_shap": 0.1406,
+      "mean_signed_shap": -0.08323
+    },
+    {
+      "feature": "flow_imbalance",
+      "label": "Arrival/departure imbalance",
+      "mean_abs_shap": 0.13583,
+      "mean_signed_shap": -0.01921
+    },
+    {
+      "feature": "jobs_area",
+      "label": "Office/retail floor area",
+      "mean_abs_shap": 0.12099,
+      "mean_signed_shap": -0.08569
+    },
+    {
+      "feature": "no_home_charge_density",
+      "label": "No-home-charging rate",
+      "mean_abs_shap": 0.11446,
+      "mean_signed_shap": -0.04176
+    },
+    {
+      "feature": "access_dcfc_ex",
+      "label": "Nearby DC fast supply",
+      "mean_abs_shap": 0.11259,
+      "mean_signed_shap": -0.05238
+    },
+    {
+      "feature": "k2_far_built",
+      "label": "Built floor-area ratio (2-ring)",
+      "mean_abs_shap": 0.10814,
+      "mean_signed_shap": -0.0751
+    },
+    {
+      "feature": "dist_station_ex_m",
+      "label": "Distance to nearest station",
+      "mean_abs_shap": 0.10774,
+      "mean_signed_shap": -0.0194
+    },
+    {
+      "feature": "k1_garage_area",
+      "label": "Parking floor area (1-ring)",
+      "mean_abs_shap": 0.10663,
+      "mean_signed_shap": -0.03271
+    },
+    {
+      "feature": "mean_trip_miles",
+      "label": "Mean trip length",
+      "mean_abs_shap": 0.10408,
+      "mean_signed_shap": -0.01758
+    },
+    {
+      "feature": "lu_openspace_sh",
+      "label": "Land use: open space",
+      "mean_abs_shap": 0.10176,
+      "mean_signed_shap": 0.00817
+    },
+    {
+      "feature": "dist_to_road_m",
+      "label": "Distance to road",
+      "mean_abs_shap": 0.09874,
+      "mean_signed_shap": -0.00222
+    },
+    {
+      "feature": "k2_jobs_area",
+      "label": "Office/retail floor area (2-ring)",
+      "mean_abs_shap": 0.09412,
+      "mean_signed_shap": -0.07322
+    }
+  ],
+  "n_sites_explained": 120
+}

@@ -1,0 +1,41 @@
+{
+  "updated": "2026-09-06T16:38:45+00:00",
+  "sources": {
+    "stations/afdc_national": {
+      "ev_stations_v1.csv": "3c400d948c8f39f2"
+    },
+    "stations/germany": {
+      "charging_data.csv": "9773fa4399d27f36"
+    },
+    "mobility/nyc_taxi": {
+      "yellow_tripdata_2015-01.csv": "fe3946048a2010f9",
+      "yellow_tripdata_2016-01.csv": "dca2aa4bb1bfaca8",
+      "yellow_tripdata_2016-02.csv": "1ece6ef7679b38d2",
+      "yellow_tripdata_2016-03.csv": "c909ace41a155bc9"
+    },
+    "traffic/nyc_volume": {
+      "Automated_Traffic_Volume_Counts.csv": "d08e1cc0962291da"
+    },
+    "landuse": {
+      "pluto.parquet": "4d22c110cfd9af0b"
+    },
+    "acs": {
+      "b25044_nyc.parquet": "c22bac5c3e9f0116"
+    },
+    "grid": {
+      "coned_feeders.parquet": "f9f15e4ce3602c72"
+    },
+    "ghsl": {
+      "GHS_BUILT_S_E2020_GLOBE_R2023A_4326_3ss_V1_0_R4_C19.tif": "565924fb9a90849d",
+      "GHS_BUILT_S_E2020_GLOBE_R2023A_4326_3ss_V1_0_R4_C20.tif": "9b6f8f4aaa818e7b",
+      "GHS_BUILT_S_E2020_GLOBE_R2023A_4326_3ss_V1_0_R5_C11.tif": "c70147eb7ba2476b",
+      "GHS_BUILT_S_E2020_GLOBE_R2023A_4326_3ss_V1_0_R5_C19.tif": "6799a1964683393e",
+      "GHS_BUILT_S_E2020_GLOBE_R2023A_4326_3ss_V1_0_R5_C20.tif": "50da24f94f1a287c",
+      "GHS_POP_E2020_GLOBE_R2023A_4326_3ss_V1_0_R4_C19.tif": "fdd601744d3d82e3",
+      "GHS_POP_E2020_GLOBE_R2023A_4326_3ss_V1_0_R4_C20.tif": "cc059f8c0804dada",
+      "GHS_POP_E2020_GLOBE_R2023A_4326_3ss_V1_0_R5_C11.tif": "8751b6c2192b523d",
+      "GHS_POP_E2020_GLOBE_R2023A_4326_3ss_V1_0_R5_C19.tif": "d3e5afc076067cc8",
+      "GHS_POP_E2020_GLOBE_R2023A_4326_3ss_V1_0_R5_C20.tif": "4be453a11e31d478"
+    }
+  }
+}

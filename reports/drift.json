@@ -1,0 +1,50 @@
+{
+  "checked": "2026-09-06T16:41:29+00:00",
+  "sources_tracked": 20,
+  "groups_changed": [],
+  "groups_new": [],
+  "stages_to_rerun": [],
+  "temporal": {
+    "train_cutoff": "2018-12-31",
+    "forward_window": [
+      "2019-01-01",
+      "2021-12-31"
+    ],
+    "latest_open_date": "2022-10-04",
+    "stations_after_window": 356,
+    "share_after_window": 0.0071,
+    "split_should_advance": false
+  },
+  "metrics": {
+    "available": true,
+    "checks": {
+      "pr_auc": {
+        "value": 0.17325,
+        "lo95": 0.16573,
+        "hi95": 0.17489,
+        "within_control_limits": true
+      },
+      "precision@100": {
+        "value": 0.33,
+        "lo95": 0.32,
+        "hi95": 0.3465,
+        "within_control_limits": true
+      },
+      "lift@100": {
+        "value": 14.80137,
+        "lo95": 14.35284,
+        "hi95": 15.54144,
+        "within_control_limits": true
+      },
+      "ndcg": {
+        "value": 0.70375,
+        "lo95": 0.68434,
+        "hi95": 0.70765,
+        "within_control_limits": true
+      }
+    },
+    "drifted": [],
+    "drift_detected": false
+  },
+  "action_required": false
+}

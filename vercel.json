@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "cd dashboard && npm ci && npm run build",
+  "outputDirectory": "dashboard/dist",
+  "installCommand": "echo 'deps installed inside buildCommand (no package.json at repo root)'",
+  "framework": null
+}

@@ -76,6 +76,11 @@ def build_instance(k: int = 120, pool: int = 1500,
         df = df.merge(grid, on="h3", how="left")
 
     cand = df[(df.unmet_kwh > 0) & (df.dist_to_road_m < 800)].copy()
+    # Feeders Con Edison publishes as having no charging capacity at all are a
+    # hard exclusion, dropped from the pool rather than given a zero cap, so
+    # greedy and the MILP choose from an identical candidate set.
+    if "charge_excluded" in cand:
+        cand = cand[~cand.charge_excluded.fillna(False)]
     cand = cand.nlargest(pool, "unmet_kwh").reset_index(drop=True)
     return cand, k, min_per_borough
 
@@ -128,24 +133,34 @@ def solve_exact(cand: pd.DataFrame, k: int, min_per_borough: dict,
         if len(idx):
             prob += pulp.lpSum(x[int(i)] for i in idx) >= min(floor, len(idx))
 
-    # Grid: each substation bank's published headroom is shared by every site
-    # hanging off it. Port count is derived after selection in the greedy, so
-    # for the MILP it has to be a decision-time constant -- every opened site
-    # is charged the full MAX_PORTS draw. That is the conservative reading: it
-    # can only make the MILP more restrictive than reality, never less, so the
-    # certified optimum it returns remains a valid upper bound on greedy.
+    # Grid: two shared-capacity families, mirroring the greedy exactly -- a
+    # site draws on its feeder's published charging allowance and on its
+    # substation bank's headroom, and both are shared with every other site on
+    # the same asset. If the MILP enforced only one of them it would be solving
+    # a different problem and the certified ratio would not bound this plan.
+    #
+    # Port count is derived after selection in the greedy, so for the MILP it
+    # has to be a decision-time constant -- every opened site is charged the
+    # full MAX_PORTS draw. That is the conservative reading: it can only make
+    # the MILP more restrictive than reality, never less, so the optimum it
+    # returns remains a valid upper bound on greedy.
     n_grid = 0
-    if "substation" in cand and "headroom_kw" in cand:
-        site_kw = MAX_PORTS * PORT_KW
-        subs = cand.substation.to_numpy()
-        head = cand.headroom_kw.to_numpy(float)
-        for sname in pd.unique(subs[pd.notna(subs)]):
-            idx = np.flatnonzero(subs == sname)
+    site_kw = MAX_PORTS * PORT_KW
+    for keycol, capcol, tag in (("feeder_id", "headroom_kw", "fdr"),
+                                ("substation", "bank_headroom_kw", "bank")):
+        if keycol not in cand or capcol not in cand:
+            continue
+        keys = cand[keycol].to_numpy()
+        head = cand[capcol].to_numpy(float)
+        for name in pd.unique(keys[pd.notna(keys)]):
+            idx = np.flatnonzero(keys == name)
+            # Every cell on one asset quotes that asset's capacity, so the
+            # group max is that shared value, not a sum over cells.
             cap = float(np.nanmax(head[idx]))
             if not np.isfinite(cap):
                 continue
             prob += (pulp.lpSum(site_kw * x[int(i)] for i in idx) <= cap,
-                     f"grid_{n_grid}")
+                     f"grid_{tag}_{n_grid}")
             n_grid += 1
 
     t0 = time.time()

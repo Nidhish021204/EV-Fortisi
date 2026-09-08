@@ -2,164 +2,164 @@
   "n_bags": 60,
   "seed": 42,
   "space": "log-odds (raw margin)",
-  "equity_forced_sites": 26,
-  "ensemble_reproduction_max_abs_err": 0.001828,
+  "equity_forced_sites": 13,
+  "ensemble_reproduction_max_abs_err": 0.001631,
   "faithfulness": {
-    "spearman_vs_ensemble": 0.9988882262316686,
-    "pearson_vs_ensemble": 0.9982345990408343,
-    "mean_abs_prob_error": 0.010272275514437244,
-    "max_abs_prob_error": 0.09212584605822238
+    "spearman_vs_ensemble": 0.9988176309757759,
+    "pearson_vs_ensemble": 0.9981413375120988,
+    "mean_abs_prob_error": 0.01051145097615286,
+    "max_abs_prob_error": 0.08889599534944548
   },
   "global_importance": [
     {
       "feature": "assess_per_sqft",
       "label": "Assessed value density",
-      "mean_abs_shap": 0.63481,
-      "mean_signed_shap": -0.54822
+      "mean_abs_shap": 0.62487,
+      "mean_signed_shap": -0.53748
     },
     {
       "feature": "garage_area",
       "label": "Parking floor area",
-      "mean_abs_shap": 0.51311,
-      "mean_signed_shap": -0.37102
+      "mean_abs_shap": 0.55544,
+      "mean_signed_shap": -0.40015
     },
     {
-      "feature": "unmet_kwh",
-      "label": "Unmet demand",
-      "mean_abs_shap": 0.37977,
-      "mean_signed_shap": -0.02436
+      "feature": "unmet_kwh_hist",
+      "label": "Unmet demand (2015-16)",
+      "mean_abs_shap": 0.37808,
+      "mean_signed_shap": -0.02824
     },
     {
       "feature": "access_l2_ex",
       "label": "Nearby L2 supply",
-      "mean_abs_shap": 0.34713,
-      "mean_signed_shap": -0.24508
-    },
-    {
-      "feature": "home_charge_cov",
-      "label": "Home-charging coverage",
-      "mean_abs_shap": 0.3065,
-      "mean_signed_shap": -0.15004
+      "mean_abs_shap": 0.32104,
+      "mean_signed_shap": -0.21547
     },
     {
       "feature": "dropoffs",
       "label": "Taxi dropoffs",
-      "mean_abs_shap": 0.30002,
-      "mean_signed_shap": -0.19748
+      "mean_abs_shap": 0.30376,
+      "mean_signed_shap": -0.20316
+    },
+    {
+      "feature": "home_charge_cov",
+      "label": "Home-charging coverage",
+      "mean_abs_shap": 0.29651,
+      "mean_signed_shap": -0.14784
     },
     {
       "feature": "k1_aadt_proxy",
       "label": "Traffic volume (1-ring)",
-      "mean_abs_shap": 0.28603,
-      "mean_signed_shap": -0.09831
-    },
-    {
-      "feature": "demand_taxi_kwh",
-      "label": "Measured taxi demand",
-      "mean_abs_shap": 0.22384,
-      "mean_signed_shap": -0.17938
-    },
-    {
-      "feature": "pickups_peak",
-      "label": "Peak-hour pickups",
-      "mean_abs_shap": 0.2208,
-      "mean_signed_shap": -0.17472
+      "mean_abs_shap": 0.2529,
+      "mean_signed_shap": -0.08864
     },
     {
       "feature": "parking_share",
       "label": "Parking share of floor area",
-      "mean_abs_shap": 0.22031,
-      "mean_signed_shap": -0.10628
+      "mean_abs_shap": 0.21921,
+      "mean_signed_shap": -0.11227
+    },
+    {
+      "feature": "pickups_peak",
+      "label": "Peak-hour pickups",
+      "mean_abs_shap": 0.21623,
+      "mean_signed_shap": -0.17501
+    },
+    {
+      "feature": "demand_taxi_kwh_hist",
+      "label": "Measured taxi demand (2015-16)",
+      "mean_abs_shap": 0.21332,
+      "mean_signed_shap": -0.17386
     },
     {
       "feature": "pickups",
       "label": "Taxi pickups",
-      "mean_abs_shap": 0.20863,
-      "mean_signed_shap": -0.15258
+      "mean_abs_shap": 0.21081,
+      "mean_signed_shap": -0.14727
     },
     {
       "feature": "lu_commercial_sh",
       "label": "Land use: commercial",
-      "mean_abs_shap": 0.19566,
-      "mean_signed_shap": -0.05679
-    },
-    {
-      "feature": "k2_lu_entropy",
-      "label": "Land-use mix (2-ring)",
-      "mean_abs_shap": 0.1515,
-      "mean_signed_shap": -0.05097
-    },
-    {
-      "feature": "k2_aadt_proxy",
-      "label": "Traffic volume (2-ring)",
-      "mean_abs_shap": 0.1406,
-      "mean_signed_shap": -0.08323
-    },
-    {
-      "feature": "flow_imbalance",
-      "label": "Arrival/departure imbalance",
-      "mean_abs_shap": 0.13583,
-      "mean_signed_shap": -0.01921
+      "mean_abs_shap": 0.20599,
+      "mean_signed_shap": -0.05898
     },
     {
       "feature": "jobs_area",
       "label": "Office/retail floor area",
-      "mean_abs_shap": 0.12099,
-      "mean_signed_shap": -0.08569
+      "mean_abs_shap": 0.16322,
+      "mean_signed_shap": -0.11662
+    },
+    {
+      "feature": "k2_lu_entropy",
+      "label": "Land-use mix (2-ring)",
+      "mean_abs_shap": 0.14424,
+      "mean_signed_shap": -0.04608
+    },
+    {
+      "feature": "flow_imbalance",
+      "label": "Arrival/departure imbalance",
+      "mean_abs_shap": 0.14286,
+      "mean_signed_shap": -0.01331
+    },
+    {
+      "feature": "k2_aadt_proxy",
+      "label": "Traffic volume (2-ring)",
+      "mean_abs_shap": 0.14148,
+      "mean_signed_shap": -0.08245
     },
     {
       "feature": "no_home_charge_density",
       "label": "No-home-charging rate",
-      "mean_abs_shap": 0.11446,
-      "mean_signed_shap": -0.04176
+      "mean_abs_shap": 0.12545,
+      "mean_signed_shap": -0.04645
     },
     {
       "feature": "access_dcfc_ex",
       "label": "Nearby DC fast supply",
-      "mean_abs_shap": 0.11259,
-      "mean_signed_shap": -0.05238
+      "mean_abs_shap": 0.11739,
+      "mean_signed_shap": -0.05241
     },
     {
       "feature": "k2_far_built",
       "label": "Built floor-area ratio (2-ring)",
-      "mean_abs_shap": 0.10814,
-      "mean_signed_shap": -0.0751
-    },
-    {
-      "feature": "dist_station_ex_m",
-      "label": "Distance to nearest station",
-      "mean_abs_shap": 0.10774,
-      "mean_signed_shap": -0.0194
+      "mean_abs_shap": 0.10834,
+      "mean_signed_shap": -0.0757
     },
     {
       "feature": "k1_garage_area",
       "label": "Parking floor area (1-ring)",
-      "mean_abs_shap": 0.10663,
-      "mean_signed_shap": -0.03271
-    },
-    {
-      "feature": "mean_trip_miles",
-      "label": "Mean trip length",
-      "mean_abs_shap": 0.10408,
-      "mean_signed_shap": -0.01758
+      "mean_abs_shap": 0.10829,
+      "mean_signed_shap": -0.0317
     },
     {
       "feature": "lu_openspace_sh",
       "label": "Land use: open space",
-      "mean_abs_shap": 0.10176,
-      "mean_signed_shap": 0.00817
+      "mean_abs_shap": 0.10581,
+      "mean_signed_shap": 0.00806
+    },
+    {
+      "feature": "mean_trip_miles",
+      "label": "Mean trip length",
+      "mean_abs_shap": 0.09885,
+      "mean_signed_shap": -0.01928
     },
     {
       "feature": "dist_to_road_m",
       "label": "Distance to road",
-      "mean_abs_shap": 0.09874,
-      "mean_signed_shap": -0.00222
+      "mean_abs_shap": 0.09868,
+      "mean_signed_shap": -0.00532
     },
     {
-      "feature": "k2_jobs_area",
-      "label": "Office/retail floor area (2-ring)",
-      "mean_abs_shap": 0.09412,
-      "mean_signed_shap": -0.07322
+      "feature": "dist_station_ex_m",
+      "label": "Distance to nearest station",
+      "mean_abs_shap": 0.09465,
+      "mean_signed_shap": -0.00687
+    },
+    {
+      "feature": "demand_kwh_hist",
+      "label": "Total demand (2015-16)",
+      "mean_abs_shap": 0.08638,
+      "mean_signed_shap": -0.05509
     }
   ],
   "n_sites_explained": 120

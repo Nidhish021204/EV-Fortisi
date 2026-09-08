@@ -39,7 +39,7 @@ import pandas as pd
 
 from ..config import PROCESSED, REPORTS, DASH_DATA
 from .suitability import FEATURES, bagged_pu
-from .allocate import greedy_mclp
+from .allocate import greedy_mclp, load_grid
 
 N_BAGS = 60
 SEED = 42
@@ -50,6 +50,11 @@ TOP_N = 6  # drivers surfaced per site in the inspector
 LABELS: dict[str, str] = {
     "demand_kwh": "Total demand", "demand_taxi_kwh": "Measured taxi demand",
     "demand_fleet_kwh": "Fleet demand", "unmet_kwh": "Unmet demand",
+    # The model is scored on a 2019-21 forward window, so it reads the
+    # historical surface rather than the Q1 2026 re-weighted one (Stage 8c).
+    "demand_kwh_hist": "Total demand (2015-16)",
+    "demand_taxi_kwh_hist": "Measured taxi demand (2015-16)",
+    "unmet_kwh_hist": "Unmet demand (2015-16)",
     "pickups": "Taxi pickups", "dropoffs": "Taxi dropoffs",
     "dwell_surplus": "Dwell surplus", "flow_imbalance": "Arrival/departure imbalance",
     "mean_trip_miles": "Mean trip length", "pickups_peak": "Peak-hour pickups",
@@ -145,7 +150,17 @@ def equity_forced_sites() -> set[str]:
     su = pd.read_parquet(PROCESSED / "suitability.parquet")
     df = df.merge(su, on="h3", how="left")
     df["p_viable"] = df.p_viable.fillna(0.0)
+
+    # The counterfactual has to differ from the real plan in exactly one way:
+    # the equity floor. Without merging the grid, the "free" run would also be
+    # unconstrained by Con Edison capacity, and every site the grid displaced
+    # would be miscounted as equity-forced.
+    grid = load_grid()
+    if len(grid):
+        df = df.merge(grid, on="h3", how="left")
     cand = df[(df.unmet_kwh > 0) & (df.dist_to_road_m < 800)].copy()
+    if "charge_excluded" in cand:
+        cand = cand[~cand.charge_excluded.fillna(False)]
     cand = cand.nlargest(1500, "unmet_kwh").reset_index(drop=True)
 
     constrained = pd.read_parquet(PROCESSED / "plan_sites.parquet")

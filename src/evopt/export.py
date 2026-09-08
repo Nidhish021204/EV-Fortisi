@@ -15,7 +15,12 @@ import numpy as np
 import pandas as pd
 import h3
 
-from .config import PROCESSED, INTERIM, REPORTS, DASH_DATA, TRAIN_CUTOFF
+from .config import PROCESSED, INTERIM, REPORTS, DASH_DATA, TRAIN_CUTOFF, RAW
+
+
+def _raw_corpus_bytes() -> int:
+    """Actual size of the raw corpus on disk, walked once per export."""
+    return sum(p.stat().st_size for p in RAW.rglob("*") if p.is_file())
 
 R_MERC = 6378137.0
 
@@ -114,25 +119,59 @@ def build() -> dict:
     unc_m.pop("site_frequency", None)   # per-site lives on plan.json
     unc_m.pop("seed_runs", None)
 
-    # Grid coverage is the caveat that bounds every grid claim: Con Edison's
-    # 3-phase feeder layer does not cover Manhattan's secondary network, so a
-    # constraint result is only as broad as the data behind it.
+    # Grid coverage is the caveat that bounds every grid claim. Con Edison's
+    # 3-phase feeder layer does not reach Manhattan's secondary network, and
+    # the network layers publish *generation* hosting capacity rather than
+    # charging load headroom -- so the honest report is not "covered / not
+    # covered" but why each cell falls where it does. Coverage is also given
+    # weighted by built floor area, because cell counts are diluted by river
+    # and park cells that have no grid because they have no buildings.
     fpath = INTERIM / "feeders_h3.parquet"
     grid_cov = {}
     if fpath.exists():
-        fh = pd.read_parquet(fpath)[["h3", "grid_covered", "substation",
-                                     "headroom_kw"]]
-        gj = fh.merge(df[["h3", "borough"]], on="h3", how="left")
-        by = (gj.groupby("borough").grid_covered
-                .agg(cells="size", covered="sum").reset_index())
-        by["pct"] = (100 * by.covered / by.cells).round(1)
+        cols = ["h3", "grid_covered", "grid_state", "substation", "feeder_id",
+                "headroom_kw", "bank_headroom_kw", "charge_excluded"]
+        fh = pd.read_parquet(fpath)
+        fh = fh[[c for c in cols if c in fh.columns]]
+        gj = fh.merge(df[["h3", "borough", "bldg_area"]], on="h3", how="left")
+        by = (gj.pivot_table(index="borough", columns="grid_state", values="h3",
+                             aggfunc="size", fill_value=0).reset_index())
+        for s in ("feeder", "network_area", "no_data"):
+            if s not in by:
+                by[s] = 0
+        by["cells"] = by[["feeder", "network_area", "no_data"]].sum(axis=1)
+        by["pct"] = (100 * by.feeder / by.cells).round(1)
+        built = gj.groupby("grid_state").bldg_area.sum()
+        tot_built = float(built.sum())
+        # City-wide totals from the source tables, not from the cells that
+        # happen to be assigned -- otherwise the dashboard would quote a
+        # different feeder-vs-bank ratio than the ingest stage and PLAN.md do.
+        fc = INTERIM / "feeder_capacity.parquet"
+        sub_p = INTERIM / "substations.parquet"
+        fdr = (pd.read_parquet(fc) if fc.exists()
+               else fh.dropna(subset=["feeder_id"]).drop_duplicates("feeder_id")
+                      .rename(columns={"headroom_kw": "charge_kw"}))
+        subs_all = (pd.read_parquet(sub_p) if sub_p.exists()
+                    else fh.drop_duplicates("substation")
+                           .rename(columns={"bank_headroom_kw": "headroom_kw"}))
         grid_cov = {
             "by_borough": by.to_dict(orient="records"),
-            "cells_covered": int(fh.grid_covered.sum()),
+            "cells_covered": int((fh.grid_state == "feeder").sum()),
             "cells_total": int(len(fh)),
-            "substations": int(fh.substation.nunique()),
+            "cells_network_area": int((fh.grid_state == "network_area").sum()),
+            "cells_no_data": int((fh.grid_state == "no_data").sum()),
+            "cells_excluded": int(fh.charge_excluded.sum())
+            if "charge_excluded" in fh else 0,
+            "built_share": {s: round(float(built.get(s, 0.0)) / max(tot_built, 1e-9), 4)
+                            for s in ("feeder", "network_area", "no_data")},
+            "substations": int(len(subs_all)),
+            "feeders": int(len(fdr)),
+            # The two readings side by side: the per-feeder charging limit that
+            # actually binds, and the bank headroom the plan used to assume.
+            "feeder_capacity_total_mw": round(
+                float(fdr.charge_kw.sum() / 1000), 1),
             "headroom_total_mw": round(
-                float(fh.drop_duplicates("substation").headroom_kw.sum() / 1000), 1),
+                float(subs_all.headroom_kw.sum() / 1000), 1),
         }
     alloc_m = rj("allocation_plan.json")
     alloc_m.pop("sites", None)
@@ -158,7 +197,9 @@ def build() -> dict:
             "stations_ports": int(st.ports.sum()),
             "stations_mw": round(float(st.kw.sum() / 1000), 1),
             "hex_cells": int(len(df)),
-            "raw_bytes": 11_501_000_000,
+            # Measured, not asserted: this was a hardcoded 11.5 GB and went
+            # stale the moment Stage 8b added 1.6 GB of for-hire records.
+            "raw_bytes": _raw_corpus_bytes(),
         },
         "demand": demand_m,
         "suitability": suit_m,

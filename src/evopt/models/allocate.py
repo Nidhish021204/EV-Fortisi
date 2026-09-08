@@ -24,13 +24,19 @@ Two constraints do the real work:
 An equity floor guarantees every borough a minimum allocation, so the optimiser
 cannot answer "where is demand densest" with "all of it in Manhattan".
 
-Grid capacity binds too.  Con Edison publishes, per substation bank, the rating
-at the feeder head minus last year's peak. That headroom is finite and shared:
-three NYC banks (JAMAICA 3 MW, BENSONHURST NO.2 and GREENWOOD both already
-above peak) can absorb essentially nothing. Rather than ban sites outright, the
-grid *shrinks* them -- a hub gets as many ports as its bank can still carry,
-which is what actually happens when a utility reviews an interconnection. A
-bank with under one port of headroom left excludes its cells entirely.
+Grid capacity binds too, and at the feeder.  Con Edison publishes a per-feeder
+limit on new charging load (`STORAGE_MAX_CHARGE`), and that -- not the
+substation bank rating -- is what a site actually draws against. City-wide the
+feeder limits sum to 533 MW against 1,686 MW of bank headroom, so planning
+against the bank was 3.2x too permissive; a fifth of feeders publish zero.
+
+Both limits are enforced, because both are real: a site consumes its feeder's
+charging allowance *and* its bank's headroom, and whichever runs out first
+stops it. Rather than ban sites outright, the grid *shrinks* them -- a hub gets
+as many ports as its feeder can still carry, which is what happens when a
+utility reviews an interconnection. Anything with under one port of room left
+is excluded outright, which is also how feeders on Con Edison's explicit
+"no charging capacity" layer drop out: their limit is a published zero.
 """
 from __future__ import annotations
 
@@ -84,12 +90,15 @@ def size_ports(kwh_day: float) -> dict:
 
 
 def load_grid() -> pd.DataFrame:
-    """h3 -> substation bank and its remaining headroom in kW."""
+    """h3 -> serving feeder and bank, with the capacity each still has in kW."""
     f = INTERIM / "feeders_h3.parquet"
+    cols = ["h3", "feeder_id", "substation", "headroom_kw",
+            "bank_headroom_kw", "grid_state", "charge_excluded",
+            "dist_to_feeder_m"]
     if not f.exists():
-        return pd.DataFrame(columns=["h3", "substation", "headroom_kw"])
-    return pd.read_parquet(f)[["h3", "substation", "headroom_kw",
-                               "dist_to_feeder_m"]]
+        return pd.DataFrame(columns=cols)
+    g = pd.read_parquet(f)
+    return g[[c for c in cols if c in g.columns]]
 
 
 def greedy_mclp(cells: pd.DataFrame, k: int, radius_m: float = COVER_RADIUS_M,
@@ -115,18 +124,37 @@ def greedy_mclp(cells: pd.DataFrame, k: int, radius_m: float = COVER_RADIUS_M,
     per_boro: dict[str, int] = {}
     min_per_borough = min_per_borough or {}
 
-    # Grid state: how much of each bank's headroom is already committed.
-    sub = (cells.substation.where(cells.substation.notna(), None).to_numpy()
-           if use_grid and "substation" in cells
-           else np.array([None] * len(cells), dtype=object))
-    head = (cells.headroom_kw.to_numpy(float) if use_grid and "headroom_kw" in cells
-            else np.full(len(cells), np.inf))
-    consumed: dict[object, float] = {}
+    # Grid state: two shared ledgers, because a site draws on its feeder's
+    # published charging allowance *and* on its substation bank's headroom.
+    # The feeder is the tighter of the two almost everywhere, but the bank is
+    # still real, so whichever exhausts first is what stops the site.
+    def _keys(col: str) -> np.ndarray:
+        if use_grid and col in cells:
+            return cells[col].where(cells[col].notna(), None).to_numpy()
+        return np.array([None] * len(cells), dtype=object)
+
+    def _caps(col: str) -> np.ndarray:
+        if use_grid and col in cells:
+            return cells[col].to_numpy(float)
+        return np.full(len(cells), np.inf)
+
+    fdr, sub = _keys("feeder_id"), _keys("substation")
+    head_f, head_b = _caps("headroom_kw"), _caps("bank_headroom_kw")
+    used_f: dict[object, float] = {}
+    used_b: dict[object, float] = {}
+
+    def _left(key, head, used, i: int) -> float:
+        # A missing key or a NaN cap means Con Edison publishes nothing here,
+        # which is not the same as "no capacity here" -- read as unconstrained.
+        if key[i] is None or not np.isfinite(head[i]):
+            return float("inf")
+        return head[i] - used.get(key[i], 0.0)
 
     def head_left(i: int) -> float:
-        if not use_grid or sub[i] is None or not np.isfinite(head[i]):
+        if not use_grid:
             return float("inf")
-        return head[i] - consumed.get(sub[i], 0.0)
+        return min(_left(fdr, head_f, used_f, i),
+                   _left(sub, head_b, used_b, i))
 
     # Lazy greedy: gains are upper bounds that only shrink, so a candidate
     # still on top after refresh is exact.
@@ -191,9 +219,11 @@ def greedy_mclp(cells: pd.DataFrame, k: int, radius_m: float = COVER_RADIUS_M,
 
         row = cells.iloc[best]
         sizing = size_ports(captured)
+        draw = sizing["ports"] * PORT_KW
+        if fdr[best] is not None:
+            used_f[fdr[best]] = used_f.get(fdr[best], 0.0) + draw
         if sub[best] is not None:
-            consumed[sub[best]] = (consumed.get(sub[best], 0.0)
-                                   + sizing["ports"] * PORT_KW)
+            used_b[sub[best]] = used_b.get(sub[best], 0.0) + draw
         out.append({
             "rank": len(chosen), "h3": row.h3,
             "lat": float(row.lat), "lon": float(row.lon),
@@ -203,6 +233,7 @@ def greedy_mclp(cells: pd.DataFrame, k: int, radius_m: float = COVER_RADIUS_M,
             "p_viable": round(float(row.p_viable), 4),
             "cells_covered": int(covers[best].sum()),
             "saturated": bool(total_avail > SITE_CAPACITY_KWH),
+            "feeder_id": (None if fdr[best] is None else str(fdr[best])),
             "substation": (None if sub[best] is None else str(sub[best])),
             "headroom_kw_before": (None if np.isinf(hl) else round(float(hl), 1)),
             "grid_limited": bool(not np.isinf(hl) and cap_here < min(
@@ -221,30 +252,34 @@ def grid_sweep(cand: pd.DataFrame, min_per_borough: dict,
     planner needs to know how far the programme can grow before Con Edison,
     not demand, is what stops it.
 
-    Greedy is nested -- the first k of a run *is* the greedy solution for k --
-    so one run at k_max yields every smaller budget by cumulative sum. Two
-    runs therefore answer the whole curve, and the constrained run's own
-    stopping point is where the grid exhausts the eligible pool.
+    Each budget gets its own pair of runs. Greedy is nested only while every
+    pick is unconstrained: the equity floor's forcing rule triggers on
+    `sum(deficit) >= slots_left`, which depends on the budget, so the first
+    120 picks of a k=600 run are *not* the greedy solution for k=120. Taking
+    cumulative sums over one long run was cheaper but reported a different
+    number at k=120 than `run()` did for the same instance.
     """
-    con = pd.DataFrame(greedy_mclp(cand, k=k_max,
-                                   min_per_borough=min_per_borough))
-    free = pd.DataFrame(greedy_mclp(cand, k=k_max,
-                                    min_per_borough=min_per_borough,
-                                    use_grid=False))
-    pts = []
-    for k in (120, 200, 300, 400, 500, 600):
-        c = float(con.captured_kwh_day.head(k).sum())
-        f = float(free.captured_kwh_day.head(k).sum())
+    ks = (120, 200, 300, 400, 500, 600)
+    pts, con_max, free_max = [], None, None
+    for k in ks:
+        con = pd.DataFrame(greedy_mclp(cand, k=k,
+                                       min_per_borough=min_per_borough))
+        free = pd.DataFrame(greedy_mclp(cand, k=k,
+                                        min_per_borough=min_per_borough,
+                                        use_grid=False))
+        if k == ks[-1]:
+            con_max, free_max = con, free
+        c, f = float(con.captured_kwh_day.sum()), float(free.captured_kwh_day.sum())
         pts.append({"k": k,
                     "constrained_kwh_day": round(c, 1),
                     "unconstrained_kwh_day": round(f, 1),
                     "cost_pct": round(100 * (f - c) / max(f, 1e-9), 2),
-                    "sites_available_constrained": int(min(k, len(con))),
-                    "port_limited": int(con.grid_limited.head(k).sum())
+                    "sites_available_constrained": int(len(con)),
+                    "port_limited": int(con.grid_limited.sum())
                     if "grid_limited" in con else 0})
     return {"k_max": k_max,
-            "sites_before_grid_exhausts": int(len(con)),
-            "sites_without_grid_limit": int(len(free)),
+            "sites_before_grid_exhausts": int(len(con_max)),
+            "sites_without_grid_limit": int(len(free_max)),
             "curve": pts}
 
 
@@ -267,6 +302,13 @@ def run(k: int = 120, min_per_borough: dict | None = None) -> dict:
         # as unconstrained rather than excluding the cell outright.
 
     cand = df[(df.unmet_kwh > 0) & (df.dist_to_road_m < 800)].copy()
+    n_pre = len(cand)
+    # Con Edison's layer 2 lists feeders with no charging capacity at all.
+    # Those cells are excluded outright rather than carried with a zero cap,
+    # so the greedy and the MILP certificate see the same candidate set.
+    if "charge_excluded" in cand:
+        cand = cand[~cand.charge_excluded.fillna(False)]
+    n_excluded = n_pre - len(cand)
     cand = cand.nlargest(1500, "unmet_kwh").reset_index(drop=True)
 
     plan = greedy_mclp(cand, k=k, min_per_borough=min_per_borough)
@@ -287,6 +329,8 @@ def run(k: int = 120, min_per_borough: dict | None = None) -> dict:
         "sites_displaced": int(len(set(fdf.h3) - set(pdf.h3))),
         "sites_grid_limited": int(pdf.get("grid_limited", pd.Series(dtype=bool)).sum()),
         "substations_used": int(pdf.substation.nunique()) if "substation" in pdf else 0,
+        "feeders_used": int(pdf.feeder_id.nunique()) if "feeder_id" in pdf else 0,
+        "candidates_excluded_no_charge": int(n_excluded),
     }
     grid_impact["cost_pct"] = round(
         100 * grid_impact["cost_kwh_day"]
@@ -338,7 +382,7 @@ if __name__ == "__main__":
 
     g = r["grid_impact"]
     print()
-    print("  GRID (Con Edison substation headroom)")
+    print("  GRID (Con Edison per-feeder charging limit, bank headroom also enforced)")
     print("    with constraint   : %s kWh/day, %d ports"
           % (f'{g["constrained_kwh_day"]:,.0f}', g["constrained_ports"]))
     print("    without           : %s kWh/day, %d ports"
@@ -347,7 +391,15 @@ if __name__ == "__main__":
           "%d port-limited"
           % (f'{g["cost_kwh_day"]:,.0f}', g["cost_pct"], g["sites_displaced"],
              g["sites_grid_limited"]))
-    print("    substations used  : %d" % g["substations_used"])
+    print("    feeders / banks used : %d / %d"
+          % (g["feeders_used"], g["substations_used"]))
+    print("    candidates dropped on no-charge feeders : %d"
+          % g["candidates_excluded_no_charge"])
+    # The constraint can only bind where Con Edison publishes capacity, so a
+    # borough with no published feeder data competes unconstrained against
+    # boroughs that are constrained. Manhattan is entirely in that position.
+    print("    NOTE: cells with no published feeder capacity are unconstrained,")
+    print("          so the constraint applies unevenly across boroughs.")
     sw = g.get("sweep", {})
     if sw:
         print()

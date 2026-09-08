@@ -48,6 +48,7 @@ export interface PlanSite {
   p_viable: number;
   cells_covered: number;
   saturated: boolean;
+  feeder_id?: string | null;
   substation: string | null;
   headroom_kw_before: number | null;
   grid_limited: boolean;
@@ -155,6 +156,8 @@ export interface Metrics {
     constrained_ports: number; unconstrained_ports: number;
     sites_displaced: number; sites_grid_limited: number;
     substations_used: number;
+    feeders_used?: number;
+    candidates_excluded_no_charge?: number;
     sweep?: {
       k_max: number; sites_before_grid_exhausts: number;
       sites_without_grid_limit: number;
@@ -164,9 +167,13 @@ export interface Metrics {
     };
   };
   grid_coverage: {
-    by_borough: { borough: string; cells: number; covered: number; pct: number }[];
+    by_borough: { borough: string; cells: number; pct: number;
+                  feeder: number; network_area: number; no_data: number }[];
     cells_covered: number; cells_total: number;
+    cells_network_area?: number; cells_no_data?: number; cells_excluded?: number;
+    built_share?: { feeder: number; network_area: number; no_data: number };
     substations: number; headroom_total_mw: number;
+    feeders?: number; feeder_capacity_total_mw?: number;
   };
   uncertainty: {
     n_bootstrap: number; n_seeds: number; bootstrap_bias_max_abs: number;

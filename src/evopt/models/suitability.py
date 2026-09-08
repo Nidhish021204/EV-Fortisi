@@ -32,8 +32,13 @@ from sklearn.metrics import average_precision_score, roc_auc_score
 from ..config import PROCESSED, MODELS, REPORTS
 
 FEATURES = [
-    # demand / mobility
-    "demand_kwh", "demand_taxi_kwh", "demand_fleet_kwh", "unmet_kwh",
+    # Demand / mobility. The *_hist variants are deliberate: this model fits on
+    # the network as of TRAIN_CUTOFF and is scored on what got built in
+    # 2019-21, while the surface the optimiser plans against is re-weighted to
+    # Q1 2026 for-hire activity (Stage 8b). Using the current surface here
+    # would put post-cutoff information into a pre-cutoff fit.
+    "demand_kwh_hist", "demand_taxi_kwh_hist", "demand_fleet_kwh",
+    "unmet_kwh_hist",
     "pickups", "dropoffs", "dwell_surplus", "flow_imbalance",
     "mean_trip_miles", "pickups_peak",
     # traffic / corridor
@@ -149,7 +154,10 @@ def run() -> dict:
     # Baselines that a serious accuracy claim has to beat.
     rng = np.random.default_rng(0)
     results["baseline_random"] = _rank_metrics(y_fwd, rng.random(len(cand)))
-    results["baseline_demand"] = _rank_metrics(y_fwd, cand.demand_kwh.to_numpy())
+    # Historical demand, for the same reason the features use it: a baseline
+    # built from post-cutoff activity would not be a fair thing to beat.
+    results["baseline_demand"] = _rank_metrics(
+        y_fwd, cand.demand_kwh_hist.to_numpy())
     results["baseline_traffic"] = _rank_metrics(y_fwd, cand.aadt_proxy.to_numpy())
     results["baseline_near_existing"] = _rank_metrics(
         y_fwd, -cand.dist_station_ex_m.to_numpy())

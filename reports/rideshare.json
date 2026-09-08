@@ -1,0 +1,61 @@
+{
+  "window_current": [
+    "2026-01",
+    "2026-02",
+    "2026-03"
+  ],
+  "window_baseline": "2015-01, 2016-01..03 (yellow taxi, Q1)",
+  "cells_total": 13109,
+  "cells_in_zone": 6633,
+  "demand_share_in_zone": 0.9863,
+  "zones_matched": 260,
+  "zones_no_baseline": 0,
+  "stranded_current_vmt_share": 0.0,
+  "unlocatable_vmt_share": 0.1268,
+  "count_vs_vmt_pearson_log": 0.9711,
+  "count_vs_vmt_spearman": 0.9691,
+  "worst_disagreements": [
+    {
+      "locationid": 110,
+      "r_count": 10.1771041430172,
+      "r_vmt": 0.3980179142378766,
+      "cur_drops": 252.0
+    },
+    {
+      "locationid": 156,
+      "r_count": 156.5110135482612,
+      "r_vmt": 19.936877716482524,
+      "cur_drops": 83322.0
+    },
+    {
+      "locationid": 187,
+      "r_count": 182.32186007693252,
+      "r_vmt": 23.46040669341943,
+      "cur_drops": 47685.0
+    },
+    {
+      "locationid": 206,
+      "r_count": 113.76233428215707,
+      "r_vmt": 15.773108386647756,
+      "cur_drops": 146656.0
+    },
+    {
+      "locationid": 44,
+      "r_count": 111.1844956230638,
+      "r_vmt": 15.758715464937556,
+      "cur_drops": 30284.0
+    },
+    {
+      "locationid": 109,
+      "r_count": 77.42561133255268,
+      "r_vmt": 11.04987832511979,
+      "cur_drops": 45413.0
+    }
+  ],
+  "hvfhv_share_of_current_dropoffs": 0.8482,
+  "conservation_err": {
+    "kwh_day_now": 1.809256911710461e-16,
+    "dropoffs_now": 0.0,
+    "pickups_now": 0.0
+  }
+}

@@ -1,5 +1,5 @@
 # ── Data ────────────────────────────────────────────────────────────
-# raw/ holds ~11 GB of hardlinked source CSVs. Never commit.
+# raw/ holds ~13.5 GB of hardlinked source CSVs and cached downloads. Never commit.
 data/raw/
 data/interim/
 data/processed/
@@ -40,3 +40,8 @@ skills-lock.json
 
 # ── Build caches ────────────────────────────────────────────────────
 *.tsbuildinfo
+
+# ── Scratch ─────────────────────────────────────────────────────────
+# DuckDB spills here when an aggregation exceeds its memory limit; the
+# taxi and HVFHV stages can leave several GB behind mid-run.
+.tmp/

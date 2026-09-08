@@ -493,11 +493,15 @@ export function GlobalAttribution({ e }: { e: Explain | null }) {
           );
         })}
       </svg>
+      {/* Named from the data. This read "Parking floor area leads" while the
+          chart showed assessed value density ahead of it — a caption can go
+          stale against its own figure, so it now reads the ranking. */}
       <p className="ch-note">
-        Parking floor area leads, which is the physically right answer: charging
-        hardware goes into parking structures, so a cell with none is hard to
-        build in however much demand passes through it. That column arrived with
-        the PLUTO land-use block in Stage 3.
+        {rows[0]?.label} leads, with {rows[1]?.label.toLowerCase()} behind it.
+        Both arrived with the PLUTO land-use block in Stage 3, and together they
+        say the physically right thing: charging hardware goes into parking
+        structures on land worth building on, so a cell with neither is hard to
+        build in however much demand passes through it.
       </p>
       <p className="ch-note">
         Attributions explain the mean log-odds, while the ranked score is the
@@ -532,8 +536,14 @@ export function GridPanel({ f, cov }: {
       <figcaption>
         <span className="ch-title">Grid capacity</span>
         <span className="mono ch-sub">
-          Con Edison substation headroom · {cov.substations} banks ·{" "}
-          {fmt.int(cov.headroom_total_mw)} MW total
+          Con Edison per-feeder charging limit ·{" "}
+          {cov.feeders != null ? `${fmt.int(cov.feeders)} feeders · ` : ""}
+          {cov.feeder_capacity_total_mw != null
+            ? `${fmt.int(cov.feeder_capacity_total_mw)} MW`
+            : `${fmt.int(cov.headroom_total_mw)} MW`}
+          {cov.feeder_capacity_total_mw != null
+            ? ` vs ${fmt.int(cov.headroom_total_mw)} MW of bank headroom`
+            : ""}
         </span>
       </figcaption>
 
@@ -581,12 +591,16 @@ export function GridPanel({ f, cov }: {
                     textAnchor="middle">{c.k}</text>
             ))}
           </svg>
+          {/* Read from the data rather than asserted: the grid's cost moved
+              once the constraint switched from bank headroom to Con Edison's
+              per-feeder charging limit, so the conclusion has to follow the
+              number instead of outliving it. */}
           <p className="ch-note">
-            Energy given up to the grid limit, by programme size k. It plateaus
-            near {curve[curve.length - 1].cost_pct.toFixed(2)}%: within the
-            boroughs Con Edison covers, published headroom is not what limits
-            this programme. Demand geography and the 800 m coverage radius bind
-            first.
+            Energy given up to the grid limit, by programme size k. It
+            plateaus near {curve[curve.length - 1].cost_pct.toFixed(2)}%
+            {f.cost_pct < 1
+              ? ": where Con Edison publishes feeder capacity, it is not what limits this programme — demand geography and the 800 m coverage radius bind first."
+              : `: the feeder limit is a real constraint here, displacing ${f.sites_displaced} site${f.sites_displaced === 1 ? "" : "s"} at k=120 and shrinking ${f.sites_grid_limited} more.`}
           </p>
         </>
       )}
@@ -594,7 +608,8 @@ export function GridPanel({ f, cov }: {
       <table className="tbl mono">
         <thead>
           <tr><th>Borough</th><th className="r">Cells</th>
-            <th className="r">With grid data</th></tr>
+            <th className="r">Feeder</th><th className="r">Network</th>
+            <th className="r">No data</th></tr>
         </thead>
         <tbody>
           {[...cov.by_borough].sort((a, b) => a.pct - b.pct).map((r) => (
@@ -602,22 +617,33 @@ export function GridPanel({ f, cov }: {
               <td>{r.borough}</td>
               <td className="r dim">{fmt.int(r.cells)}</td>
               <td className="r" style={{ color: r.pct === 0 ? C.critical : C.ink2 }}>
-                {r.pct.toFixed(1)}%
+                {fmt.int(r.feeder)}
               </td>
+              <td className="r dim">{fmt.int(r.network_area)}</td>
+              <td className="r dim">{fmt.int(r.no_data)}</td>
             </tr>
           ))}
         </tbody>
       </table>
       <p className="note-eq mono">
-        LAYER 0 COVERS 3-PHASE RADIAL FEEDERS. MANHATTAN RUNS ON CON EDISON'S
-        SECONDARY NETWORK SYSTEM, PUBLISHED SEPARATELY, SO IT HAS NO COVERAGE
-        HERE. CELLS OVER 1 KM FROM A PUBLISHED FEEDER ARE LEFT UNCONSTRAINED
-        RATHER THAN CHARGED TO A DISTANT BANK.
+        LAYER 0 COVERS 3-PHASE RADIAL FEEDERS. MANHATTAN RUNS ON THE SECONDARY
+        NETWORK, WHOSE PUBLISHED LAYERS CARRY <em>GENERATION</em> HOSTING
+        CAPACITY, NOT CHARGING LOAD HEADROOM — SO THEY ARE NOT SUBSTITUTED IN.
+        CELLS OVER 1 KM FROM A PUBLISHED FEEDER ARE LEFT UNCONSTRAINED RATHER
+        THAN CHARGED TO A DISTANT FEEDER.
       </p>
+      {/* Weighted by built floor area, because cell counts are diluted by
+          river and park cells that have no grid because they have nothing
+          on them. By area the covered share is markedly smaller. */}
       <p className="ch-note">
-        The negative result therefore holds only where the data reaches:{" "}
-        {fmt.int(cov.cells_covered)} of {fmt.int(cov.cells_total)} cells. Absence
-        of published capacity is not evidence of available capacity.
+        The result holds only where the data reaches:{" "}
+        {fmt.int(cov.cells_covered)} of {fmt.int(cov.cells_total)} cells
+        {cov.built_share
+          ? `, and only ${(100 * cov.built_share.feeder).toFixed(1)}% of the city's built floor area —
+             ${(100 * cov.built_share.network_area).toFixed(1)}% sits on the secondary network,
+             leaving ${(100 * cov.built_share.no_data).toFixed(1)}% genuinely unaccounted`
+          : ""}
+        . Absence of published capacity is not evidence of available capacity.
       </p>
     </figure>
   );

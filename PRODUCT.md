@@ -4,7 +4,7 @@
 
 ## Product Purpose
 
-A planning instrument for siting electric-vehicle charging infrastructure across New York City. It reads 11.5 GB of municipal mobility and traffic records, estimates where charging demand actually falls, measures where the existing network fails to serve it, and solves for the set of new sites that closes the largest share of that gap under a capital budget, a queueing-delay ceiling, and a per-borough equity floor.
+A planning instrument for siting electric-vehicle charging infrastructure across New York City. It reads 13.5 GB of municipal mobility and traffic records, estimates where charging demand actually falls, measures where the existing network fails to serve it, and solves for the set of new sites that closes the largest share of that gap under a capital budget, a queueing-delay ceiling, a per-borough equity floor, and Con Edison's published per-feeder charging capacity.
 
 It is not a map viewer. It is the artifact a planner brings to a capital-allocation meeting and has to defend line by line.
 
@@ -34,6 +34,6 @@ Numbers carry units. Every derived quantity can be traced to the record count it
 
 1. **The data field is the interface.** The map is not a backdrop with widgets on top. The hex surface is the primary object and everything else annotates it.
 2. **Colour belongs to data, not to chrome.** Chrome is tinted neutral. Saturated colour appears only where it encodes a measured value or flags an alert.
-3. **Every claim shows its denominator.** "40.3% of unmet demand" is meaningless without the 958,274 kWh/day it is a share of. Both appear.
+3. **Every claim shows its denominator.** "29.3% of unmet demand" is meaningless without the 985,131 kWh/day it is a share of. Both appear.
 4. **Show the results, including the ones that were wrong.** The demand model once lost to a trivial AADT baseline under spatial cross-validation. The product shows that failure, the ablation that diagnosed it, and the fix — not just the final number.
 5. **No interaction without a decision behind it.** Controls exist to change the plan (budget, radius, equity floor), not to let the user fiddle with visual settings.

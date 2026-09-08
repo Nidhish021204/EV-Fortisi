@@ -138,9 +138,17 @@ function LeftRail(p: {
           <input type="range" min={5} max={p.m.allocation.k} step={1}
                  value={p.budget} aria-label="Number of sites"
                  onChange={(e) => p.setBudget(Number(e.target.value))} />
+          {/* The earlier claim here — that greedy is nested, so the first k
+              sites are exactly the greedy plan for k — is false once the
+              per-borough floor is active: the floor's forcing rule triggers on
+              how many slots remain, so it depends on the budget. Slicing is
+              still the right interaction, but it must not be sold as an
+              optimum it is not. */}
           <p className="bd-note">
-            Greedy selection is nested, so the first k sites are exactly the
-            optimal-greedy plan for budget k. No refit needed.
+            The first k sites of the k = {p.m.allocation.k} plan. Ranking is
+            exact, but below the full budget the per-borough floor may not yet
+            be met — it is satisfied by construction only at k ={" "}
+            {p.m.allocation.k}. Re-solve for a firm smaller programme.
           </p>
         </div>
         <dl className="readout mono">
@@ -345,10 +353,16 @@ function SiteInspector({ s, onClose, ex }: {
                   : "n/a"}
               hot={s.stability != null && s.stability < 0.5}
               dim={s.stability == null} />
-        <Read k="BANK HEADROOM"
+        <Read k="FEEDER" v={s.feeder_id ?? "no published data"}
+              dim={!s.feeder_id} />
+        {/* The binding limit is the smaller of the feeder's published
+            charging allowance and its bank's remaining headroom, so this
+            is that minimum rather than the bank figure alone. */}
+        <Read k="GRID ROOM LEFT"
               v={s.headroom_kw_before != null
-                  ? (s.headroom_kw_before / 1000).toFixed(1) + " MW"
+                  ? (s.headroom_kw_before / 1000).toFixed(2) + " MW"
                   : "—"}
+              hot={s.grid_limited}
               dim={s.headroom_kw_before == null} />
       </dl>
       <SiteDrivers site={ex} />

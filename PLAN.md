@@ -36,8 +36,8 @@ Run the whole thing with `python run_pipeline.py`, or one stage with `python run
 
 **Objective.** Put every source on one comparable spatial unit and build features that describe a location's *context*, not just its own cell.
 
-- **H3 resolution 9** (~0.105 km², 174 m edge) → 8,741 sitable cells. Uniform 6-neighbour adjacency, near-constant area, lossless roll-up to res 8.
-- **Land mask from observation.** A cell with no taxi activity, no traffic counts and no tax lots is water or otherwise unreachable. No boundary shapefile needed; PLUTO's lot coverage later sharpened this, taking the universe from 8,249 to 8,741 cells.
+- **H3 resolution 9** (~0.105 km², 174 m edge) → 8,740 sitable cells. Uniform 6-neighbour adjacency, near-constant area, lossless roll-up to res 8.
+- **Land mask from observation.** A cell with no taxi activity, no traffic counts and no tax lots is water or otherwise unreachable. No boundary shapefile needed; PLUTO's lot coverage later sharpened this, taking the universe from 8,249 to 8,740 cells.
 - **Borough assignment** from the nearest labelled traffic segment within 2 km, which also drops the New Jersey collar the bounding box admits.
 - **Spatial lag features** over k=1 and k=2 rings, for ten base fields. A site's value is largely determined by what surrounds it.
 - **Leave-one-cell-out supply features.** Supply is computed twice: including all stations, and excluding stations sited in the cell being scored. Only the `_ex` variants reach the classifier.
@@ -136,7 +136,7 @@ max Σ wᵢyᵢ   s.t.  coverage radius 800 m · min spacing 400 m
 - **Congestion is modelled.** Each site is an M/M/c queue; ports are sized so ρ ≤ 0.70, which keeps the queue stable by construction and lets the plan *state* an expected wait.
 - **Equity floor** guarantees Bronx 18, Brooklyn 22, Queens 22, Staten Island 12.
 
-**Result at k = 120:** 790 ports, $35.5 M capex, **38.5% of unmet demand served**, mean queue 5.0 min (p95 13.8 min).
+**Result at k = 120:** 790 ports, $35.5 M capex, **38.5% of unmet demand served**, mean queue 5.0 min (p95 13.8 min). *(Superseded by Stage 8: 642 ports, $28.9 M, 29.3%, 7.0 min — the demand surface was re-weighted to the current for-hire fleet and the grid constraint corrected to Con Edison's per-feeder limit.)*
 
 **Exit criterion.** Every constraint provably holds in the emitted plan. *Met — max ρ = 0.70 exactly, floors satisfied.*
 
@@ -235,7 +235,7 @@ Same candidate pool, same weights, same constraints as greedy, so the two are di
 
 **CBC proved optimality in 46.9 s**, so the ratio is exact rather than a bound:
 
-> **Greedy achieves 95.30% of the certified optimum**, clearing its own 63.21% worst-case guarantee by 32.1 points.
+> **Greedy achieves 95.30% of the certified optimum**, clearing its own 63.21% worst-case guarantee by 32.1 points. *(Re-certified in Stage 8 against the corrected grid constraint: **97.92%**, CBC again proving optimality.)*
 
 **What this licenses.** The dashboard's live budget slider recomputes plans with greedy on every drag, which was previously defensible only by a 63% floor. At 96% measured, greedy is the right runtime choice and the MILP is the audit path: run it once for the plan that actually goes into a capital programme. The worst case is a theorem about adversarial instances, and a real city is not adversarial.
 
@@ -281,7 +281,7 @@ The panel was first titled "Why this site" — which is wrong. SHAP explains the
 
 Attributing that per site needs a counterfactual, not a guess. Greedy is deterministic, so it is re-run with `min_per_borough` removed and the two plans diffed: anything present under the floor and absent without it is there *because* of the floor.
 
-> **26 of 120 sites exist because of the equity floor.**
+> **26 of 120 sites exist because of the equity floor.** *(Corrected in Stage 8c to **14 of 120**. This counterfactual re-ran the optimiser without the floor, but never merged the grid — so the "free" run was also unconstrained by Con Edison capacity, and every grid-displaced site was miscounted as equity-forced. The counterfactual now differs from the real plan in exactly one way.)*
 
 The heuristic reading — "47 low-viability sites must be equity-driven" — would have overstated it by nearly 2×. The other 21 low-viability sites survive on merit, because they capture unmet demand nothing else reaches.
 
@@ -366,7 +366,7 @@ Assignment is now capped at 1 km, and cells beyond it are marked "no published d
 
 So the negative result holds **only where the data reaches**: 5,460 of 8,742 cells, and 38 of the 120 plan sites. Manhattan's network capacity is genuinely unknown from this source. A related bug was fixed alongside: missing headroom was being filled with 0, which reads as "no capacity" and would have silently excluded every uncovered cell from the plan.
 
-**Certification re-run.** The MILP gained 20 substation constraints, charging every opened site the full MAX_PORTS draw - deliberately conservative, so it can only shrink the feasible region and the certified ratio stays honest. CBC proved optimality in 91.4 s: greedy achieves **95.30%** of the certified optimum.
+**Certification re-run.** The MILP gained 20 substation constraints, charging every opened site the full MAX_PORTS draw - deliberately conservative, so it can only shrink the feasible region and the certified ratio stays honest. CBC proved optimality in 91.4 s: greedy achieves **95.30%** of the certified optimum. *(Stage 8a adds the per-feeder family alongside the bank one — 247 grid constraints — and the ratio becomes 97.92%, still proved Optimal but at a much longer solve.)*
 
 ### 7f - Land-use transfer **[done]**
 
@@ -436,6 +436,8 @@ So 7a was under-determined, and its headline needs qualifying: a network's own *
 | Median stability | 1.00 |
 | Captured, 95% interval | 359,736 - 364,921 kWh/day |
 
+*(Re-measured after Stage 8: **60 of 120** always selected, **9 of 120** coin flips, median 0.99, captured 288,700 kWh/day 95% [285,960 – 291,088]. The plan became **less** stable, which is the honest consequence of a flatter demand surface — once demand is no longer concentrated in Manhattan many more cells are genuinely competitive, so the choice between them is less decisive. The seed-sweep metric intervals are essentially unchanged, as they must be: the suitability model is bit-identical.)*
+
 A ranked list hides this distinction entirely: rank 40 and rank 41 look identical on paper, but one may be chosen every time and the other in a third of replicates. Each site now carries its frequency in the inspector.
 
 **(b) How precise are the headline numbers?** PR-AUC drifts between identical pipeline runs because LightGBM's threaded histogram build is not bit-deterministic. A bag bootstrap is blind to that -- it conditions on one fitted ensemble -- so the only honest measurement is refitting. 15 seeds:
@@ -484,9 +486,9 @@ resources           10, all same-origin
 
 The temporal split gets the same treatment. The forward window is fixed at 2019-2021 while AFDC keeps publishing, so the check reports how much build-out now falls past the window: **356 stations (0.7%)**, against a deliberately conservative 5% trigger for a human to re-cut the split. Latest AFDC open date is 2022-10-04. Current verdict: **no action required**.
 
-**CI, `.github/workflows/ci.yml`.** The 11.5 GB corpus is gitignored and not reproducible on a runner, so CI verifies everything that does not need it: the dashboard typechecks and builds, the external-URL assertion passes, every `evopt` module imports cleanly, and `scripts/check_reports.py` asserts that the figures PLAN.md prints still match `reports/` at the precision 7g supports. **This is written but unverified here** -- the project has no GitHub remote, so the workflow has never actually executed. `scripts/check_reports.py` does run locally and passes (3 checks).
+**CI, `.github/workflows/ci.yml`.** The 13.5 GB corpus is gitignored and not reproducible on a runner, so CI verifies everything that does not need it: the dashboard typechecks and builds, the external-URL assertion passes, every `evopt` module imports cleanly, and `scripts/check_reports.py` asserts that the figures PLAN.md prints still match `reports/` at the precision 7g supports. **This is written but unverified here** -- the project has no GitHub remote, so the workflow has never actually executed. `scripts/check_reports.py` does run locally and passes (3 checks).
 
-**Pipeline is now 18 stages**, ending with `drift`, so every full run leaves behind a fresh manifest and control-limit verdict.
+**Pipeline is now 18 stages** (19 after Stage 8), ending with `drift`, so every full run leaves behind a fresh manifest and control-limit verdict.
 
 ### Operational follow-ups **[not blocking]**
 
@@ -496,20 +498,113 @@ Nothing outstanding in Stage 7. The remaining work is operational rather than me
 
 ---
 
+## Stage 8 — Grid constraint correction and current-era mobility **[done]**
+
+Two claims the project was making on weaker evidence than the sources allow. Both were checked against live endpoints before any code was written, and both changed the answer.
+
+### 8a · The grid constraint was reading the wrong column **[done]**
+
+Stage 7e derived headroom as `TOTAL_XFMR_CAPACITY − SUBST_PEAK` and deduplicated it to the substation bank, because those values repeat on every feeder hanging off the bank. That was the right fix for the wrong quantity. The same layer — already downloaded — publishes `STORAGE_MAX_CHARGE`, Con Edison's own limit on how much new **charging load** each feeder can take. Four feeders on the single WASHINGTON STREET bank (264 MW rated / 202 MW peak → one shared 62 MW headroom):
+
+| feeder | `STORAGE_MAX_CHARGE` |
+|---|---|
+| `91U1` | 0.138 MW |
+| `5302` | 0.209 MW |
+| `MACQUE_9W69` | 1.345 MW |
+| `MACQUE_9W65` | 4.244 MW |
+
+It varies per feeder, so it needs no dedup — and it is far tighter. City-wide the feeder limits sum to **533 MW against 1,686 MW of bank headroom: the reading the plan used was 3.2× too permissive.** 142 of 624 feeders (22.8%) publish exactly zero. A further 528 feeders appear on layer 2, "No Charging Capacity for 1PH and 2PH Feeders", which had never been ingested; they remove 902 candidate cells outright.
+
+Neither `STORAGE_MIN_CHARGE` (exactly 0.8 × MAX in every row) nor the `SC_*` columns are load limits — the latter are export screens for the discharge side, and `STORAGE_MAX_CHARGE` is not their minimum (0 of 600 rows matched). The unit is undocumented, so the stage asserts the p99 falls in a plausible megawatt band and fails loudly rather than silently scaling the plan by 1000×.
+
+**What it cost.** The grid's price at k=120 rose from 0.01–0.49% of served energy to **1.78%** (2.41% by k=300), 17 sites displaced, and the pool now exhausts at **308 sites against 330** unconstrained. So the Stage 7e headline does not fully survive: the grid is a real constraint, roughly 3–5× more binding than reported — but demand geography and the 800 m radius still bind first, so "not the bottleneck" holds in direction while being wrong in magnitude.
+
+**Manhattan's blank, explained rather than filled.** The obvious move was to substitute Con Edison's network layers (`CE_NwkHcv_*`, 154,883 structures, Manhattan 27,982 / 4.17 GW). Con Edison's own definitions rule it out: those publish **hosting capacity**, a *generation/DER interconnection* metric, while charging needs *load* headroom. Substituting one for the other would be a category error. So the gap is labelled instead, using the network-supplied-area boundary:
+
+| state | cells | built floor area | meaning |
+|---|---|---|---|
+| `feeder` | 5,461 (62.5%) | **38.5%** | capacity published, constraint enforced |
+| `network_area` | 1,973 (22.6%) | **59.4%** | secondary network; charging capacity not published |
+| `no_data` | 1,306 (14.9%) | **2.1%** | outside both layers |
+
+Weighting by built floor area rather than cell count matters: cell counts are diluted by river and park cells that have no grid because they have nothing on them. Manhattan is 0 / 540 / 420 by cells, but its `no_data` residue holds **1.0%** of its floor area against 99.0% in `network_area` — so the blank is now almost entirely *explained*, and only 2.1% of the city is genuinely unaccounted. Absence of published capacity is still not evidence of available capacity.
+
+**A caveat this creates.** The constraint can only bind where Con Edison publishes, so Manhattan competes unconstrained against boroughs that are constrained. That is a structural bias from data availability, not from the model, and it is now printed with the allocation rather than left implicit.
+
+### 8b · The demand surface was 2015–16 yellow taxi alone **[done]**
+
+Two of the project's own limitations — Manhattan bias and a pre-pandemic window — had a fix available. Since 2019 the city publishes high-volume for-hire trips: **1.65 billion against 333 million yellow taxi**. In the Q1 2026 window actually used, HVFHV is **84.8% of drop-offs** (62.9M vs 10.7M yellow, 118k green) and 294.7M of 332.3M miles.
+
+**It is a re-weighting, not a new surface, and that is forced by the data.** HVFHV records carry no coordinates — verified against the April 2026 file (20,995,953 rows): `PULocationID` / `DOLocationID` only, 263 zones, ~33× coarser than a res-9 cell. The 2015–16 taxi vintages remain the only source of within-zone structure. So taxi supplies *shape*, for-hire supplies *magnitude*:
+
+    r_z = (current share of zone z) / (2015-16 share of zone z)
+
+renormalised so each rescaled total is preserved **exactly** (relative error 0.00e+00). Shares rather than levels, because the two sources are not on a common absolute scale — one is bbox-and-distance-filtered trip records, the other a published count — and because the surface's absolute level is already a modelled scenario (`EV_SHARE`) while its distribution is the measurement.
+
+Season is matched, not assumed: the taxi baseline is Q1-heavy, so the current window is Q1 2026, and the three raw months downloaded are exactly the months the aggregate window covers.
+
+**The result is large.** Borough share of demand, 2015–16 taxi → Q1 2026 for-hire:
+
+| borough | before | after | shift |
+|---|---|---|---|
+| Manhattan | 72.1% | **36.5%** | −35.5 pt |
+| Queens | 14.5% | 26.9% | +12.4 pt |
+| Brooklyn | 11.3% | 23.8% | +12.5 pt |
+| Bronx | 2.0% | 11.3% | +9.3 pt |
+| Staten Island | 0.1% | 1.6% | +1.4 pt |
+
+The Manhattan bias the README admitted to was not a rounding issue. A yellow-taxi-only surface put 72% of the city's charging demand in one borough; the current for-hire fleet puts 37% there.
+
+**The three raw months earned their place.** The aggregate table has counts but no miles, and the surface runs on VMT. Count-based and VMT-corrected factors correlate at Pearson(log) 0.971 / Spearman 0.969 — high, but the worst zones disagree by 8–9× (zone 156: 156.5 vs 19.9; zone 206: 113.8 vs 15.8), because outer-borough zones gained many *short* for-hire trips. Counts alone would have overstated those zones badly.
+
+**Reported honestly:** 12.68% of current VMT is drop-offs TLC cannot place to a zone at all (codes 264/265, which have no polygon). Those are excluded from the share denominator rather than counted as stranded activity. 98.63% of taxi demand falls inside a zone; the cells that do not are shoreline and park edges and keep factor 1.0.
+
+**Residual limitation, not buried:** within-zone shape is still 2015–16. Where activity moved from one corner of a zone to another after 2016, this cannot see it.
+
+### 8c · A leakage path the plan did not anticipate **[done]**
+
+The stated rule was that the rescaled demand feeds `surface.py` only, never the suitability model — because HVFHV begins in 2019 and the forward test fits on ≤2018 to predict 2019–21. That rule was **incomplete**: `models/suitability.py` reads `surface_h3.parquet` and uses `demand_kwh`, `demand_taxi_kwh` and `unmet_kwh` among its 82 features. Q1 2026 information was reaching a pre-cutoff fit through the surface.
+
+It did not flatter the model — PR-AUC moved 2.6e-4 and the demand *baseline* got worse, 0.097 → 0.078 — but "it happened not to help" is not a defence. `surface.py` now emits both eras (`demand_kwh_hist`, `demand_taxi_kwh_hist`, `unmet_kwh_hist`, with capacity re-routed to the historical demand rather than reusing the current routing), the forward test consumes only the historical pair, and the optimiser only the current one.
+
+**The check that proves the insulation holds is the baselines.** While the leak was live the demand baseline read 0.078; with the historical pair restored it returns to **0.0969**, matching its pre-Stage-8 value to four decimals, and the traffic and near-existing baselines likewise agree to the fourth decimal. Those are deterministic rankings, so an exact match is the real evidence that no post-cutoff information reaches the forward test.
+
+One run of the guard returned every metric *bit-identical* (delta 0.00e+00). That does not reproduce, and it should not have been reported as if it would: LightGBM's threaded training is non-deterministic, which is precisely what Stage 7g's seed sweep exists to measure. Across refits the headline sits at **PR-AUC 0.170 against a pre-Stage-8 0.173 — a 0.0028 move inside the sweep's own 95% interval of [0.166, 0.174]**. The honest claim is therefore *within the control limit*, not *identical*.
+
+Two related bugs surfaced while enforcing pool consistency, both pre-existing: `models/uncertainty.py` built its candidate pool without the no-charge exclusion, and `models/explain.py`'s equity counterfactual **never merged the grid at all** — so the "free" run was unconstrained by Con Edison capacity and every grid-displaced site was being counted as equity-forced. With a tighter constraint that error would have grown.
+
+### What moved
+
+| | before Stage 8 | after |
+|---|---|---|
+| ports / capex | 788 · $35.5M | **642 · $28.9M** |
+| unmet demand served | 38.4% | **29.3%** |
+| greedy vs certified optimum | 95.30% | **97.92%** (proved Optimal) |
+| grid cost at k=120 | 0.01–0.49% | **1.78%** |
+| sites before the grid exhausts the pool | 338 | **308** |
+| mean queue wait | 5.0 min | **7.0 min** |
+| CBC solve time | 91 s | **425 s** |
+
+**A reproducibility caveat on that solve time.** The MILP now carries 247 grid rows across two constraint families and took 424.6 s against a `TIME_LIMIT_S = 420` that this CBC build did not enforce — the run reports "Optimal in 424.6s (limit 420s)". An earlier pass on the same instance took 1,107 s, so the margin over the limit is not stable either. Because CBC still *proved* optimality, the certificate is exact and the ratio stands. But on a slower machine, or with a CBC build that honours the limit, the solver may stop on the incumbent instead; `certify.py` already handles that case by labelling the ratio an upper bound rather than a certificate, and that labelling is now the difference between a proof and an estimate rather than a formality.
+
+The programme got smaller and cheaper because the demand it chases is no longer concentrated where a single borough's taxi feed said it was, and because the grid it must connect to is tighter than the bank rating implied. Both are corrections, not regressions.
+
+---
+
 ## Repository layout
 
 ```
 EV-Project-Optimization/
 ├── PLAN.md · PRODUCT.md · DESIGN.md · run_pipeline.py
 ├── data/
-│   ├── raw/{stations,mobility,traffic}/     11.5 GB, gitignored
+│   ├── raw/{stations,mobility,traffic}/     13.5 GB, gitignored
 │   ├── raw/landuse/pluto.parquet            858k tax lots, fetched once
 │   ├── interim/                             typed parquet
 │   └── processed/                           H3 features, surface, plan
 ├── src/evopt/
 │   ├── config.py · geo.py · features.py · surface.py · export.py
-│   ├── ingest/{stations,mobility,traffic,landuse}.py
 │   ├── ingest/{stations,mobility,traffic,landuse,acs,ghsl,feeders}.py
+│   ├── ingest/rideshare.py           HVFHV zone re-weighting (Stage 8b)
 │   ├── models/{demand,suitability,allocate,certify,explain,uncertainty,transfer}.py
 │   └── drift.py                      freshness manifest + control limits
 ├── models/            trained boosters
@@ -519,10 +614,11 @@ EV-Project-Optimization/
 
 ## Known limitations
 
-- Taxi trips are a biased sample of the vehicle fleet, concentrated in Manhattan. The fleet term anchors on traffic counts to compensate, but outer-borough demand is the weaker estimate.
-- The 2015–2016 mobility window predates both the pandemic and the TLC electrification mandate. It measures *structure* — where trips terminate and vehicles dwell — which is more stable than volume, but it is not current.
+- Taxi trips are a biased sample of the vehicle fleet, concentrated in Manhattan. Stage 8b measures that bias rather than assuming it — a yellow-taxi-only surface put 72.1% of demand in Manhattan against 36.5% for the current for-hire fleet — and corrects it at zone level. **Within-zone shape is still 2015–16**, because HVFHV records carry no coordinates.
+- Zone magnitudes are current (Q1 2026), but 12.68% of current VMT is drop-offs TLC cannot place to any zone and is excluded rather than redistributed.
 - Cost is a flat $45k/port. Real siting cost is dominated by electrical service upgrades and varies by an order of magnitude.
 - No parcel-level feasibility. A recommended cell is 0.105 km²; whether a specific lot inside it is available, zoned, and connectable is out of scope — though PLUTO now makes lot-level screening a tractable next step rather than a research problem.
-- Vehicle ownership rate is absent (ACS key required). In a city where car ownership varies from 22% in Manhattan to 83% on Staten Island, this is a real omission from the demand estimate.
+- The grid constraint binds only where Con Edison publishes feeder capacity — 38.5% of the city's built floor area. Manhattan, which is entirely secondary network, competes **unconstrained** against boroughs that are constrained. That is a bias from data availability, not from the model, and it is reported with the allocation.
+- Con Edison's network layers do publish capacity for Manhattan, but it is *generation* hosting capacity for DER interconnection, not charging load headroom. It is deliberately not substituted in.
 - PLUTO is a current snapshot while the mobility window is 2015–2016. Building stock changes slowly enough that this is a minor mismatch, but it is a mismatch.
 - **The model is NYC-specific.** Stage 7a shows that network-morphology suitability does not transfer across markets: only NYC → Connecticut clears its baseline. Do not deploy this model in another country without refitting.

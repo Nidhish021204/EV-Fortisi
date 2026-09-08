@@ -1,9 +1,20 @@
 {
-  "checked": "2026-09-06T16:41:29+00:00",
-  "sources_tracked": 20,
-  "groups_changed": [],
-  "groups_new": [],
-  "stages_to_rerun": [],
+  "checked": "2026-09-08T06:36:43+00:00",
+  "sources_tracked": 32,
+  "groups_changed": [
+    "grid"
+  ],
+  "groups_new": [
+    "mobility/tlc_current"
+  ],
+  "stages_to_rerun": [
+    "allocate",
+    "certify",
+    "export",
+    "feeders",
+    "rideshare",
+    "surface"
+  ],
   "temporal": {
     "train_cutoff": "2018-12-31",
     "forward_window": [
@@ -19,32 +30,32 @@
     "available": true,
     "checks": {
       "pr_auc": {
-        "value": 0.17325,
-        "lo95": 0.16573,
-        "hi95": 0.17489,
+        "value": 0.17041,
+        "lo95": 0.16591,
+        "hi95": 0.17435,
         "within_control_limits": true
       },
       "precision@100": {
-        "value": 0.33,
-        "lo95": 0.32,
-        "hi95": 0.3465,
+        "value": 0.35,
+        "lo95": 0.3235,
+        "hi95": 0.3565,
         "within_control_limits": true
       },
       "lift@100": {
-        "value": 14.80137,
-        "lo95": 14.35284,
-        "hi95": 15.54144,
+        "value": 15.69658,
+        "lo95": 14.50812,
+        "hi95": 15.98809,
         "within_control_limits": true
       },
       "ndcg": {
-        "value": 0.70375,
-        "lo95": 0.68434,
-        "hi95": 0.70765,
+        "value": 0.70129,
+        "lo95": 0.68948,
+        "hi95": 0.70591,
         "within_control_limits": true
       }
     },
     "drifted": [],
     "drift_detected": false
   },
-  "action_required": false
+  "action_required": true
 }

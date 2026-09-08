@@ -17,6 +17,14 @@ STATIONS_DE = RAW / "stations" / "germany" / "charging_data.csv"
 TAXI_GLOB = str(RAW / "mobility" / "nyc_taxi" / "yellow_tripdata_*.csv")
 TRAFFIC = RAW / "traffic" / "nyc_volume" / "Automated_Traffic_Volume_Counts.csv"
 
+# Current-era for-hire window (Stage 8b). Q1, because the taxi baseline is
+# 2015-01 + 2016-01..03 -- matching the season keeps the zone-share comparison
+# from picking up seasonal redistribution and calling it growth. These are the
+# same months the aggregate window covers, so the count-vs-VMT cross-check
+# compares the same trips rather than two different periods.
+TLC_CURRENT_MONTHS = ["2026-01", "2026-02", "2026-03"]
+TLC_INDUSTRIES = ["fhvhv", "yellow", "green"]
+
 # ── Spatial substrate ───────────────────────────────────────────────
 H3_RES = 9                 # ~0.105 km2, 174 m edge
 H3_RES_COARSE = 8          # roll-up for context features

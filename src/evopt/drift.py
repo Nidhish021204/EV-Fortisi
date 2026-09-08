@@ -42,12 +42,18 @@ SOURCE_STAGES = {
     "stations/germany": ["stations", "transfer"],
     "mobility/nyc_taxi": ["mobility", "features", "surface", "demand",
                           "suitability", "allocate", "export"],
+    # TLC republishes monthly with a ~2-month lag, so this is the fastest-moving
+    # source in the project. It re-weights the surface only -- the suitability
+    # model never sees it -- hence no "suitability" here.
+    "mobility/tlc_current": ["rideshare", "surface", "allocate", "certify",
+                             "export"],
     "traffic/nyc_volume": ["traffic", "features", "surface", "demand",
                            "suitability", "allocate", "export"],
     "landuse": ["landuse", "acs", "features", "surface", "demand",
                 "suitability", "allocate", "export"],
     "acs": ["acs", "features", "surface", "demand", "suitability", "export"],
     "grid": ["feeders", "allocate", "certify", "export"],
+    # Con Edison refreshes hosting capacity roughly twice a year.
     "ghsl": ["ghsl", "transfer"],
 }
 

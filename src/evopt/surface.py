@@ -87,10 +87,31 @@ def _served_capacity(cells: pd.DataFrame, demand: np.ndarray,
     return out, stranded
 
 
-def build(ev_share: float = EV_SHARE) -> pd.DataFrame:
+def build(ev_share: float = EV_SHARE, current: bool = True) -> pd.DataFrame:
     df = pd.read_parquet(PROCESSED / "features_h3.parquet")
 
-    taxi_kwh = df.kwh_day.to_numpy(float)
+    # Stage 8b: re-weight the measured terms to the current for-hire era.
+    # HVFHV records carry no coordinates, so this changes how much of the
+    # city's activity each taxi *zone* holds, not where activity sits inside
+    # a zone -- that shape is still 2015-16 and stays so. The fleet term is
+    # left alone: it comes from traffic counts, a different source on its own
+    # vintage, and rescaling it by a for-hire factor would be a category error.
+    zs = INTERIM / "zone_scale.parquet"
+    if current and zs.exists():
+        z = pd.read_parquet(zs)[["h3", "kwh_day_now", "dwell_surplus_now",
+                                 "zone_growth"]]
+        df = df.merge(z, on="h3", how="left")
+        df.attrs["demand_era"] = "current"
+    else:
+        df["zone_growth"] = np.nan
+        df.attrs["demand_era"] = "2015-16"
+    # Cells outside the taxi feed have no zone factor and no taxi demand to
+    # rescale; falling back to their own value is a no-op for them.
+    for now, was in (("kwh_day_now", "kwh_day"),
+                     ("dwell_surplus_now", "dwell_surplus")):
+        df[now] = df.get(now, pd.Series(np.nan, index=df.index)).fillna(df[was])
+
+    taxi_kwh = df.kwh_day_now.to_numpy(float)
 
     # Local mean trip length, falling back to the borough median where the
     # taxi sample in a cell is too thin to trust. Used only for the dwell
@@ -103,12 +124,27 @@ def build(ev_share: float = EV_SHARE) -> pd.DataFrame:
     fleet_kwh = (df.aadt_proxy.to_numpy(float)
                  * CELL_TRAVERSE_MI * KWH_PER_MILE * ev_share)
 
-    dwell = df.dwell_surplus.to_numpy(float)
+    dwell = df.dwell_surplus_now.to_numpy(float)
     dwell_kwh = dwell * KWH_PER_MILE * mtm * DWELL_UPLIFT / 120.0
 
     df["demand_kwh"] = taxi_kwh + fleet_kwh + dwell_kwh
     df["demand_taxi_kwh"] = taxi_kwh
     df["demand_fleet_kwh"] = fleet_kwh
+
+    # The 2015-16 surface, kept alongside the current one.
+    #
+    # This is a temporal-integrity requirement, not a convenience. The
+    # suitability model fits on the network as of TRAIN_CUTOFF and is tested on
+    # what got built in 2019-21, and it takes `demand_kwh` and `unmet_kwh` as
+    # features. The re-weighting above is derived from Q1 2026 activity, so
+    # feeding the current surface into that model would put post-cutoff
+    # information into a pre-cutoff fit. The optimiser plans against the
+    # current surface; the forward test only ever sees the historical one.
+    hist_kwh = (df.kwh_day.to_numpy(float) + fleet_kwh
+                + df.dwell_surplus.to_numpy(float)
+                * KWH_PER_MILE * mtm * DWELL_UPLIFT / 120.0)
+    df["demand_kwh_hist"] = hist_kwh
+    df["demand_taxi_kwh_hist"] = df.kwh_day.to_numpy(float)
 
     # ── served capacity vs demand -> the gap ────────────────────────
     served_arr, stranded = _served_capacity(df, df.demand_kwh.to_numpy(float))
@@ -116,6 +152,12 @@ def build(ev_share: float = EV_SHARE) -> pd.DataFrame:
     df.attrs["stranded_kwh"] = stranded
     served = df.served_kwh.to_numpy(float)
     df["unmet_kwh"] = np.clip(df.demand_kwh - served, 0, None)
+
+    # Capacity is routed to demand, so the historical gap needs its own
+    # routing rather than reusing the current one.
+    served_hist, _ = _served_capacity(df, hist_kwh)
+    df["served_kwh_hist"] = served_hist
+    df["unmet_kwh_hist"] = np.clip(hist_kwh - served_hist, 0, None)
     # Guard the ratio: below ~1 kWh/day a cell's demand is numerical dust and
     # the ratio is meaningless, so it is reported as undefined rather than as
     # a spectacular percentage.
@@ -130,6 +172,9 @@ def build(ev_share: float = EV_SHARE) -> pd.DataFrame:
 if __name__ == "__main__":
     d = build()
     tot = d.demand_kwh.sum()
+    print(f"demand era       : {d.attrs.get('demand_era', '2015-16')}"
+          + ("  (for-hire terms re-weighted to Q1 2026 zone shares)"
+             if d.attrs.get("demand_era") == "current" else ""))
     print(f"composite demand : {tot:,.0f} kWh/day "
           f"(taxi {d.demand_taxi_kwh.sum()/tot:.0%}, "
           f"fleet {d.demand_fleet_kwh.sum()/tot:.0%})")

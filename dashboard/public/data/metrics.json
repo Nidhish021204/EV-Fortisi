@@ -1,554 +1,554 @@
 {
- "generated": "2026-09-06T16:32:41.339683+00:00",
+ "generated": "2026-09-08T06:36:42.234982+00:00",
  "cutoff": "2018-12-31",
  "corpus": {
   "taxi_trips": 47400000,
-  "taxi_dropoffs_binned": 46173649,
+  "taxi_dropoffs_binned": 46173576,
   "traffic_segments": 14359,
   "stations_nyc": 863,
   "stations_ports": 2597,
   "stations_mw": 31.9,
-  "hex_cells": 8741,
-  "raw_bytes": 11501000000
+  "hex_cells": 8740,
+  "raw_bytes": 13546551768
  },
  "demand": {
   "spatial_block_cv": {
-   "r2_raw": 0.16796612398977784,
-   "r2_log": 0.7393514848997829,
-   "mae": 28.29824377316663,
-   "spearman": 0.8332536802857853,
-   "top_decile_capture": 0.7882417969793489
+   "r2_raw": 0.14660246747471006,
+   "r2_log": 0.7368289046669259,
+   "mae": 28.65651651016726,
+   "spearman": 0.8340147825555043,
+   "top_decile_capture": 0.7891720919138367
   },
   "random_kfold_cv": {
-   "r2_raw": 0.6627837728237639,
-   "r2_log": 0.8378115854036601,
-   "mae": 13.440769712838176,
-   "spearman": 0.8814905676186168,
-   "top_decile_capture": 0.825216716982946
+   "r2_raw": 0.6617493394007046,
+   "r2_log": 0.8369802521298696,
+   "mae": 13.413854710371776,
+   "spearman": 0.8835156173712464,
+   "top_decile_capture": 0.8230364202794391
   },
-  "leakage_inflation_r2": 0.4948,
-  "oracle_top_decile_capture": 0.8998709447515266,
-  "baseline_aadt_top_decile_capture": 0.49023446741974464,
+  "leakage_inflation_r2": 0.5151,
+  "oracle_top_decile_capture": 0.8998760030056523,
+  "baseline_aadt_top_decile_capture": 0.4904598013819279,
   "ablation_no_landuse": {
-   "r2_raw": -0.01642224141391213,
-   "r2_log": -0.08305194804602611,
-   "mae": 41.49546318984493,
-   "spearman": 0.4471071011102547,
-   "top_decile_capture": 0.2621751004954575,
+   "r2_raw": -0.017894206919725653,
+   "r2_log": -0.10322114252237369,
+   "mae": 41.86072756254095,
+   "spearman": 0.4423201945531381,
+   "top_decile_capture": 0.2650687538015944,
    "n_features": 13
   },
   "n_features": 88,
-  "landuse_capture_gain": 0.5261,
+  "landuse_capture_gain": 0.5241,
   "feature_importance": [
    [
     "dist_to_road_m",
-    3622
-   ],
-   [
-    "k2_far_built",
-    550
+    3719
    ],
    [
     "k2_jobs_area",
-    547
+    585
    ],
    [
     "k2_garage_area",
-    481
+    526
+   ],
+   [
+    "k2_far_built",
+    526
    ],
    [
     "k1_jobs_area",
-    447
+    461
    ],
    [
     "k2_veh_per_hh",
-    406
-   ],
-   [
-    "k2_night_hourly_vol",
-    346
+    410
    ],
    [
     "k2_lu_entropy",
-    336
+    343
+   ],
+   [
+    "k2_night_hourly_vol",
+    323
    ],
    [
     "k1_far_built",
-    320
+    316
    ],
    [
     "k1_garage_area",
     307
    ],
    [
-    "assess_total",
-    299
-   ],
-   [
     "k2_arterial_share",
-    282
-   ],
-   [
-    "k1_lu_entropy",
-    276
-   ],
-   [
-    "year_built_med",
-    273
-   ],
-   [
-    "k1_units_res",
-    272
-   ],
-   [
-    "assess_per_sqft",
-    270
+    293
    ],
    [
     "k2_units_res",
-    268
+    280
    ],
    [
-    "lots_n",
-    253
+    "year_built_med",
+    266
    ],
    [
-    "lot_area",
-    237
-   ],
-   [
-    "k2_peak_ratio",
-    234
+    "assess_total",
+    256
    ],
    [
     "k2_no_home_charge",
-    232
+    255
    ],
    [
-    "k1_no_home_charge",
-    231
+    "k1_lu_entropy",
+    252
    ],
    [
-    "k1_night_hourly_vol",
-    224
+    "assess_per_sqft",
+    250
    ],
    [
-    "k2_aadt_proxy",
-    221
+    "k2_peak_ratio",
+    244
    ],
    [
-    "lu_institutional_sh",
-    210
+    "k1_units_res",
+    242
    ],
    [
-    "k1_peak_ratio",
-    209
+    "lot_area",
+    236
    ],
    [
-    "renter_share",
-    206
+    "lots_n",
+    223
    ],
    [
     "k1_veh_per_hh",
-    204
+    223
    ],
    [
-    "lu_vacant_sh",
-    185
-   ],
-   [
-    "k2_peak_hourly_vol",
-    183
-   ],
-   [
-    "far_mean",
-    173
+    "k1_no_home_charge",
+    222
    ],
    [
     "floors_mean",
-    172
+    214
    ],
    [
-    "k2_n_segments",
+    "lu_institutional_sh",
+    204
+   ],
+   [
+    "k1_peak_ratio",
+    202
+   ],
+   [
+    "k1_night_hourly_vol",
+    197
+   ],
+   [
+    "k2_aadt_proxy",
+    188
+   ],
+   [
+    "k2_mean_hourly_vol",
+    187
+   ],
+   [
+    "k2_peak_hourly_vol",
+    185
+   ],
+   [
+    "renter_share",
+    178
+   ],
+   [
+    "lu_vacant_sh",
+    174
+   ],
+   [
+    "far_built",
     172
    ],
    [
     "k1_arterial_share",
-    169
-   ],
-   [
-    "k2_mean_hourly_vol",
-    168
-   ],
-   [
-    "far_built",
-    167
-   ],
-   [
-    "owner_hh",
-    161
-   ],
-   [
-    "k1_aadt_proxy",
-    154
+    165
    ],
    [
     "no_home_charge_density",
-    150
+    156
    ],
    [
-    "bldg_area",
-    149
+    "owner_hh",
+    155
+   ],
+   [
+    "k2_n_segments",
+    153
+   ],
+   [
+    "k2_n_intersections",
+    153
+   ],
+   [
+    "far_mean",
+    152
    ],
    [
     "lu_res_mid_sh",
+    148
+   ],
+   [
+    "k1_aadt_proxy",
     145
    ],
    [
-    "k1_peak_hourly_vol",
-    144
-   ],
-   [
-    "veh_per_hh",
-    139
+    "lu_entropy",
+    143
    ],
    [
     "zero_veh_share",
-    130
-   ],
-   [
-    "units_total",
     129
    ],
    [
     "com_area",
-    128
+    127
    ],
    [
-    "lu_entropy",
-    128
-   ],
-   [
-    "lu_transport_sh",
-    126
-   ],
-   [
-    "peak_ratio",
-    121
-   ],
-   [
-    "k2_n_intersections",
-    119
-   ],
-   [
-    "zero_veh_hh",
-    116
-   ],
-   [
-    "jobs_area",
-    114
-   ],
-   [
-    "res_area",
-    113
-   ],
-   [
-    "office_area",
-    112
+    "veh_per_hh",
+    127
    ],
    [
     "retail_area",
-    110
+    125
+   ],
+   [
+    "bldg_area",
+    124
+   ],
+   [
+    "k1_peak_hourly_vol",
+    124
+   ],
+   [
+    "lu_transport_sh",
+    123
+   ],
+   [
+    "jobs_area",
+    121
    ],
    [
     "lu_mixed_sh",
-    110
-   ],
-   [
-    "lu_parking_sh",
-    108
+    121
    ],
    [
     "lu_commercial_sh",
-    105
+    117
    ],
    [
-    "lu_openspace_sh",
-    103
+    "peak_ratio",
+    116
    ],
    [
-    "night_hourly_vol",
-    100
-   ],
-   [
-    "lu_res_high_sh",
-    99
+    "res_area",
+    115
    ],
    [
     "veh_total",
-    99
+    113
    ],
    [
-    "lu_res_low_sh",
-    96
-   ],
-   [
-    "k1_n_intersections",
-    92
-   ],
-   [
-    "storage_area",
-    90
-   ],
-   [
-    "aadt_proxy",
-    87
-   ],
-   [
-    "parking_share",
-    87
-   ],
-   [
-    "k1_mean_hourly_vol",
-    87
-   ],
-   [
-    "res_density",
-    86
+    "lu_parking_sh",
+    112
    ],
    [
     "k1_n_segments",
-    80
+    112
+   ],
+   [
+    "office_area",
+    110
+   ],
+   [
+    "units_total",
+    109
+   ],
+   [
+    "k1_mean_hourly_vol",
+    107
+   ],
+   [
+    "aadt_proxy",
+    105
+   ],
+   [
+    "k1_n_intersections",
+    104
+   ],
+   [
+    "zero_veh_hh",
+    102
+   ],
+   [
+    "night_hourly_vol",
+    99
+   ],
+   [
+    "lu_res_high_sh",
+    98
    ],
    [
     "p95_hourly_vol",
-    79
+    93
+   ],
+   [
+    "lu_openspace_sh",
+    92
    ],
    [
     "lu_industrial_sh",
-    78
+    87
    ],
    [
-    "renter_veh_hh",
-    77
-   ],
-   [
-    "renter_hh",
-    73
+    "lu_res_low_sh",
+    84
    ],
    [
     "garage_area",
-    72
+    82
+   ],
+   [
+    "storage_area",
+    78
+   ],
+   [
+    "res_density",
+    78
+   ],
+   [
+    "parking_share",
+    71
    ],
    [
     "home_charge_cov",
-    68
+    69
    ],
    [
-    "no_home_charge",
-    68
-   ],
-   [
-    "mean_hourly_vol",
-    61
-   ],
-   [
-    "hh_total",
-    60
+    "renter_veh_hh",
+    66
    ],
    [
     "peak_hourly_vol",
+    65
+   ],
+   [
+    "renter_hh",
+    64
+   ],
+   [
+    "no_home_charge",
+    58
+   ],
+   [
+    "mean_hourly_vol",
+    57
+   ],
+   [
+    "hh_total",
     56
    ],
    [
+    "factory_area",
+    46
+   ],
+   [
     "dir_diversity",
-    51
+    43
    ],
    [
     "units_res",
-    40
-   ],
-   [
-    "factory_area",
-    34
+    37
    ],
    [
     "n_streets",
-    33
-   ],
-   [
-    "n_segments",
-    30
+    31
    ],
    [
     "n_intersections",
-    20
-   ],
-   [
-    "local_share",
-    19
+    23
    ],
    [
     "arterial_share",
-    12
+    21
+   ],
+   [
+    "n_segments",
+    17
+   ],
+   [
+    "local_share",
+    13
    ]
   ]
  },
  "suitability": {
-  "label_frequency_c": 0.972577997004071,
+  "label_frequency_c": 0.9723861467032642,
   "n_train_positives": 219,
-  "n_forward_candidates": 8522,
+  "n_forward_candidates": 8521,
   "n_forward_positives": 190,
   "model_pu": {
-   "pr_auc": 0.17324867530955804,
-   "roc_auc": 0.8228775551456655,
-   "base_rate": 0.02229523586012673,
+   "pr_auc": 0.17041222254415023,
+   "roc_auc": 0.820974293854911,
+   "base_rate": 0.02229785236474592,
    "precision@50": 0.34,
    "recall@50": 0.08947368421052632,
-   "lift@50": 15.249894736842107,
-   "precision@100": 0.33,
-   "recall@100": 0.1736842105263158,
-   "lift@100": 14.801368421052633,
-   "precision@200": 0.235,
-   "recall@200": 0.24736842105263157,
-   "lift@200": 10.540368421052632,
-   "precision@500": 0.182,
-   "recall@500": 0.4789473684210526,
-   "lift@500": 8.16317894736842,
-   "ndcg": 0.7037482402480638
+   "lift@50": 15.248105263157896,
+   "precision@100": 0.35,
+   "recall@100": 0.18421052631578946,
+   "lift@100": 15.69657894736842,
+   "precision@200": 0.24,
+   "recall@200": 0.25263157894736843,
+   "lift@200": 10.76336842105263,
+   "precision@500": 0.18,
+   "recall@500": 0.47368421052631576,
+   "lift@500": 8.072526315789474,
+   "ndcg": 0.7012922395258325
   },
   "baseline_random": {
-   "pr_auc": 0.0218543907104509,
-   "roc_auc": 0.4871219395103216,
-   "base_rate": 0.02229523586012673,
-   "precision@50": 0.02,
-   "recall@50": 0.005263157894736842,
-   "lift@50": 0.8970526315789474,
-   "precision@100": 0.02,
-   "recall@100": 0.010526315789473684,
-   "lift@100": 0.8970526315789474,
+   "pr_auc": 0.021316971797776807,
+   "roc_auc": 0.47921460114095105,
+   "base_rate": 0.02229785236474592,
+   "precision@50": 0.0,
+   "recall@50": 0.0,
+   "lift@50": 0.0,
+   "precision@100": 0.01,
+   "recall@100": 0.005263157894736842,
+   "lift@100": 0.44847368421052636,
    "precision@200": 0.02,
    "recall@200": 0.021052631578947368,
-   "lift@200": 0.8970526315789474,
-   "precision@500": 0.024,
-   "recall@500": 0.06315789473684211,
-   "lift@500": 1.0764631578947368,
-   "ndcg": 0.4950403530687595
+   "lift@200": 0.8969473684210527,
+   "precision@500": 0.02,
+   "recall@500": 0.05263157894736842,
+   "lift@500": 0.8969473684210527,
+   "ndcg": 0.49282886834613987
   },
   "baseline_demand": {
-   "pr_auc": 0.09689133330023757,
-   "roc_auc": 0.7479167193066679,
-   "base_rate": 0.02229523586012673,
+   "pr_auc": 0.09691456061897641,
+   "roc_auc": 0.7485100038537106,
+   "base_rate": 0.02229785236474592,
    "precision@50": 0.24,
    "recall@50": 0.06315789473684211,
-   "lift@50": 10.764631578947368,
+   "lift@50": 10.76336842105263,
    "precision@100": 0.23,
    "recall@100": 0.12105263157894737,
-   "lift@100": 10.316105263157896,
+   "lift@100": 10.314894736842106,
    "precision@200": 0.155,
    "recall@200": 0.1631578947368421,
-   "lift@200": 6.9521578947368425,
-   "precision@500": 0.102,
-   "recall@500": 0.26842105263157895,
-   "lift@500": 4.574968421052631,
-   "ndcg": 0.6342213340476119
+   "lift@200": 6.9513421052631585,
+   "precision@500": 0.1,
+   "recall@500": 0.2631578947368421,
+   "lift@500": 4.484736842105264,
+   "ndcg": 0.63429048549192
   },
   "baseline_traffic": {
-   "pr_auc": 0.057711377943439744,
-   "roc_auc": 0.6705131768451373,
-   "base_rate": 0.02229523586012673,
+   "pr_auc": 0.057698927801636005,
+   "roc_auc": 0.6725148304683206,
+   "base_rate": 0.02229785236474592,
    "precision@50": 0.14,
    "recall@50": 0.03684210526315789,
-   "lift@50": 6.279368421052633,
+   "lift@50": 6.278631578947369,
    "precision@100": 0.09,
    "recall@100": 0.04736842105263158,
-   "lift@100": 4.036736842105263,
+   "lift@100": 4.036263157894737,
    "precision@200": 0.08,
    "recall@200": 0.08421052631578947,
-   "lift@200": 3.5882105263157897,
-   "precision@500": 0.068,
-   "recall@500": 0.17894736842105263,
-   "lift@500": 3.0499789473684213,
-   "ndcg": 0.5917129579765277
+   "lift@200": 3.587789473684211,
+   "precision@500": 0.07,
+   "recall@500": 0.18421052631578946,
+   "lift@500": 3.1393157894736845,
+   "ndcg": 0.5916853279872643
   },
   "baseline_near_existing": {
-   "pr_auc": 0.09923702934689749,
-   "roc_auc": 0.75189883012861,
-   "base_rate": 0.02229523586012673,
+   "pr_auc": 0.09924054076190525,
+   "roc_auc": 0.7519164313376167,
+   "base_rate": 0.02229785236474592,
    "precision@50": 0.26,
    "recall@50": 0.06842105263157895,
-   "lift@50": 11.661684210526316,
+   "lift@50": 11.660315789473685,
    "precision@100": 0.19,
    "recall@100": 0.1,
-   "lift@100": 8.522,
+   "lift@100": 8.521,
    "precision@200": 0.165,
    "recall@200": 0.1736842105263158,
-   "lift@200": 7.400684210526316,
+   "lift@200": 7.399815789473685,
    "precision@500": 0.114,
    "recall@500": 0.3,
-   "lift@500": 5.1132,
-   "ndcg": 0.6308401039509319
+   "lift@500": 5.1126000000000005,
+   "ndcg": 0.6308454776444482
   },
   "feature_importance": [
    [
-    "unmet_kwh",
-    105.8
+    "unmet_kwh_hist",
+    106.0
    ],
    [
     "flow_imbalance",
-    80.8
+    80.0
    ],
    [
     "mean_trip_miles",
-    77.2
+    76.6
    ],
    [
     "garage_area",
-    67.6
-   ],
-   [
-    "k1_aadt_proxy",
-    66.4
-   ],
-   [
-    "access_l2_ex",
-    65.6
+    70.9
    ],
    [
     "dist_to_road_m",
-    63.0
+    67.0
    ],
    [
-    "demand_taxi_kwh",
-    61.3
+    "k1_aadt_proxy",
+    63.8
+   ],
+   [
+    "demand_taxi_kwh_hist",
+    61.5
+   ],
+   [
+    "access_l2_ex",
+    61.1
    ],
    [
     "access_dcfc_ex",
-    56.4
+    55.0
    ],
    [
     "dist_station_ex_m",
-    54.4
-   ],
-   [
-    "dropoffs",
-    52.0
+    53.3
    ],
    [
     "dist_dcfc_ex_m",
-    51.1
+    52.7
+   ],
+   [
+    "dropoffs",
+    52.5
    ],
    [
     "home_charge_cov",
-    49.4
+    49.5
    ],
    [
     "parking_share",
-    47.4
+    48.0
    ],
    [
     "lu_commercial_sh",
-    45.8
+    47.5
    ]
   ]
  },
@@ -1255,87 +1255,89 @@
  "certification": {
   "k": 120,
   "candidate_pool": 1500,
-  "greedy_objective_kwh_day": 363135.3,
-  "milp_objective_kwh_day": 381043.0,
+  "greedy_objective_kwh_day": 288139.3,
+  "milp_objective_kwh_day": 294252.1,
   "milp_status": "Optimal",
   "optimality_proven": true,
-  "greedy_ratio": 0.953,
+  "greedy_ratio": 0.9792,
   "ratio_is": "exact",
   "theoretical_worst_case": 0.6321,
-  "headroom_kwh_day": 17907.7,
-  "headroom_pct": 4.7,
+  "headroom_kwh_day": 6112.8,
+  "headroom_pct": 2.08,
   "solver": {
-   "solve_seconds": 46.9,
+   "solve_seconds": 424.6,
    "n_binary": 1500,
-   "n_continuous": 13568,
-   "n_spacing_pairs": 2205,
-   "n_grid_constraints": 20,
+   "n_continuous": 13680,
+   "n_spacing_pairs": 2233,
+   "n_grid_constraints": 247,
    "time_limit_s": 420,
    "n_sites": 120
   }
  },
  "feeder_impact": {
-  "constrained_kwh_day": 363135.3,
-  "unconstrained_kwh_day": 363160.3,
-  "cost_kwh_day": 25.0,
-  "constrained_ports": 788,
-  "unconstrained_ports": 788,
-  "sites_displaced": 1,
-  "sites_grid_limited": 0,
+  "constrained_kwh_day": 288139.3,
+  "unconstrained_kwh_day": 293352.0,
+  "cost_kwh_day": 5212.7,
+  "constrained_ports": 642,
+  "unconstrained_ports": 651,
+  "sites_displaced": 17,
+  "sites_grid_limited": 1,
   "substations_used": 15,
-  "cost_pct": 0.01,
+  "feeders_used": 30,
+  "candidates_excluded_no_charge": 902,
+  "cost_pct": 1.78,
   "sweep": {
    "k_max": 600,
-   "sites_before_grid_exhausts": 338,
-   "sites_without_grid_limit": 354,
+   "sites_before_grid_exhausts": 308,
+   "sites_without_grid_limit": 330,
    "curve": [
     {
      "k": 120,
-     "constrained_kwh_day": 398000.0,
-     "unconstrained_kwh_day": 398013.4,
-     "cost_pct": 0.0,
+     "constrained_kwh_day": 288139.3,
+     "unconstrained_kwh_day": 293352.0,
+     "cost_pct": 1.78,
      "sites_available_constrained": 120,
-     "port_limited": 0
+     "port_limited": 1
     },
     {
      "k": 200,
-     "constrained_kwh_day": 419033.8,
-     "unconstrained_kwh_day": 420174.0,
-     "cost_pct": 0.27,
+     "constrained_kwh_day": 308245.0,
+     "unconstrained_kwh_day": 314909.6,
+     "cost_pct": 2.12,
      "sites_available_constrained": 200,
-     "port_limited": 0
+     "port_limited": 1
     },
     {
      "k": 300,
-     "constrained_kwh_day": 422537.2,
-     "unconstrained_kwh_day": 424520.5,
-     "cost_pct": 0.47,
+     "constrained_kwh_day": 310309.2,
+     "unconstrained_kwh_day": 317965.4,
+     "cost_pct": 2.41,
      "sites_available_constrained": 300,
-     "port_limited": 0
+     "port_limited": 1
     },
     {
      "k": 400,
-     "constrained_kwh_day": 422616.2,
-     "unconstrained_kwh_day": 424692.7,
-     "cost_pct": 0.49,
-     "sites_available_constrained": 338,
-     "port_limited": 0
+     "constrained_kwh_day": 310316.2,
+     "unconstrained_kwh_day": 318016.0,
+     "cost_pct": 2.42,
+     "sites_available_constrained": 308,
+     "port_limited": 1
     },
     {
      "k": 500,
-     "constrained_kwh_day": 422616.2,
-     "unconstrained_kwh_day": 424692.7,
-     "cost_pct": 0.49,
-     "sites_available_constrained": 338,
-     "port_limited": 0
+     "constrained_kwh_day": 310316.2,
+     "unconstrained_kwh_day": 318016.0,
+     "cost_pct": 2.42,
+     "sites_available_constrained": 308,
+     "port_limited": 1
     },
     {
      "k": 600,
-     "constrained_kwh_day": 422616.2,
-     "unconstrained_kwh_day": 424692.7,
-     "cost_pct": 0.49,
-     "sites_available_constrained": 338,
-     "port_limited": 0
+     "constrained_kwh_day": 310316.2,
+     "unconstrained_kwh_day": 318016.0,
+     "cost_pct": 2.42,
+     "sites_available_constrained": 308,
+     "port_limited": 1
     }
    ]
   }
@@ -1344,103 +1346,123 @@
   "by_borough": [
    {
     "borough": "Bronx",
-    "cells": 1272,
-    "covered": 875,
+    "feeder": 876,
+    "network_area": 337,
+    "no_data": 61,
+    "cells": 1274,
     "pct": 68.8
    },
    {
     "borough": "Brooklyn",
-    "cells": 1852,
-    "covered": 1073,
-    "pct": 57.9
+    "feeder": 1073,
+    "network_area": 654,
+    "no_data": 123,
+    "cells": 1850,
+    "pct": 58.0
    },
    {
     "borough": "Manhattan",
+    "feeder": 0,
+    "network_area": 540,
+    "no_data": 420,
     "cells": 960,
-    "covered": 0,
     "pct": 0.0
    },
    {
     "borough": "Queens",
-    "cells": 3264,
-    "covered": 2161,
+    "feeder": 2161,
+    "network_area": 442,
+    "no_data": 660,
+    "cells": 3263,
     "pct": 66.2
    },
    {
     "borough": "Staten Island",
+    "feeder": 1351,
+    "network_area": 0,
+    "no_data": 42,
     "cells": 1393,
-    "covered": 1351,
     "pct": 97.0
    }
   ],
-  "cells_covered": 5460,
-  "cells_total": 8741,
-  "substations": 21,
-  "headroom_total_mw": 1626.0
+  "cells_covered": 5461,
+  "cells_total": 8740,
+  "cells_network_area": 1973,
+  "cells_no_data": 1306,
+  "cells_excluded": 1167,
+  "built_share": {
+   "feeder": 0.385,
+   "network_area": 0.5937,
+   "no_data": 0.0214
+  },
+  "substations": 22,
+  "feeders": 624,
+  "feeder_capacity_total_mw": 533.1,
+  "headroom_total_mw": 1686.0
  },
  "uncertainty": {
   "n_bootstrap": 200,
   "n_seeds": 15,
-  "bootstrap_bias_max_abs": 0.008785,
+  "bootstrap_bias_max_abs": 0.009048,
   "captured_kwh_day": {
-   "mean": 362567.70700000005,
-   "sd": 1305.9954438849472,
-   "lo95": 359735.575,
-   "hi95": 364921.18000000005,
+   "mean": 287942.8825,
+   "sd": 1606.4704082261428,
+   "lo95": 285281.74,
+   "hi95": 291041.7525,
    "n": 200,
    "supported_decimals": 0
   },
   "metric_intervals": {
    "pr_auc": {
-    "mean": 0.17059630836704745,
-    "sd": 0.0028379185098493624,
-    "lo95": 0.16572559810576806,
-    "hi95": 0.17489238343048377,
+    "mean": 0.17049934467815783,
+    "sd": 0.002878241418843846,
+    "lo95": 0.16590978375068588,
+    "hi95": 0.17435242425394842,
     "n": 15,
     "supported_decimals": 3
    },
    "precision@100": {
-    "mean": 0.33133333333333337,
-    "sd": 0.008338093878327917,
-    "lo95": 0.32,
-    "hi95": 0.3465,
+    "mean": 0.33666666666666667,
+    "sd": 0.009759000729485325,
+    "lo95": 0.3235,
+    "hi95": 0.3565,
     "n": 15,
     "supported_decimals": 3
    },
    "lift@100": {
-    "mean": 14.861171929824565,
-    "sd": 0.3739854527953185,
-    "lo95": 14.352842105263159,
-    "hi95": 15.541436842105263,
+    "mean": 15.098614035087717,
+    "sd": 0.43766550113654984,
+    "lo95": 14.508123684210528,
+    "hi95": 15.988086842105265,
     "n": 15,
     "supported_decimals": 1
    },
    "ndcg": {
-    "mean": 0.6977713850053694,
-    "sd": 0.006769289969114928,
-    "lo95": 0.6843415465191556,
-    "hi95": 0.7076473751504601,
+    "mean": 0.6988147805786453,
+    "sd": 0.005087730000334229,
+    "lo95": 0.6894757042693334,
+    "hi95": 0.7059063636792928,
     "n": 15,
     "supported_decimals": 3
    },
    "label_frequency_c": {
-    "mean": 0.9760557542045599,
-    "sd": 0.0034318362665197912,
-    "lo95": 0.9724150933969603,
-    "hi95": 0.9818940804942274,
+    "mean": 0.9760501572706635,
+    "sd": 0.0034568549895503593,
+    "lo95": 0.9723605476288194,
+    "hi95": 0.9820086326673372,
     "n": 15,
     "supported_decimals": 3
    }
   },
   "plan_stability": {
-   "mean": 0.9238,
-   "median": 1.0,
-   "sites_always_selected": 77,
+   "mean": 0.869,
+   "median": 0.965,
+   "sites_always_selected": 56,
    "sites_below_half": 3,
    "deciles": {
-    "0.1": 0.717,
-    "0.3": 0.965,
-    "0.5": 1.0,
+    "0.1": 0.62,
+    "0.3": 0.819,
+    "0.5": 0.965,
     "0.7": 1.0,
     "0.9": 1.0
    }
@@ -1450,15 +1472,15 @@
   "k": 120,
   "candidate_pool": 1500,
   "sites_selected": 120,
-  "captured_kwh_day": 363135.3,
-  "total_unmet_kwh_day": 944863.0,
-  "coverage_gain_pct": 38.43,
-  "total_ports": 788,
-  "total_capex_usd": 35460000.0,
-  "mean_wait_min": 4.99,
-  "p95_wait_min": 13.56,
+  "captured_kwh_day": 288139.3,
+  "total_unmet_kwh_day": 985130.6,
+  "coverage_gain_pct": 29.25,
+  "total_ports": 642,
+  "total_capex_usd": 28890000.0,
+  "mean_wait_min": 7.04,
+  "p95_wait_min": 25.68,
   "max_utilisation": 0.7,
-  "sites_at_capacity": 38,
+  "sites_at_capacity": 21,
   "equity_floor": {
    "Bronx": 18,
    "Staten Island": 12,
@@ -1466,67 +1488,69 @@
    "Queens": 22
   },
   "grid_impact": {
-   "constrained_kwh_day": 363135.3,
-   "unconstrained_kwh_day": 363160.3,
-   "cost_kwh_day": 25.0,
-   "constrained_ports": 788,
-   "unconstrained_ports": 788,
-   "sites_displaced": 1,
-   "sites_grid_limited": 0,
+   "constrained_kwh_day": 288139.3,
+   "unconstrained_kwh_day": 293352.0,
+   "cost_kwh_day": 5212.7,
+   "constrained_ports": 642,
+   "unconstrained_ports": 651,
+   "sites_displaced": 17,
+   "sites_grid_limited": 1,
    "substations_used": 15,
-   "cost_pct": 0.01,
+   "feeders_used": 30,
+   "candidates_excluded_no_charge": 902,
+   "cost_pct": 1.78,
    "sweep": {
     "k_max": 600,
-    "sites_before_grid_exhausts": 338,
-    "sites_without_grid_limit": 354,
+    "sites_before_grid_exhausts": 308,
+    "sites_without_grid_limit": 330,
     "curve": [
      {
       "k": 120,
-      "constrained_kwh_day": 398000.0,
-      "unconstrained_kwh_day": 398013.4,
-      "cost_pct": 0.0,
+      "constrained_kwh_day": 288139.3,
+      "unconstrained_kwh_day": 293352.0,
+      "cost_pct": 1.78,
       "sites_available_constrained": 120,
-      "port_limited": 0
+      "port_limited": 1
      },
      {
       "k": 200,
-      "constrained_kwh_day": 419033.8,
-      "unconstrained_kwh_day": 420174.0,
-      "cost_pct": 0.27,
+      "constrained_kwh_day": 308245.0,
+      "unconstrained_kwh_day": 314909.6,
+      "cost_pct": 2.12,
       "sites_available_constrained": 200,
-      "port_limited": 0
+      "port_limited": 1
      },
      {
       "k": 300,
-      "constrained_kwh_day": 422537.2,
-      "unconstrained_kwh_day": 424520.5,
-      "cost_pct": 0.47,
+      "constrained_kwh_day": 310309.2,
+      "unconstrained_kwh_day": 317965.4,
+      "cost_pct": 2.41,
       "sites_available_constrained": 300,
-      "port_limited": 0
+      "port_limited": 1
      },
      {
       "k": 400,
-      "constrained_kwh_day": 422616.2,
-      "unconstrained_kwh_day": 424692.7,
-      "cost_pct": 0.49,
-      "sites_available_constrained": 338,
-      "port_limited": 0
+      "constrained_kwh_day": 310316.2,
+      "unconstrained_kwh_day": 318016.0,
+      "cost_pct": 2.42,
+      "sites_available_constrained": 308,
+      "port_limited": 1
      },
      {
       "k": 500,
-      "constrained_kwh_day": 422616.2,
-      "unconstrained_kwh_day": 424692.7,
-      "cost_pct": 0.49,
-      "sites_available_constrained": 338,
-      "port_limited": 0
+      "constrained_kwh_day": 310316.2,
+      "unconstrained_kwh_day": 318016.0,
+      "cost_pct": 2.42,
+      "sites_available_constrained": 308,
+      "port_limited": 1
      },
      {
       "k": 600,
-      "constrained_kwh_day": 422616.2,
-      "unconstrained_kwh_day": 424692.7,
-      "cost_pct": 0.49,
-      "sites_available_constrained": 338,
-      "port_limited": 0
+      "constrained_kwh_day": 310316.2,
+      "unconstrained_kwh_day": 318016.0,
+      "cost_pct": 2.42,
+      "sites_available_constrained": 308,
+      "port_limited": 1
      }
     ]
    }
@@ -1542,57 +1566,57 @@
  "by_borough": [
   {
    "borough": "Bronx",
-   "hexes": 1272,
-   "demand": 117356.39,
-   "served": 2634.82,
-   "unmet": 115064.86,
+   "hexes": 1274,
+   "demand": 156689.96,
+   "served": 2677.62,
+   "unmet": 154355.35,
    "ports": 9.0,
-   "coverage": 2.25,
-   "kwh_per_port": 13039.6,
+   "coverage": 1.71,
+   "kwh_per_port": 17410.0,
    "planned": 18
   },
   {
    "borough": "Brooklyn",
-   "hexes": 1852,
-   "demand": 222179.4,
-   "served": 7467.63,
-   "unmet": 214711.76,
+   "hexes": 1850,
+   "demand": 274628.55,
+   "served": 7905.83,
+   "unmet": 266722.72,
    "ports": 123.0,
-   "coverage": 3.36,
-   "kwh_per_port": 1806.34,
+   "coverage": 2.88,
+   "kwh_per_port": 2232.75,
    "planned": 22
   },
   {
    "borough": "Manhattan",
    "hexes": 960,
-   "demand": 401082.52,
-   "served": 51040.45,
-   "unmet": 353959.98,
+   "demand": 281852.33,
+   "served": 50300.86,
+   "unmet": 235497.73,
    "ports": 695.0,
-   "coverage": 12.73,
-   "kwh_per_port": 577.1,
+   "coverage": 17.85,
+   "kwh_per_port": 405.54,
    "planned": 46
   },
   {
    "borough": "Queens",
-   "hexes": 3264,
-   "demand": 234712.11,
-   "served": 10650.96,
-   "unmet": 224505.08,
+   "hexes": 3263,
+   "demand": 290057.16,
+   "served": 10905.97,
+   "unmet": 279474.75,
    "ports": 101.0,
-   "coverage": 4.54,
-   "kwh_per_port": 2323.88,
+   "coverage": 3.76,
+   "kwh_per_port": 2871.85,
    "planned": 22
   },
   {
    "borough": "Staten Island",
    "hexes": 1393,
-   "demand": 37428.51,
-   "served": 1796.54,
-   "unmet": 36621.31,
+   "demand": 49944.63,
+   "served": 1800.12,
+   "unmet": 49080.05,
    "ports": 12.0,
-   "coverage": 4.8,
-   "kwh_per_port": 3119.04,
+   "coverage": 3.6,
+   "kwh_per_port": 4162.05,
    "planned": 12
   }
  ],

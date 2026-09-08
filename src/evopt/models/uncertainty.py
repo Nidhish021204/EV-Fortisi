@@ -47,6 +47,8 @@ def _candidates(df: pd.DataFrame) -> pd.DataFrame:
     if len(grid):
         df = df.merge(grid, on="h3", how="left")
     cand = df[(df.unmet_kwh > 0) & (df.dist_to_road_m < 800)].copy()
+    if "charge_excluded" in cand:
+        cand = cand[~cand.charge_excluded.fillna(False)]
     return cand.nlargest(POOL, "unmet_kwh").reset_index(drop=True)
 
 

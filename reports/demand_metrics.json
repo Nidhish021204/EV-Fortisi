@@ -1,383 +1,383 @@
 {
   "spatial_block_cv": {
-    "r2_raw": 0.16796612398977784,
-    "r2_log": 0.7393514848997829,
-    "mae": 28.29824377316663,
-    "spearman": 0.8332536802857853,
-    "top_decile_capture": 0.7882417969793489
+    "r2_raw": 0.14660246747471006,
+    "r2_log": 0.7368289046669259,
+    "mae": 28.65651651016726,
+    "spearman": 0.8340147825555043,
+    "top_decile_capture": 0.7891720919138367
   },
   "random_kfold_cv": {
-    "r2_raw": 0.6627837728237639,
-    "r2_log": 0.8378115854036601,
-    "mae": 13.440769712838176,
-    "spearman": 0.8814905676186168,
-    "top_decile_capture": 0.825216716982946
+    "r2_raw": 0.6617493394007046,
+    "r2_log": 0.8369802521298696,
+    "mae": 13.413854710371776,
+    "spearman": 0.8835156173712464,
+    "top_decile_capture": 0.8230364202794391
   },
-  "leakage_inflation_r2": 0.4948,
-  "oracle_top_decile_capture": 0.8998709447515266,
-  "baseline_aadt_top_decile_capture": 0.49023446741974464,
+  "leakage_inflation_r2": 0.5151,
+  "oracle_top_decile_capture": 0.8998760030056523,
+  "baseline_aadt_top_decile_capture": 0.4904598013819279,
   "ablation_no_landuse": {
-    "r2_raw": -0.01642224141391213,
-    "r2_log": -0.08305194804602611,
-    "mae": 41.49546318984493,
-    "spearman": 0.4471071011102547,
-    "top_decile_capture": 0.2621751004954575,
+    "r2_raw": -0.017894206919725653,
+    "r2_log": -0.10322114252237369,
+    "mae": 41.86072756254095,
+    "spearman": 0.4423201945531381,
+    "top_decile_capture": 0.2650687538015944,
     "n_features": 13
   },
   "n_features": 88,
-  "landuse_capture_gain": 0.5261,
+  "landuse_capture_gain": 0.5241,
   "feature_importance": [
     [
       "dist_to_road_m",
-      3622
-    ],
-    [
-      "k2_far_built",
-      550
+      3719
     ],
     [
       "k2_jobs_area",
-      547
+      585
     ],
     [
       "k2_garage_area",
-      481
+      526
+    ],
+    [
+      "k2_far_built",
+      526
     ],
     [
       "k1_jobs_area",
-      447
+      461
     ],
     [
       "k2_veh_per_hh",
-      406
-    ],
-    [
-      "k2_night_hourly_vol",
-      346
+      410
     ],
     [
       "k2_lu_entropy",
-      336
+      343
+    ],
+    [
+      "k2_night_hourly_vol",
+      323
     ],
     [
       "k1_far_built",
-      320
+      316
     ],
     [
       "k1_garage_area",
       307
     ],
     [
-      "assess_total",
-      299
-    ],
-    [
       "k2_arterial_share",
-      282
-    ],
-    [
-      "k1_lu_entropy",
-      276
-    ],
-    [
-      "year_built_med",
-      273
-    ],
-    [
-      "k1_units_res",
-      272
-    ],
-    [
-      "assess_per_sqft",
-      270
+      293
     ],
     [
       "k2_units_res",
-      268
+      280
     ],
     [
-      "lots_n",
-      253
+      "year_built_med",
+      266
     ],
     [
-      "lot_area",
-      237
-    ],
-    [
-      "k2_peak_ratio",
-      234
+      "assess_total",
+      256
     ],
     [
       "k2_no_home_charge",
-      232
+      255
     ],
     [
-      "k1_no_home_charge",
-      231
+      "k1_lu_entropy",
+      252
     ],
     [
-      "k1_night_hourly_vol",
-      224
+      "assess_per_sqft",
+      250
     ],
     [
-      "k2_aadt_proxy",
-      221
+      "k2_peak_ratio",
+      244
     ],
     [
-      "lu_institutional_sh",
-      210
+      "k1_units_res",
+      242
     ],
     [
-      "k1_peak_ratio",
-      209
+      "lot_area",
+      236
     ],
     [
-      "renter_share",
-      206
+      "lots_n",
+      223
     ],
     [
       "k1_veh_per_hh",
-      204
+      223
     ],
     [
-      "lu_vacant_sh",
-      185
-    ],
-    [
-      "k2_peak_hourly_vol",
-      183
-    ],
-    [
-      "far_mean",
-      173
+      "k1_no_home_charge",
+      222
     ],
     [
       "floors_mean",
-      172
+      214
     ],
     [
-      "k2_n_segments",
+      "lu_institutional_sh",
+      204
+    ],
+    [
+      "k1_peak_ratio",
+      202
+    ],
+    [
+      "k1_night_hourly_vol",
+      197
+    ],
+    [
+      "k2_aadt_proxy",
+      188
+    ],
+    [
+      "k2_mean_hourly_vol",
+      187
+    ],
+    [
+      "k2_peak_hourly_vol",
+      185
+    ],
+    [
+      "renter_share",
+      178
+    ],
+    [
+      "lu_vacant_sh",
+      174
+    ],
+    [
+      "far_built",
       172
     ],
     [
       "k1_arterial_share",
-      169
-    ],
-    [
-      "k2_mean_hourly_vol",
-      168
-    ],
-    [
-      "far_built",
-      167
-    ],
-    [
-      "owner_hh",
-      161
-    ],
-    [
-      "k1_aadt_proxy",
-      154
+      165
     ],
     [
       "no_home_charge_density",
-      150
+      156
     ],
     [
-      "bldg_area",
-      149
+      "owner_hh",
+      155
+    ],
+    [
+      "k2_n_segments",
+      153
+    ],
+    [
+      "k2_n_intersections",
+      153
+    ],
+    [
+      "far_mean",
+      152
     ],
     [
       "lu_res_mid_sh",
+      148
+    ],
+    [
+      "k1_aadt_proxy",
       145
     ],
     [
-      "k1_peak_hourly_vol",
-      144
-    ],
-    [
-      "veh_per_hh",
-      139
+      "lu_entropy",
+      143
     ],
     [
       "zero_veh_share",
-      130
-    ],
-    [
-      "units_total",
       129
     ],
     [
       "com_area",
-      128
+      127
     ],
     [
-      "lu_entropy",
-      128
-    ],
-    [
-      "lu_transport_sh",
-      126
-    ],
-    [
-      "peak_ratio",
-      121
-    ],
-    [
-      "k2_n_intersections",
-      119
-    ],
-    [
-      "zero_veh_hh",
-      116
-    ],
-    [
-      "jobs_area",
-      114
-    ],
-    [
-      "res_area",
-      113
-    ],
-    [
-      "office_area",
-      112
+      "veh_per_hh",
+      127
     ],
     [
       "retail_area",
-      110
+      125
+    ],
+    [
+      "bldg_area",
+      124
+    ],
+    [
+      "k1_peak_hourly_vol",
+      124
+    ],
+    [
+      "lu_transport_sh",
+      123
+    ],
+    [
+      "jobs_area",
+      121
     ],
     [
       "lu_mixed_sh",
-      110
-    ],
-    [
-      "lu_parking_sh",
-      108
+      121
     ],
     [
       "lu_commercial_sh",
-      105
+      117
     ],
     [
-      "lu_openspace_sh",
-      103
+      "peak_ratio",
+      116
     ],
     [
-      "night_hourly_vol",
-      100
-    ],
-    [
-      "lu_res_high_sh",
-      99
+      "res_area",
+      115
     ],
     [
       "veh_total",
-      99
+      113
     ],
     [
-      "lu_res_low_sh",
-      96
-    ],
-    [
-      "k1_n_intersections",
-      92
-    ],
-    [
-      "storage_area",
-      90
-    ],
-    [
-      "aadt_proxy",
-      87
-    ],
-    [
-      "parking_share",
-      87
-    ],
-    [
-      "k1_mean_hourly_vol",
-      87
-    ],
-    [
-      "res_density",
-      86
+      "lu_parking_sh",
+      112
     ],
     [
       "k1_n_segments",
-      80
+      112
+    ],
+    [
+      "office_area",
+      110
+    ],
+    [
+      "units_total",
+      109
+    ],
+    [
+      "k1_mean_hourly_vol",
+      107
+    ],
+    [
+      "aadt_proxy",
+      105
+    ],
+    [
+      "k1_n_intersections",
+      104
+    ],
+    [
+      "zero_veh_hh",
+      102
+    ],
+    [
+      "night_hourly_vol",
+      99
+    ],
+    [
+      "lu_res_high_sh",
+      98
     ],
     [
       "p95_hourly_vol",
-      79
+      93
+    ],
+    [
+      "lu_openspace_sh",
+      92
     ],
     [
       "lu_industrial_sh",
-      78
+      87
     ],
     [
-      "renter_veh_hh",
-      77
-    ],
-    [
-      "renter_hh",
-      73
+      "lu_res_low_sh",
+      84
     ],
     [
       "garage_area",
-      72
+      82
+    ],
+    [
+      "storage_area",
+      78
+    ],
+    [
+      "res_density",
+      78
+    ],
+    [
+      "parking_share",
+      71
     ],
     [
       "home_charge_cov",
-      68
+      69
     ],
     [
-      "no_home_charge",
-      68
-    ],
-    [
-      "mean_hourly_vol",
-      61
-    ],
-    [
-      "hh_total",
-      60
+      "renter_veh_hh",
+      66
     ],
     [
       "peak_hourly_vol",
+      65
+    ],
+    [
+      "renter_hh",
+      64
+    ],
+    [
+      "no_home_charge",
+      58
+    ],
+    [
+      "mean_hourly_vol",
+      57
+    ],
+    [
+      "hh_total",
       56
     ],
     [
+      "factory_area",
+      46
+    ],
+    [
       "dir_diversity",
-      51
+      43
     ],
     [
       "units_res",
-      40
-    ],
-    [
-      "factory_area",
-      34
+      37
     ],
     [
       "n_streets",
-      33
-    ],
-    [
-      "n_segments",
-      30
+      31
     ],
     [
       "n_intersections",
-      20
-    ],
-    [
-      "local_share",
-      19
+      23
     ],
     [
       "arterial_share",
-      12
+      21
+    ],
+    [
+      "n_segments",
+      17
+    ],
+    [
+      "local_share",
+      13
     ]
   ]
 }

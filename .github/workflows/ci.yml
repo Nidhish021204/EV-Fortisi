@@ -1,6 +1,6 @@
 name: CI
 
-# The 11.5 GB raw corpus is gitignored and not reproducible in CI, so this
+# The 13.5 GB raw corpus is gitignored and not reproducible in CI, so this
 # workflow verifies everything that does NOT need it: the dashboard builds and
 # typechecks, the Python package imports cleanly, and the published figures
 # still agree with the committed reports. The full pipeline is a scheduled job
